@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maxi DNA — A verdade sobre o seminovo que você quer comprar</title>
+<meta name="description" content="Laudo eletrônico veicular assinado por responsável técnico habilitado. O KM no painel te conta uma história. O Maxi DNA te conta a verdade. Uberlândia/MG.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --preto:#000000;
+  --carbono:#0a0a0b;
+  --grafite:#141416;
+  --painel:#1b1b1e;
+  --borda:#2a2a2e;
+  --branco:#ffffff;
+  --cinza:#a5a5a5;
+  --cinza-esc:#6b6b70;
+  --vermelho:#FD0803;
+  --vermelho-esc:#b00502;
+  --verde:#19c37d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--preto);color:var(--branco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.mono{font-family:'JetBrains Mono',monospace}
+.container{max-width:1140px;margin:0 auto;padding:0 24px}
+section{padding:88px 0;position:relative}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--vermelho);border:1px solid rgba(253,8,3,.35);padding:6px 14px;border-radius:2px;background:rgba(253,8,3,.06);margin-bottom:22px}
+.tag::before{content:"";width:7px;height:7px;background:var(--vermelho);border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.red{color:var(--vermelho)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:16px 34px;border-radius:3px;transition:.25s;cursor:pointer}
+.btn-red{background:var(--vermelho);color:#fff;box-shadow:0 8px 32px rgba(253,8,3,.35)}
+.btn-red:hover{background:var(--vermelho-esc);transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,8,3,.5)}
+.btn-ghost{border:1px solid var(--borda);color:var(--branco)}
+.btn-ghost:hover{border-color:var(--vermelho);color:var(--vermelho)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-decoration:none;color:#fff;display:inline-flex;align-items:center}
+.logo img{height:46px;width:auto;display:block}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--cinza);text-decoration:none;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--vermelho);color:#fff !important;padding:9px 18px;border-radius:3px;font-weight:600}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 90px;background:
+  radial-gradient(ellipse 80% 55% at 70% 20%, rgba(253,8,3,.10), transparent 60%),
+  linear-gradient(180deg,#050505 0%, #000 100%)}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;mask-image:radial-gradient(ellipse at 60% 30%,#000 30%,transparent 75%)}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(44px,6.4vw,76px);font-weight:800;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--vermelho);position:relative}
+.hero .sub{font-size:19px;color:var(--cinza);max-width:520px;margin-bottom:36px}
+.hero .sub strong{color:#fff}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.hero-note{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc);letter-spacing:.04em}
+.hero-note b{color:var(--verde);font-weight:600}
+
+/* DNA scan card */
+.scan-card{background:linear-gradient(160deg,var(--grafite),var(--carbono));border:1px solid var(--borda);border-radius:8px;padding:28px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.scan-card::before{content:"";position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--vermelho),transparent);animation:scanline 3.2s ease-in-out infinite;box-shadow:0 0 18px var(--vermelho)}
+@keyframes scanline{0%{top:8%}50%{top:92%}100%{top:8%}}
+.scan-head{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--cinza-esc);text-transform:uppercase;margin-bottom:20px}
+.scan-head .live{color:var(--vermelho)}
+.scan-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed var(--borda);font-size:14px}
+.scan-row:last-child{border-bottom:none}
+.scan-row .k{color:var(--cinza)}
+.scan-row .v{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600}
+.v.ok{color:var(--verde)}
+.v.alert{color:var(--vermelho)}
+.scan-verdict{margin-top:18px;padding:14px;border:1px solid rgba(253,8,3,.4);background:rgba(253,8,3,.07);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#ffb3b1;letter-spacing:.02em}
+@media(max-width:900px){.hero .container{grid-template-columns:1fr}.scan-card{max-width:520px}}
+
+/* ===== STATS ===== */
+.stats{background:var(--carbono);border-top:1px solid var(--borda);border-bottom:1px solid var(--borda);padding:54px 0}
+.stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat .n{font-family:'Barlow Condensed',sans-serif;font-size:54px;font-weight:800;color:var(--vermelho);line-height:1}
+.stat .l{font-size:13.5px;color:var(--cinza);margin-top:8px}
+@media(max-width:860px){.stats .container{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== HISTÓRIA (problema) ===== */
+.story{background:#000}
+.story .grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.story h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:20px}
+.story p{color:var(--cinza);margin-bottom:16px;font-size:16.5px}
+.story p strong{color:#fff}
+.quote{border-left:3px solid var(--vermelho);padding:18px 24px;margin:28px 0;background:var(--grafite);border-radius:0 6px 6px 0;font-size:18px;font-style:italic;color:#fff}
+.risk-table{width:100%;border-collapse:collapse;background:var(--grafite);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.risk-table caption{caption-side:top;text-align:left;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza-esc);padding-bottom:12px}
+.risk-table th,.risk-table td{padding:15px 18px;text-align:left;font-size:14.5px;border-bottom:1px solid var(--borda)}
+.risk-table th{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza-esc);background:#101012}
+.risk-table td:last-child{font-family:'JetBrains Mono',monospace;color:var(--vermelho);font-weight:600;white-space:nowrap}
+.risk-table tr:last-child td{border-bottom:none}
+@media(max-width:900px){.story .grid{grid-template-columns:1fr}}
+
+/* ===== MÓDULOS ===== */
+.modules{background:linear-gradient(180deg,var(--carbono),#000)}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 56px}
+.sec-head h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:16px}
+.sec-head p{color:var(--cinza);font-size:17px}
+.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.mod{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:28px;transition:.3s;position:relative}
+.mod:hover{border-color:rgba(253,8,3,.55);transform:translateY(-4px);box-shadow:0 18px 48px rgba(0,0,0,.5)}
+.mod .code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--vermelho);letter-spacing:.16em;margin-bottom:12px}
+.mod h3{font-size:23px;margin-bottom:10px}
+.mod p{color:var(--cinza);font-size:14.5px}
+.mod.base{grid-column:1/-1;background:linear-gradient(135deg,rgba(253,8,3,.10),var(--grafite) 55%);border-color:rgba(253,8,3,.45);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.mod .badge{position:absolute;top:18px;right:18px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#000;background:var(--vermelho);color:#fff;padding:4px 10px;border-radius:2px}
+.mod.hev{border-color:rgba(25,195,125,.4)}
+.mod.hev .code{color:var(--verde)}
+.combo{margin-top:28px;background:var(--grafite);border:1px dashed rgba(253,8,3,.5);border-radius:8px;padding:24px 28px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.combo .t{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;text-transform:uppercase}
+.combo .d{color:var(--cinza);font-size:14.5px;max-width:560px}
+@media(max-width:900px){.mod-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.mod-grid{grid-template-columns:1fr}.mod.base{grid-template-columns:1fr}}
+
+/* ===== COMPARATIVO ===== */
+.compare{background:#000}
+.cmp-table{width:100%;border-collapse:collapse;border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.cmp-table th,.cmp-table td{padding:16px 20px;text-align:center;font-size:15px;border-bottom:1px solid var(--borda)}
+.cmp-table td:first-child,.cmp-table th:first-child{text-align:left}
+.cmp-table thead th{font-family:'Barlow Condensed',sans-serif;font-size:18px;letter-spacing:.06em;text-transform:uppercase;background:#101012}
+.cmp-table thead th.dna-col{background:rgba(253,8,3,.14);color:var(--vermelho)}
+.cmp-table td.dna-col{background:rgba(253,8,3,.05)}
+.cmp-table .sim{color:var(--verde);font-weight:700;font-family:'JetBrains Mono',monospace}
+.cmp-table .nao{color:var(--cinza-esc);font-family:'JetBrains Mono',monospace}
+.cmp-note{margin-top:18px;color:var(--cinza-esc);font-size:13.5px;text-align:center}
+
+/* ===== BENEFÍCIOS ===== */
+.benefits{background:var(--carbono)}
+.ben-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.ben{border:1px solid var(--borda);border-radius:8px;padding:30px 26px;background:var(--grafite)}
+.ben .num{font-family:'Barlow Condensed',sans-serif;font-size:46px;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--vermelho);line-height:1;margin-bottom:14px}
+.ben h3{font-size:21px;margin-bottom:8px}
+.ben p{color:var(--cinza);font-size:14px}
+@media(max-width:900px){.ben-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.ben-grid{grid-template-columns:1fr}}
+
+/* ===== PREÇOS ===== */
+.pricing{background:#000}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pcard{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:30px;transition:.3s}
+.pcard:hover{border-color:rgba(253,8,3,.55);transform:translateY(-4px)}
+.pcard .cat{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--vermelho);margin-bottom:10px}
+.pcard h3{font-size:24px;margin-bottom:6px}
+.pcard .ex{color:var(--cinza-esc);font-size:13px;min-height:40px;margin-bottom:18px}
+.pcard .price{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:800;line-height:1}
+.pcard .price small{font-size:16px;color:var(--cinza);font-weight:600}
+.pcard .from{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cinza-esc);letter-spacing:.1em;text-transform:uppercase}
+.pcard .sgw{margin-top:14px;font-size:12.5px;color:var(--verde);font-family:'JetBrains Mono',monospace}
+.price-foot{margin-top:30px;text-align:center;color:var(--cinza);font-size:14.5px}
+.price-foot b{color:#fff}
+@media(max-width:900px){.price-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.price-grid{grid-template-columns:1fr}}
+
+/* ===== POSICIONAMENTO ===== */
+.position{background:linear-gradient(180deg,var(--carbono),#000);text-align:center}
+.position .big{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,7vw,84px);font-weight:800;text-transform:uppercase;line-height:1.04}
+.position .big span{display:block}
+.position .big .gray{color:var(--cinza-esc)}
+.position .big .fire{color:var(--vermelho)}
+.position p{max-width:640px;margin:28px auto 0;color:var(--cinza);font-size:17px}
+
+/* ===== CTA FINAL ===== */
+.final{background:radial-gradient(ellipse 70% 90% at 50% 110%, rgba(253,8,3,.18), transparent 65%),#000;text-align:center;padding:110px 0}
+.final h2{font-size:clamp(36px,5.4vw,60px);font-weight:800;margin-bottom:18px}
+.final p{color:var(--cinza);font-size:18px;max-width:580px;margin:0 auto 36px}
+.final .micro{margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc)}
+
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--borda);background:#050505;padding:48px 0 32px}
+footer .container{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px}
+footer h4{font-family:'Barlow Condensed',sans-serif;font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:14px}
+footer p,footer a{color:var(--cinza-esc);font-size:14px;text-decoration:none;display:block;margin-bottom:6px}
+footer a:hover{color:var(--vermelho)}
+.copy{grid-column:1/-1;border-top:1px solid var(--borda);margin-top:28px;padding-top:22px;font-size:12.5px;color:var(--cinza-esc);text-align:center}
+@media(max-width:760px){footer .container{grid-template-columns:1fr}}
+
+/* WhatsApp float */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:99;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.45);transition:.25s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="logo" href="#"><img src="logo-maxi-dna.jpeg" alt="Maxi DNA"></a>
+    <div class="nav-links">
+      <a href="#problema">O risco</a>
+      <a href="#laudo">O laudo</a>
+      <a href="#comparativo">Comparativo</a>
+      <a href="#precos">Preços</a>
+      <a class="nav-cta" href="https://wa.me/5534991483400?text=Quero%20agendar%20um%20laudo%20Maxi%20DNA" target="_blank">Agendar laudo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div>
+      <div class="tag">Laudo eletrônico veicular · Uberlândia/MG</div>
+      <h1>O KM no painel te conta uma história.<br><em>O Maxi DNA te conta a verdade.</em></h1>
+      <p class="sub">Diagnóstico eletrônico profundo do seminovo que você quer comprar, com <strong>equipamento de nível concessionária</strong> e <strong>laudo técnico assinado por responsável técnico habilitado (CREA/CFT)</strong>. Antes de assinar o cheque, conheça o DNA do carro.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-red" href="https://wa.me/5534991483400?text=Quero%20agendar%20um%20laudo%20Maxi%20DNA" target="_blank">Agendar meu laudo</a>
+        <a class="btn btn-ghost" href="#laudo">Ver o que analisamos</a>
+      </div>
+      <div class="hero-note">> Padrão <b>Bosch Car Service</b> · Hora marcada · A partir de 199</div>
+    </div>
+    <div class="scan-card">
+      <div class="scan-head"><span>// DIAGNÓSTICO ELETRÔNICO</span><span class="live">● SCAN ATIVO</span></div>
+      <div class="scan-row"><span class="k">KM no painel</span><span class="v">78.420 km</span></div>
+      <div class="scan-row"><span class="k">KM nos módulos eletrônicos</span><span class="v alert">214.876 km</span></div>
+      <div class="scan-row"><span class="k">Falhas registradas (histórico)</span><span class="v alert">17 códigos</span></div>
+      <div class="scan-row"><span class="k">Saúde do câmbio automático</span><span class="v alert">Atenção</span></div>
+      <div class="scan-row"><span class="k">Módulos originais de fábrica</span><span class="v ok">Verificado</span></div>
+      <div class="scan-row"><span class="k">Alertas visíveis no painel</span><span class="v ok">Nenhum</span></div>
+      <div class="scan-verdict">>> Divergência de 136.456 km detectada. Nenhum alerta visível ao comprador. Caso real do tipo que o Maxi DNA revela.</div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="container">
+    <div class="stat reveal"><div class="n">1 em 3</div><div class="l">seminovos tem histórico adulterado ou omitido</div></div>
+    <div class="stat reveal"><div class="n">80%</div><div class="l">das fraudes bem feitas não geram nenhum alerta no painel</div></div>
+    <div class="stat reveal"><div class="n">R$ 20mil+</div><div class="l">de prejuízo médio para quem compra com fraude sem saber</div></div>
+    <div class="stat reveal"><div class="n">12 anos</div><div class="l">de diagnóstico avançado · padrão Bosch Car Service</div></div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section class="story" id="problema">
+  <div class="container">
+    <div class="grid">
+      <div class="reveal">
+        <div class="tag">O risco invisível</div>
+        <h2>O carro <span class="red">parece zero</span>. A eletrônica sabe que não é.</h2>
+        <p>Pintura impecável, painel limpo, vendedor simpático. Mas a adulteração bem feita <strong>não aparece no painel</strong> — ela fica gravada nos módulos eletrônicos do veículo, onde só um diagnóstico de nível concessionária consegue chegar.</p>
+        <p>O Maxi DNA lê <strong>todos os módulos eletrônicos</strong> do carro — motor, câmbio, freios, suspensão, injeção, bateria — e documenta o histórico real em um laudo técnico formal, com responsabilidade técnica registrada.</p>
+        <div class="quote">"Comprar um carro sem diagnóstico eletrônico é como consultar um médico que não pede exames."</div>
+      </div>
+      <div class="reveal">
+        <table class="risk-table">
+          <caption>// O que você arrisca sem o laudo</caption>
+          <thead><tr><th>Problema oculto</th><th>Prejuízo estimado</th></tr></thead>
+          <tbody>
+            <tr><td>Odômetro adulterado</td><td>R$ 8.000 – 25.000+</td></tr>
+            <tr><td>Motor: injeção, DPF, carbonização</td><td>R$ 5.000 – 30.000+</td></tr>
+            <tr><td>Módulos eletrônicos com falhas ocultas</td><td>R$ 3.000 – 18.000</td></tr>
+            <tr><td>Bateria de tração (híbrido/elétrico) degradada</td><td>R$ 25.000 – 80.000</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:18px;color:var(--cinza);font-size:15px"><strong style="color:#fff">O laudo custa uma fração do risco que evita.</strong> A partir de 199 — menos de 1% do prejuízo médio de uma fraude.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULOS -->
+<section class="modules" id="laudo">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Estrutura modular</div>
+      <h2>Você monta o laudo. <span class="red">Nós revelamos o DNA.</span></h2>
+      <p>Comece pela base obrigatória e adicione só o que faz sentido para o carro que você está avaliando.</p>
+    </div>
+    <div class="mod-grid">
+      <div class="mod base reveal">
+        <div>
+          <div class="code">M01 · BASE OBRIGATÓRIA</div>
+          <h3>Diagnóstico de Códigos de Falha</h3>
+          <p>Falhas presentes e passadas em <strong style="color:#fff">todos os módulos eletrônicos</strong> do veículo. É aqui que aparecem as divergências de KM, as falhas apagadas antes da venda e o histórico que ninguém te contou.</p>
+        </div>
+        <div style="text-align:right">
+          <div class="from">a partir de</div>
+          <div class="price" style="font-family:'Barlow Condensed';font-size:46px;font-weight:800">199</div>
+        </div>
+      </div>
+      <div class="mod reveal"><div class="code">M02 · OPCIONAL</div><h3>Freios, Pneus e Suspensão</h3><p>Freios e pneus com medição a laser, suspensão inspecionada no elevador com ferramentas dedicadas. Dados reais de desgaste — não a opinião do vendedor.</p></div>
+      <div class="mod reveal"><div class="code">M03 · OPCIONAL</div><h3>Fluídos Veiculares</h3><p>Câmbio, motor, freio, arrefecimento e diferencial. Fluído conta a história da manutenção.</p></div>
+      <div class="mod reveal"><div class="code">M04 · OPCIONAL</div><h3>Verificação de Motor</h3><p>Carbonização, velas, bicos, injeção e parâmetros reais de funcionamento do motor.</p></div>
+      <div class="mod reveal"><div class="code">M05 · OPCIONAL</div><div class="badge">Novo</div><h3>Bateria 12V e Partida</h3><p>Saúde da bateria, CCA, motor de arranque e alternador. O sistema elétrico inteiro.</p></div>
+      <div class="mod hev reveal"><div class="code">HEV · HÍBRIDOS E ELÉTRICOS</div><h3>Bateria de Tração</h3><p>SOH via scanner (Básico) ou diagnóstico direto no pack, célula a célula (Avançado). O risco mais invisível do mercado: reposição custa de R$ 30 a R$ 80 mil.</p></div>
+    </div>
+    <div class="combo reveal">
+      <div>
+        <div class="t">Desconto progressivo no combo</div>
+        <div class="d">3º opcional com <strong style="color:#fff">10% off</strong>, 4º com <strong style="color:#fff">10% off</strong>, 5º com <strong style="color:#fff">20% off</strong>. No laudo completo, a economia supera o custo de um módulo adicional.</div>
+      </div>
+      <a class="btn btn-red" href="https://wa.me/5534991483400?text=Quero%20um%20or%C3%A7amento%20do%20laudo%20completo%20Maxi%20DNA" target="_blank">Quero o laudo completo</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVO -->
+<section class="compare" id="comparativo">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Comparativo</div>
+      <h2>O que o mecânico de confiança <span class="red">não consegue ver</span></h2>
+      <p>O Maxi DNA é complementar ao laudo cautelar — ele enxerga onde a vistoria visual não chega.</p>
+    </div>
+    <div class="reveal" style="overflow-x:auto">
+      <table class="cmp-table">
+        <thead><tr><th>Item verificado</th><th>Mecânico / Cautelar</th><th class="dna-col"><img src="logo-maxi-dna.jpeg" alt="Maxi DNA" style="height:38px;width:auto;display:block;margin:0 auto;border-radius:4px"></th></tr></thead>
+        <tbody>
+          <tr><td>KM real nos módulos eletrônicos</td><td class="nao">NÃO</td><td class="dna-col sim">SIM</td></tr>
+          <tr><td>Saúde do câmbio automático</td><td class="nao">PARCIAL</td><td class="dna-col sim">SIM</td></tr>
+          <tr><td>Módulos eletrônicos originais de fábrica</td><td class="nao">NÃO</td><td class="dna-col sim">SIM</td></tr>
+          <tr><td>Dados de injeção / carbonização</td><td class="nao">NÃO</td><td class="dna-col sim">SIM</td></tr>
+          <tr><td>Bateria de híbrido/elétrico (SOH)</td><td class="nao">NÃO</td><td class="dna-col sim">SIM</td></tr>
+          <tr><td>Pneus e discos com medição a laser</td><td class="nao">NÃO</td><td class="dna-col sim">SIM</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">Para proteção completa, recomendamos o Maxi DNA junto ao laudo cautelar — um não substitui o outro.</p>
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section class="benefits">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>O que você leva <span class="red">além do laudo</span></h2>
+    </div>
+    <div class="ben-grid">
+      <div class="ben reveal"><div class="num">01</div><h3>Paz de espírito</h3><p>Decisão baseada em fatos técnicos, não na palavra do vendedor.</p></div>
+      <div class="ben reveal"><div class="num">02</div><h3>Poder de negociação</h3><p>Use os itens do laudo para conseguir descontos reais — ou para sair do negócio a tempo.</p></div>
+      <div class="ben reveal"><div class="num">03</div><h3>Segurança da família</h3><p>Freios, suspensão e pneus verificados com precisão de laboratório.</p></div>
+      <div class="ben reveal"><div class="num">04</div><h3>Responsabilidade técnica</h3><p>Laudo assinado por responsável técnico habilitado (CREA/CFT). Não é relatório de software.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇOS -->
+<section class="pricing" id="precos">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Investimento</div>
+      <h2>Preço por categoria. <span class="red">Sem surpresas.</span></h2>
+      <p>Valor do diagnóstico base (M01) por categoria de veículo. Protocolo Security Gateway de fábrica, quando exigido, <strong style="color:#fff">já incluso no preço</strong>.</p>
+    </div>
+    <div class="price-grid">
+      <div class="pcard reveal"><div class="cat">Categoria 1</div><h3>Básico Nacional</h3><div class="ex">Onix 1.0 · HB20 1.0 · Gol · Argo · Mobi · Kwid</div><div class="from">diagnóstico base</div><div class="price">199</div></div>
+      <div class="pcard reveal"><div class="cat">Categoria 2</div><h3>Nacional Turbo</h3><div class="ex">Onix Turbo · T-Cross · Polo GTS · Tracker · Pulse</div><div class="from">diagnóstico base</div><div class="price">259</div></div>
+      <div class="pcard reveal"><div class="cat">Categoria 3</div><h3>Premium Importado</h3><div class="ex">BMW · Mercedes · Audi · Land Rover · Volvo · Lexus</div><div class="from">diagnóstico base</div><div class="price">299</div><div class="sgw">✓ Security Gateway incluso</div></div>
+      <div class="pcard reveal"><div class="cat">Categoria 4</div><h3>Diesel Leve</h3><div class="ex">Hilux · Ranger · Amarok · S10 · Triton · Frontier</div><div class="from">diagnóstico base</div><div class="price">299</div></div>
+      <div class="pcard reveal"><div class="cat">Categoria 5</div><h3>Esportivo</h3><div class="ex">Golf R · Type-R · AMG · M Series · Porsche</div><div class="from">diagnóstico base</div><div class="price">359</div><div class="sgw">✓ Security Gateway incluso</div></div>
+      <div class="pcard reveal"><div class="cat">Categoria 6</div><h3>Pickup Premium / HD</h3><div class="ex">RAM 1500/2500 · F-150 · Silverado · Tunland V7/V9</div><div class="from">diagnóstico base</div><div class="price">359</div><div class="sgw">✓ Security Gateway incluso</div></div>
+    </div>
+    <p class="price-foot reveal">Laudo completo (M01–M05) com desconto progressivo: de <b>759</b> (Cat. 1) a <b>1.259</b> (Cat. 5–6). Híbridos e elétricos: HEV Básico a partir de <b>599</b>.</p>
+  </div>
+</section>
+
+<!-- POSICIONAMENTO -->
+<section class="position">
+  <div class="container reveal">
+    <div class="big">
+      <span class="gray">Não aprova.</span>
+      <span class="gray">Não reprova.</span>
+      <span class="fire">Informa.</span>
+    </div>
+    <p>O Maxi DNA não aprova nem reprova nenhum veículo. Ele entrega clareza técnica e coloca o poder de negociação na sua mão. <strong style="color:#fff">A decisão é sempre sua.</strong></p>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final">
+  <div class="container reveal">
+    <div class="tag" style="margin:0 auto 26px">Agendamento com hora marcada</div>
+    <h2>Antes de assinar, <span class="red">conheça o DNA</span> do carro.</h2>
+    <p>Laudo realizado na estrutura Maxi, em Uberlândia: elevadores homologados até 5.000kg para inspecionar suspensão, freios e motor por baixo do veículo — o que nenhum scanner sozinho enxerga. Segunda a sexta, das 08h às 18h. Envie o modelo do veículo e receba o orçamento na hora.</p>
+    <a class="btn btn-red" href="https://wa.me/5534991483400?text=Quero%20agendar%20um%20laudo%20Maxi%20DNA" target="_blank">Chamar no WhatsApp — (34) 99148-3400</a>
+    <div class="micro">> Resposta em horário comercial · Av. João Naves de Ávila, 2989 — Uberlândia/MG</div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <a class="logo" href="#" style="margin-bottom:14px"><img src="logo-maxi-dna.jpeg" alt="Maxi DNA" style="height:56px"></a>
+      <p>Laudo eletrônico veicular com responsabilidade técnica (CREA/CFT). Uma marca Maxi Chip Performance Automotiva — 12 anos de mercado, parceiro Bosch Car Service.</p>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <a href="https://wa.me/5534991483400" target="_blank">WhatsApp: (34) 99148-3400</a>
+      <a href="mailto:comercial@maxichip.com.br">comercial@maxichip.com.br</a>
+      <a href="https://instagram.com/performancechip" target="_blank">@performancechip</a>
+    </div>
+    <div>
+      <h4>Endereço</h4>
+      <p>Av. João Naves de Ávila, 2989<br>Uberlândia/MG</p>
+      <p>Seg a sex · 08h às 18h<br>Atendimento com hora marcada</p>
+    </div>
+    <div class="copy">© 2026 Maxi Chip Performance Automotiva · Maxi DNA — Performance Inteligente!</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5534991483400?text=Quero%20agendar%20um%20laudo%20Maxi%20DNA" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

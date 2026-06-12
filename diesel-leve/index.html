@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diesel Leve — Diagnóstico Diesel Leve | Maxi Chip</title>
+<meta name="description" content="O biodiesel mudou (B15, rumo ao B20) e está carbonizando motores diesel mesmo em carros 'em dia'. O Diagnóstico Diesel Leve mostra o estágio real do seu motor e qual caminho ele precisa. Maxi Chip — Uberlândia/MG.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --preto:#000000;
+  --carbono:#0a0a0b;
+  --grafite:#141416;
+  --painel:#1b1b1e;
+  --borda:#2a2a2e;
+  --branco:#ffffff;
+  --cinza:#a5a5a5;
+  --cinza-esc:#6b6b70;
+  --vermelho:#FD0803;
+  --vermelho-esc:#b00502;
+  --verde:#19c37d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--preto);color:var(--branco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.mono{font-family:'JetBrains Mono',monospace}
+.container{max-width:1140px;margin:0 auto;padding:0 24px}
+section{padding:88px 0;position:relative}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--vermelho);border:1px solid rgba(253,8,3,.35);padding:6px 14px;border-radius:2px;background:rgba(253,8,3,.06);margin-bottom:22px}
+.tag::before{content:"";width:7px;height:7px;background:var(--vermelho);border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.red{color:var(--vermelho)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:16px 34px;border-radius:3px;transition:.25s;cursor:pointer}
+.btn-red{background:var(--vermelho);color:#fff;box-shadow:0 8px 32px rgba(253,8,3,.35)}
+.btn-red:hover{background:var(--vermelho-esc);transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,8,3,.5)}
+.btn-ghost{border:1px solid var(--borda);color:var(--branco)}
+.btn-ghost:hover{border-color:var(--vermelho);color:var(--vermelho)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-decoration:none;color:#fff;display:inline-flex;align-items:center}
+.logo img{height:42px;width:auto;display:block}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--cinza);text-decoration:none;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--vermelho);color:#fff !important;padding:9px 18px;border-radius:3px;font-weight:600}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 90px;background:
+  radial-gradient(ellipse 80% 55% at 70% 20%, rgba(253,8,3,.10), transparent 60%),
+  linear-gradient(180deg,#050505 0%, #000 100%)}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;mask-image:radial-gradient(ellipse at 60% 30%,#000 30%,transparent 75%)}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,68px);font-weight:800;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--vermelho)}
+.hero .sub{font-size:19px;color:var(--cinza);max-width:540px;margin-bottom:36px}
+.hero .sub strong{color:#fff}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.hero-note{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc);letter-spacing:.04em}
+.hero-note b{color:var(--verde);font-weight:600}
+
+/* DIAGNÓSTICO scan card */
+.scan-card{background:linear-gradient(160deg,var(--grafite),var(--carbono));border:1px solid var(--borda);border-radius:8px;padding:28px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.scan-card::before{content:"";position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--vermelho),transparent);animation:scanline 3.2s ease-in-out infinite;box-shadow:0 0 18px var(--vermelho)}
+@keyframes scanline{0%{top:8%}50%{top:92%}100%{top:8%}}
+.scan-head{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--cinza-esc);text-transform:uppercase;margin-bottom:20px}
+.scan-head .live{color:var(--vermelho)}
+.scan-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed var(--borda);font-size:14px}
+.scan-row:last-child{border-bottom:none}
+.scan-row .k{color:var(--cinza)}
+.scan-row .v{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600}
+.v.ok{color:var(--verde)}
+.v.alert{color:var(--vermelho)}
+.scan-verdict{margin-top:18px;padding:14px;border:1px solid rgba(253,8,3,.4);background:rgba(253,8,3,.07);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#ffb3b1;letter-spacing:.02em}
+@media(max-width:900px){.hero .container{grid-template-columns:1fr}.scan-card{max-width:520px}}
+
+/* ===== STATS ===== */
+.stats{background:var(--carbono);border-top:1px solid var(--borda);border-bottom:1px solid var(--borda);padding:54px 0}
+.stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat .n{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;color:var(--vermelho);line-height:1}
+.stat .l{font-size:13.5px;color:var(--cinza);margin-top:8px}
+@media(max-width:860px){.stats .container{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== TEXTO/STORY (mecanismo, identificação, autoridade) ===== */
+.story{background:#000}
+.story h2{font-size:clamp(32px,4.4vw,48px);font-weight:800;margin-bottom:20px}
+.story p{color:var(--cinza);margin-bottom:16px;font-size:16.5px;max-width:760px}
+.story p strong{color:#fff}
+.quote{border-left:3px solid var(--vermelho);padding:18px 24px;margin:28px 0;background:var(--grafite);border-radius:0 6px 6px 0;font-size:18px;font-style:italic;color:#fff;max-width:760px}
+.alt{background:var(--carbono)}
+
+/* blocos de identificação ("isso te parece familiar?") */
+.ident-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:30px 0}
+.ident-card{background:var(--grafite);border:1px solid var(--borda);border-left:3px solid var(--vermelho);border-radius:0 6px 6px 0;padding:18px 22px;font-size:16px;font-style:italic;color:#fff}
+@media(max-width:760px){.ident-grid{grid-template-columns:1fr}}
+
+/* ===== PROVA VISUAL — CARROSSEL ANTES/DEPOIS ===== */
+.prova .sec-head p{margin-top:10px}
+.carousel{position:relative;max-width:820px;margin:0 auto}
+.carousel-track{overflow:hidden;border-radius:10px}
+.carousel-slide{display:none}
+.carousel-slide.active{display:block}
+.cs-pair{display:grid;grid-template-columns:1fr 1fr;gap:4px;border-radius:10px;overflow:hidden}
+.cs-pair figure{position:relative;margin:0;aspect-ratio:1/1;background:var(--grafite);overflow:hidden}
+.cs-pair img{width:100%;height:100%;object-fit:cover;display:block}
+.cs-label{position:absolute;top:12px;left:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:5px 12px;border-radius:3px;z-index:2}
+.cs-label.antes{background:rgba(253,8,3,.88);color:#fff}
+.cs-label.depois{background:rgba(25,195,125,.88);color:#06150f}
+.cs-caption{margin-top:14px;text-align:center;color:var(--cinza);font-size:14.5px}
+.carousel-btn{position:absolute;top:38%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid var(--borda);background:rgba(0,0,0,.65);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:5}
+.carousel-btn:hover{border-color:var(--vermelho);color:var(--vermelho)}
+.carousel-btn.prev{left:-21px}
+.carousel-btn.next{right:-21px}
+.carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.carousel-dot{width:9px;height:9px;border-radius:50%;background:var(--borda);cursor:pointer;border:none;padding:0;transition:.2s}
+.carousel-dot.active{background:var(--vermelho)}
+@media(max-width:640px){.carousel-btn{width:34px;height:34px;font-size:18px}.carousel-btn.prev{left:-8px}.carousel-btn.next{right:-8px}}
+
+/* ===== CARROSSEL COMPACTO (HERO) ===== */
+.hero-carousel{margin-top:32px;max-width:440px}
+.hero-carousel .carousel{max-width:100%}
+.cs-single{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;background:var(--grafite)}
+.cs-single img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-carousel .cs-caption{font-size:13px}
+
+/* ===== AUTORIDADE — badges ===== */
+.badge-grid{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0}
+.badge-pill{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);border:1px solid var(--borda);background:var(--grafite);padding:10px 18px;border-radius:30px}
+.badge-pill b{color:#fff}
+a.badge-pill{text-decoration:none;transition:.2s}
+a.badge-pill:hover{border-color:var(--vermelho);color:var(--vermelho)}
+a.badge-pill:hover b{color:var(--vermelho)}
+
+/* ===== CONTEÚDO / 3 PASSOS (mod-grid) ===== */
+.modules{background:linear-gradient(180deg,var(--carbono),#000)}
+.sec-head{text-align:center;max-width:760px;margin:0 auto 56px}
+.sec-head h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:16px}
+.sec-head p{color:var(--cinza);font-size:17px}
+.context-block{max-width:760px;margin:0 auto 48px;color:var(--cinza);font-size:16px;background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:22px 26px}
+.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.mod{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:28px;transition:.3s;position:relative}
+.mod:hover{border-color:rgba(253,8,3,.55);transform:translateY(-4px);box-shadow:0 18px 48px rgba(0,0,0,.5)}
+.mod .code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--vermelho);letter-spacing:.16em;margin-bottom:12px}
+.mod h3{font-size:23px;margin-bottom:10px}
+.mod p{color:var(--cinza);font-size:14.5px}
+@media(max-width:900px){.mod-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.mod-grid{grid-template-columns:1fr}}
+
+/* ===== OFERTA ===== */
+.oferta{background:#000}
+.oferta-card{max-width:760px;margin:0 auto;background:var(--grafite);border:1px solid var(--borda);border-radius:10px;padding:40px;text-align:left}
+.oferta-card h2{font-size:clamp(30px,4.4vw,44px);font-weight:800;margin-bottom:18px}
+.oferta-card ul{margin:18px 0 0;padding-left:22px;color:var(--cinza);font-size:16px}
+.oferta-card ul li{margin-bottom:8px}
+.oferta-card ul li strong{color:#fff}
+.destaque-box{margin-top:28px;padding:20px 24px;border:1px dashed rgba(253,8,3,.5);background:rgba(253,8,3,.06);border-radius:8px;font-size:16px;color:#fff}
+.destaque-box .price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--vermelho)}
+.oferta-card .btn{margin-top:30px}
+.reforco{margin-top:18px;color:var(--cinza-esc);font-size:14px;max-width:560px}
+
+/* ===== POSICIONAMENTO (sobre você depois) ===== */
+.position{background:linear-gradient(180deg,var(--carbono),#000);text-align:center}
+.position h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,5vw,52px);font-weight:800;text-transform:uppercase;line-height:1.15;margin-bottom:24px}
+.position .red-line{color:var(--vermelho)}
+.position p{max-width:680px;margin:18px auto 0;color:var(--cinza);font-size:17px}
+.position .tagline{margin-top:32px;font-size:20px;font-style:italic;color:#fff}
+
+/* ===== OBJEÇÕES / FAQ ===== */
+.qa-list{display:flex;flex-direction:column;gap:16px;max-width:820px;margin:0 auto}
+.qa-item{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:24px 28px}
+.qa-item h3{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.qa-item h3 .red{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.qa-item p{color:var(--cinza);font-size:15.5px;margin:0}
+.qa-item p strong{color:#fff}
+
+/* ===== CTA FINAL ===== */
+.final{background:radial-gradient(ellipse 70% 90% at 50% 110%, rgba(253,8,3,.18), transparent 65%),#000;text-align:center;padding:110px 0}
+.final h2{font-size:clamp(34px,5vw,56px);font-weight:800;margin-bottom:18px}
+.final p{color:var(--cinza);font-size:18px;max-width:600px;margin:0 auto 36px}
+.final .micro{margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc)}
+
+/* ===== FOOTER ===== */
+footer{border-top:1px solid var(--borda);background:#050505;padding:48px 0 32px}
+footer .container{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px}
+footer h4{font-family:'Barlow Condensed',sans-serif;font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:14px}
+footer p,footer a{color:var(--cinza-esc);font-size:14px;text-decoration:none;display:block;margin-bottom:6px}
+footer a:hover{color:var(--vermelho)}
+.copy{grid-column:1/-1;border-top:1px solid var(--borda);margin-top:28px;padding-top:22px;font-size:12.5px;color:var(--cinza-esc);text-align:center}
+@media(max-width:760px){footer .container{grid-template-columns:1fr}}
+
+/* WhatsApp float */
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:99;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.45);transition:.25s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="logo" href="#"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip"></a>
+    <div class="nav-links">
+      <a href="#mecanismo">O problema</a>
+      <a href="#passos">Os 3 passos</a>
+      <a href="#oferta">O diagnóstico</a>
+      <a href="#faq">Dúvidas</a>
+      <a class="nav-cta" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20Diesel%20Leve%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20motor." target="_blank">Agendar diagnóstico</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div>
+      <div class="tag">Diagnóstico Diesel Leve · Maxi Chip · Uberlândia/MG</div>
+      <h1>Em poucos minutos, o <em>Diagnóstico Diesel Leve</em> mostra o que está acontecendo dentro do motor do seu diesel — antes que vire isso aqui</h1>
+      <div class="hero-carousel" id="hero-carousel">
+        <div class="carousel">
+          <button class="carousel-btn prev" type="button" aria-label="Anterior">‹</button>
+          <div class="carousel-track">
+            <div class="carousel-slide active">
+              <div class="cs-single"><img src="isso-aqui-1.jpeg" alt="Duto do motor com a passagem quase fechada por carbono"></div>
+              <div class="cs-caption">Duto do motor com a passagem quase fechada por carbono</div>
+            </div>
+            <div class="carousel-slide">
+              <div class="cs-single"><img src="isso-aqui-2.jpeg" alt="Depósito espesso de carbono em peça do motor, sem limpeza há anos"></div>
+              <div class="cs-caption">Depósito espesso de carbono — anos sem limpeza</div>
+            </div>
+            <div class="carousel-slide">
+              <div class="cs-single"><img src="isso-aqui-3.jpeg" alt="Duto de admissão do motor completamente coberto por fuligem"></div>
+              <div class="cs-caption">Duto de admissão completamente coberto por fuligem</div>
+            </div>
+            <div class="carousel-slide">
+              <div class="cs-single"><img src="isso-aqui-4.jpeg" alt="Dutos de admissão do cabeçote tomados por carbono"></div>
+              <div class="cs-caption">Dutos de admissão do cabeçote tomados por carbono</div>
+            </div>
+            <div class="carousel-slide">
+              <div class="cs-single"><img src="isso-aqui-5.jpeg" alt="Passagem de ar do motor coberta por fuligem"></div>
+              <div class="cs-caption">Passagem de ar coberta por fuligem — quase nada passa por aqui</div>
+            </div>
+          </div>
+          <button class="carousel-btn next" type="button" aria-label="Próximo">›</button>
+          <div class="carousel-dots"></div>
+        </div>
+      </div>
+      <p class="sub">O biodiesel mudou. Já estamos no <strong>B15</strong>, e o <strong>B20</strong> está a caminho. A manutenção, na maioria dos carros, continua a mesma de sempre — e isso carboniza o motor por dentro, mesmo num carro "em dia".</p>
+      <div class="hero-ctas">
+        <a class="btn btn-red" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20Diesel%20Leve%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20motor." target="_blank">Quero o Diagnóstico Diesel Leve</a>
+        <a class="btn btn-ghost" href="#passos">Ver os 3 passos</a>
+      </div>
+      <div class="hero-note">> Equipamento <b>Autel MS909</b> — parceiro Bosch, mesmo nível técnico de concessionária</div>
+    </div>
+    <div class="scan-card">
+      <div class="scan-head"><span>// DIAGNÓSTICO DIESEL LEVE</span><span class="live">● SCAN ATIVO</span></div>
+      <div class="scan-row"><span class="k">Combustível atual</span><span class="v">B15 (rumo ao B20)</span></div>
+      <div class="scan-row"><span class="k">Carbonização — admissão</span><span class="v alert">Estágio avançado</span></div>
+      <div class="scan-row"><span class="k">Carbonização — válvula EGR</span><span class="v alert">Estágio avançado</span></div>
+      <div class="scan-row"><span class="k">Bicos injetores</span><span class="v alert">Depósito identificado</span></div>
+      <div class="scan-row"><span class="k">Equipamento</span><span class="v ok">Autel MS909</span></div>
+      <div class="scan-row"><span class="k">Caminho indicado</span><span class="v">Preventivo ou Avançado</span></div>
+      <div class="scan-verdict">>> O Diagnóstico Diesel Leve identifica o estágio real da carbonização do seu motor — e qual caminho ele precisa.</div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="container">
+    <div class="stat reveal"><div class="n">B15</div><div class="l">de biodiesel já no diesel nacional — rumo ao B20</div></div>
+    <div class="stat reveal"><div class="n">60mil km</div><div class="l">ou 2+ anos de uso = hora de diagnosticar</div></div>
+    <div class="stat reveal"><div class="n">15-30min</div><div class="l">é o tempo do Diagnóstico Diesel Leve</div></div>
+    <div class="stat reveal"><div class="n">12 anos</div><div class="l">de Maxi Chip cuidando de motores diesel</div></div>
+  </div>
+</div>
+
+<!-- SEÇÃO PROVA VISUAL — ANTES/DEPOIS -->
+<section class="story alt" id="prova">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Isso aqui</div>
+      <h2>O que a carbonização faz com o motor <span class="red">por dentro</span></h2>
+      <p>Peças reais retiradas de motores diesel atendidos na Maxi Chip — antes e depois do tratamento.</p>
+    </div>
+    <div class="carousel reveal">
+      <button class="carousel-btn prev" type="button" aria-label="Anterior">‹</button>
+      <div class="carousel-track">
+        <div class="carousel-slide active">
+          <div class="cs-pair">
+            <figure><span class="cs-label antes">Antes</span><img src="prova-antes-coletor.jpeg" alt="Coletor de admissão carbonizado, antes da limpeza"></figure>
+            <figure><span class="cs-label depois">Depois</span><img src="prova-depois-coletor.jpeg" alt="Coletor de admissão limpo, depois do tratamento"></figure>
+          </div>
+          <div class="cs-caption">Coletor de admissão — depósito sólido em estágio avançado</div>
+        </div>
+        <div class="carousel-slide">
+          <div class="cs-pair">
+            <figure><span class="cs-label antes">Antes</span><img src="prova-antes-cabecote.jpeg" alt="Dutos de admissão do cabeçote carbonizados, antes da limpeza"></figure>
+            <figure><span class="cs-label depois">Depois</span><img src="prova-depois-cabecote.jpeg" alt="Dutos de admissão do cabeçote limpos, depois do tratamento"></figure>
+          </div>
+          <div class="cs-caption">Dutos de admissão do cabeçote — antes e depois do tratamento</div>
+        </div>
+        <div class="carousel-slide">
+          <div class="cs-pair">
+            <figure><span class="cs-label antes">Antes</span><img src="prova-antes-valvula.jpeg" alt="Componente do sistema EGR carbonizado, antes da limpeza"></figure>
+            <figure><span class="cs-label depois">Depois</span><img src="prova-depois-valvula.jpeg" alt="Componente do sistema EGR limpo, depois do tratamento"></figure>
+          </div>
+          <div class="cs-caption">Componente do sistema EGR — antes e depois do tratamento</div>
+        </div>
+      </div>
+      <button class="carousel-btn next" type="button" aria-label="Próximo">›</button>
+      <div class="carousel-dots"></div>
+    </div>
+    <div class="reveal" style="max-width:680px;margin:48px auto 0;text-align:center">
+      <p style="font-size:22px;font-weight:800;color:#fff;margin-bottom:20px;line-height:1.3">A carbonização é silenciosa.<br><span class="red">O infarto do motor, não.</span></p>
+      <p style="margin:0 auto 16px">Seu diesel pode estar perdendo performance por dentro agora, sem acender luz no painel.</p>
+      <p style="margin:0 auto 16px">Em poucos minutos, o Diagnóstico Diesel Leve mostra o que está acontecendo antes que o problema vire carro parado, manutenção cara e prejuízo no bolso.</p>
+      <p style="margin:0;color:#fff;font-weight:700">Faça o exame preventivo do seu diesel antes que ele te deixe a pé.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 2 — SISTEMA/MECANISMO -->
+<section class="story" id="mecanismo">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Como funciona</div>
+      <h2>Seu diesel está perdendo força, bebendo mais combustível ou fazendo barulho — e a revisão não resolveu. <span class="red">E agora?</span></h2>
+      <p>Existem dois caminhos possíveis pra resolver a carbonização do motor diesel:</p>
+      <p>Um é a <strong>manutenção preventiva</strong> — limpeza do sistema com produtos específicos, sem desmontagem. Mantém tudo limpo e evita que o problema avance.</p>
+      <p>O outro é a <strong>descarbonização com casca de nozes</strong> — pra estágios mais avançados, remove o depósito da admissão e da válvula EGR. Pra ser bem feita, exige abrir o motor.</p>
+      <p>O problema é que ninguém olha o motor e sabe, de cara, qual dos dois o seu precisa.</p>
+      <p>É pra isso que existe o <strong>Diagnóstico Diesel Leve</strong>: ele identifica o estágio real da carbonização do seu motor e mostra exatamente qual caminho ele está pedindo.</p>
+      <div class="quote">Seu diesel pode estar sofrendo um infarto silencioso. Faça um exame preventivo antes que ele morra, te deixe a pé e com o bolso desfalcado!</div>
+      <p><strong>E como funciona, na prática, esse cuidado em 3 passos?</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 3 — IDENTIFICAÇÃO -->
+<section class="story alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Identificação</div>
+      <h2>Isso te parece familiar?</h2>
+      <div class="ident-grid">
+        <div class="ident-card">"Meu diesel tá perdendo força e bebendo mais combustível, e eu não sei por quê."</div>
+        <div class="ident-card">"Será que já é hora de trocar de carro?"</div>
+        <div class="ident-card">"Meu mecânico tá me enrolando ou é o carro mesmo?"</div>
+        <div class="ident-card">"Eu fiz a revisão, deveria estar tudo certo."</div>
+        <div class="ident-card">"Todo diesel hoje em dia é assim mesmo?"</div>
+      </div>
+      <p style="margin-top:30px"><strong>Provavelmente não é o carro. É o combustível.</strong></p>
+      <p>O biodiesel já passou de B11 pra B12, B14, B15 — e o B20 está no horizonte (Lei do Combustível do Futuro, meta até 2030). Seu motor sentiu cada uma dessas mudanças. A manutenção, na maioria dos casos, continuou a mesma de sempre.</p>
+      <p>E se o seu uso é mais "só na cidade" — mesmo com pouca km — seu motor pode estar carbonizando ainda mais rápido que o de quem roda em rodovia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 4 — AUTORIDADE -->
+<section class="story">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Quem cuida do seu Diesel Leve</div>
+      <h2>Mais de 12 anos com diagnóstico e performance diesel</h2>
+      <p>A Maxi Chip Performance Automotiva está em Uberlândia/MG desde 2013 — mais de 12 anos trabalhando com diagnóstico eletrônico, performance e manutenção de motores diesel, do utilitário urbano ao agro do Triângulo Mineiro.</p>
+      <p>Somos parceiros <strong>Bosch</strong> e integrantes da <strong>Rede AMPB</strong> (Mecânicos Premium Brasil) — os mesmos padrões de equipamento e qualidade usados em concessionária.</p>
+      <p>O Diagnóstico Diesel Leve usa o <strong>Autel MS909</strong>, scanner de nível profissional, e é interpretado por responsável técnico habilitado (CREA/CFT) — com responsabilidade técnica registrada.</p>
+      <div class="badge-grid">
+        <div class="badge-pill"><b>Bosch</b> · parceiro</div>
+        <a class="badge-pill" href="https://www.mecanicospremium.com/membros" target="_blank" rel="noopener"><b>Rede AMPB</b> · Mecânicos Premium Brasil ↗</a>
+        <div class="badge-pill"><b>Autel MS909</b> · scanner profissional</div>
+        <div class="badge-pill"><b>CREA/CFT</b> · responsabilidade técnica registrada</div>
+      </div>
+      <div class="quote">"Motor diesel moderno não é só abastecer e andar! É um motor que sente cada mudança no combustível — e precisa de quem entende disso."</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 5 — OS 3 PASSOS -->
+<section class="modules" id="passos">
+  <div class="container">
+    <div class="context-block reveal">
+      Por que isso importa agora: o diesel brasileiro já tem 15% de biodiesel (B15) — e o governo já fala em B20 nos próximos anos. O biodiesel se degrada mais rápido, absorve mais água, oxida mais rápido — e os produtos dessa degradação viram depósito sólido nos bicos injetores, na bomba de injeção e na admissão. Isso acontece mesmo em motores novos e bem cuidados.
+    </div>
+    <div class="sec-head reveal">
+      <h2>Os 3 passos do cuidado com seu <span class="red">Diesel Leve</span></h2>
+    </div>
+    <div class="mod-grid">
+      <div class="mod reveal">
+        <div class="code">PASSO 1 · DIAGNÓSTICO</div>
+        <h3>Diagnóstico Diesel Leve</h3>
+        <p>A gente conecta o Autel MS909 no seu motor e lê os parâmetros reais: carbonização, velas, bicos, injeção. Em poucos minutos, você sabe em que estágio seu motor está — e qual dos passos abaixo ele precisa.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="code">PASSO 2 · PREVENTIVO</div>
+        <h3>Manutenção Preventiva</h3>
+        <p>Pra motores em estágio inicial ou ainda limpos: limpeza do sistema de admissão com produtos específicos, sem desmontagem. Mantém o motor limpo e evita que a carbonização avance.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="code">PASSO 3 · AVANÇADO</div>
+        <h3>Descarbonização Avançada (casca de nozes)</h3>
+        <p>Pra estágios avançados, como o da peça da nossa capa: remoção mecânica do depósito da admissão e da válvula EGR com casca de nozes. Exige abrir o motor — mas devolve ele ao ponto de origem. É a "afiada" que ele estava precisando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 6 — OFERTA -->
+<section class="oferta" id="oferta">
+  <div class="oferta-card reveal">
+    <div class="tag">O primeiro passo</div>
+    <h2>O Diagnóstico Diesel Leve</h2>
+    <p style="color:var(--cinza);font-size:16px">O Diagnóstico Diesel Leve conecta o scanner Autel MS909 direto no seu motor e verifica carbonização, velas, bicos de injeção e parâmetros reais de funcionamento.</p>
+    <p style="color:var(--cinza);font-size:16px;margin-top:14px">No final, você sai sabendo:</p>
+    <ul>
+      <li>Em que <strong>estágio</strong> está a carbonização do seu motor</li>
+      <li>Se o caminho certo pra ele é a <strong>manutenção preventiva</strong> ou a <strong>descarbonização avançada</strong></li>
+      <li>O <strong>orçamento específico</strong> pro seu carro, conforme o tratamento indicado</li>
+    </ul>
+    <div class="destaque-box">
+      Se você fizer o tratamento recomendado na mesma visita, o Diagnóstico Diesel Leve <strong>não tem custo</strong> — ele já está incluso. Se preferir deixar o tratamento pra outro dia, o diagnóstico custa <span class="price">299</span>.
+    </div>
+    <a class="btn btn-red" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20Diesel%20Leve%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20motor." target="_blank">Quero agendar o Diagnóstico Diesel Leve</a>
+    <div class="reforco">Sem diagnóstico, qualquer tratamento é chute. Com ele, você sabe exatamente o que o seu motor precisa — e, fazendo o tratamento na hora, o diagnóstico sai de graça.</div>
+  </div>
+</section>
+
+<!-- SEÇÃO 7 — SOBRE VOCÊ DEPOIS -->
+<section class="position">
+  <div class="container reveal">
+    <h2>Depois do Diagnóstico Diesel Leve,<br>você sabe exatamente <span class="red-line">onde está</span> — e pra onde ir</h2>
+    <p>Você não vai mais adivinhar se "é o carro" ou "é o combustível". Vai ter, na mão, o estágio real da carbonização do seu motor e o caminho recomendado pra resolver — preventivo ou avançado.</p>
+    <p>Se o seu motor ainda está em boa forma, a manutenção preventiva mantém ele assim — e evita que vire o problema da nossa capa.</p>
+    <p>Se já está em estágio avançado, a descarbonização com casca de nozes devolve ao motor a potência, a suavidade e a resposta que ele tinha quando era novo.</p>
+    <div class="tagline">"A Maxi Chip te ensina a cuidar do seu Diesel Leve como ele merece."</div>
+  </div>
+</section>
+
+<!-- SEÇÃO 8 — OBJEÇÕES -->
+<section class="story alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Mas e se...</div>
+      <h2>Tira-dúvidas <span class="red">rápido</span></h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal">
+        <h3>"Meu carro está em dia, fiz a revisão certinho"</h3>
+        <p>A revisão padrão não verifica carbonização do sistema de admissão — ela não foi desenhada pra isso. O diesel mudou (B15, indo pro B20) mais rápido do que os planos de revisão foram atualizados. Carro "em dia" e motor carbonizando podem ser verdade ao mesmo tempo.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>"Meu carro tem pouca km, não preciso disso"</h3>
+        <p>Km baixa não é garantia. Veículos de uso urbano/severo (só cidade, trajetos curtos) carbonizam <strong>MAIS</strong> que veículos rodoviários — mesmo com km baixa. O diagnóstico mostra o estágio real do seu motor, não uma estimativa por km.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>"Isso não é só pra empurrar serviço?"</h3>
+        <p>O Diagnóstico Diesel Leve não aprova nem reprova nada de antemão — ele informa o estágio real do seu motor. Se estiver tudo bem, você sai sabendo disso. Se precisar de algo, você sabe exatamente o quê e por quê.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>"Vou ter que abrir o motor com certeza?"</h3>
+        <p>Não necessariamente. Abrir o motor só é necessário em estágios avançados de carbonização (descarbonização com casca de nozes). Boa parte dos casos resolve com manutenção preventiva, sem desmontagem. O diagnóstico é que decide — não a gente, no chute.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>"Quanto custa?"</h3>
+        <p>O Diagnóstico Diesel Leve custa <strong>299</strong>. Mas se você fizer o tratamento recomendado na mesma visita, esse valor não é cobrado — o diagnóstico fica incluso. O tratamento (preventivo ou avançado) depende do estágio do seu motor, e o orçamento é dado logo depois do diagnóstico, específico pro seu carro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 9 — FAQ -->
+<section class="story" id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Perguntas frequentes</div>
+      <h2>Antes de agendar</h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal">
+        <h3>O que é o Diagnóstico Diesel Leve?</h3>
+        <p>É a aplicação do módulo M04 (Verificação de Motor) do Maxi DNA, com foco em identificar o estágio de carbonização do seu motor diesel e qual tratamento ele precisa.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>Onde é feito?</h3>
+        <p>Na Maxi Chip, Av. João Naves de Ávila, 2989 — Uberlândia/MG. Atendimento de segunda a sexta, das 8h às 18h.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>Quanto tempo leva?</h3>
+        <p>O diagnóstico em si leva entre 15 e 30 minutos. Se for indicado um tratamento no mesmo dia, o tempo varia: a manutenção preventiva costuma ser feita na hora; a descarbonização avançada (com desmontagem) exige agendamento à parte.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>Vou sair sabendo o preço do tratamento na hora?</h3>
+        <p>Sim. Depois do diagnóstico, você recebe o orçamento específico pro seu carro — preventivo ou avançado, conforme o estágio identificado.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>O Diagnóstico Diesel Leve tem custo?</h3>
+        <p>O diagnóstico custa <strong>299</strong>. Mas se você decidir fazer o tratamento recomendado na mesma visita, esse valor não é cobrado — fica incluso no serviço. Só é cobrado se você preferir deixar o tratamento pra outro dia.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>Funciona pra qualquer diesel?</h3>
+        <p>Focamos em picapes, SUVs e utilitários diesel com 60.000km ou 2+ anos de uso (Hilux, Ranger, Amarok, S10, Toro, Commander, Renegade, Sprinter, Ducato e similares). Uso urbano/severo conta mesmo com km baixa — fala com a gente que avaliamos.</p>
+      </div>
+      <div class="qa-item reveal">
+        <h3>E se eu estiver pensando em trocar de carro em vez de consertar?</h3>
+        <p>Se você está pensando em comprar um seminovo (diesel ou não), temos o Diagnóstico Maxi DNA completo — o mesmo tipo de tecnologia, focado em revelar o estado real de um carro antes da compra.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 10 — CTA FINAL -->
+<section class="final">
+  <div class="container reveal">
+    <div class="tag" style="margin:0 auto 26px">Agendamento com hora marcada</div>
+    <h2>Não espere o seu motor <span class="red">chegar nesse ponto</span></h2>
+    <p>A peça que você viu na nossa capa começou exatamente como o seu carro está hoje: rodando normal, sem luz acesa no painel, dono achando que "tava tudo em dia". O Diagnóstico Diesel Leve mostra, agora, em que estágio está o seu motor — e qual o caminho certo pra ele. Em poucos minutos.</p>
+    <a class="btn btn-red" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20Diesel%20Leve%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20motor." target="_blank">Quero o Diagnóstico Diesel Leve</a>
+    <div class="micro">> Resposta em horário comercial · Av. João Naves de Ávila, 2989 — Uberlândia/MG</div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <a class="logo" href="#" style="margin-bottom:14px"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip" style="height:52px"></a>
+      <p>Diesel Leve — um cuidado Maxi Chip Performance Automotiva. Parceiro Bosch · Rede AMPB. CNPJ 19.415.180/0001-09.</p>
+    </div>
+    <div>
+      <h4>Fale com a gente</h4>
+      <a href="https://wa.me/5534991483400" target="_blank">WhatsApp: (34) 99148-3400</a>
+      <a href="mailto:comercial@maxichip.com.br">comercial@maxichip.com.br</a>
+      <a href="https://instagram.com/performancechip" target="_blank">@performancechip</a>
+    </div>
+    <div>
+      <h4>Endereço</h4>
+      <p>Av. João Naves de Ávila, 2989<br>Uberlândia/MG</p>
+      <p>Seg a sex · 08h às 18h<br>Atendimento com hora marcada</p>
+    </div>
+    <div class="copy">"A Maxi Chip te ensina a cuidar do seu Diesel Leve como ele merece." · © 2026 Maxi Chip Performance Automotiva</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20do%20Diesel%20Leve%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20motor." target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+function initCarousel(scope){
+  const root=document.querySelector(scope);
+  if(!root) return;
+  const slides=root.querySelectorAll('.carousel-slide');
+  const dotsWrap=root.querySelector('.carousel-dots');
+  if(!slides.length) return;
+  let idx=0;
+  slides.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='carousel-dot'+(i===0?' active':'');
+    d.type='button';
+    d.setAttribute('aria-label','Ir pro slide '+(i+1));
+    d.addEventListener('click',()=>go(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots=root.querySelectorAll('.carousel-dot');
+  function go(i){
+    slides[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx=(i+slides.length)%slides.length;
+    slides[idx].classList.add('active');
+    dots[idx].classList.add('active');
+  }
+  root.querySelector('.carousel-btn.prev').addEventListener('click',()=>go(idx-1));
+  root.querySelector('.carousel-btn.next').addEventListener('click',()=>go(idx+1));
+}
+initCarousel('#prova');
+initCarousel('#hero-carousel');
+</script>
+</body>
+</html>
