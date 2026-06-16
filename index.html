@@ -4,75 +4,139 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maxi Chip Performance Automotiva — Performance Inteligente | Uberlândia/MG</title>
-<meta name="description" content="Há 12 anos em Uberlândia: remapeamento ECU/TCU, manutenção automotiva premium, especialista diesel, reprogramação agrícola e Maxi DNA — o laudo eletrônico veicular.">
+<meta name="description" content="Há 12 anos em Uberlândia: remapeamento ECU/TCU, manutenção premium padrão concessionária, especialista diesel, reprogramação agrícola, híbridos & elétricos e Maxi DNA — o laudo eletrônico veicular. Parceiro Bosch · Rede AMPB.">
+<meta property="og:title" content="Maxi Chip Performance Automotiva — Performance Inteligente!">
+<meta property="og:description" content="12 anos em Uberlândia. Oficina real, equipamentos importados, padrão concessionária. Do superesportivo ao trator no campo.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://maxichip.com.br/img/fachada-entardecer-porsche.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --red: #CC0000; --red-h: #E00000; --black: #000; --dark: #0a0a0a; --card: #141414; --line: #262626; --text: #e8e8e8; --muted: #999; }
+  :root {
+    --red: #FD0803; --red-h: #ff2d28; --black: #000; --dark: #0a0a0a;
+    --card: #141414; --card-2: #181818; --line: #262626; --line-2: #333;
+    --text: #e8e8e8; --muted: #9a9a9a; --white: #fff;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { background: var(--black); color: var(--text); font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+  body { background: var(--black); color: var(--text); font-family: 'DM Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
   h1, h2, h3 { font-family: 'Bebas Neue', sans-serif; font-weight: 400; letter-spacing: 1px; }
+  img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 22px; }
-  .btn { display: inline-block; background: var(--red); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1.05rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 15px 34px; border-radius: 4px; transition: background .2s, transform .2s; }
-  .btn:hover { background: var(--red-h); transform: translateY(-2px); }
-  .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--text); }
-  .btn-ghost:hover { background: var(--card); border-color: var(--red); }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 22px; }
+  .btn { display: inline-block; background: var(--red); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1.05rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 15px 34px; border-radius: 4px; transition: background .2s, transform .2s, box-shadow .2s; }
+  .btn:hover { background: var(--red-h); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(253,8,3,.28); }
+  .btn-ghost { background: transparent; border: 1px solid var(--line-2); color: var(--text); }
+  .btn-ghost:hover { background: rgba(255,255,255,.04); border-color: var(--red); box-shadow: none; }
+  .sec-tag { font-family: 'Barlow Condensed', sans-serif; color: var(--red); letter-spacing: 3px; text-transform: uppercase; font-size: .95rem; font-weight: 600; }
+  h2 { font-size: clamp(2rem, 5vw, 3.1rem); margin: 8px 0 38px; color: var(--white); }
+  section { padding: 84px 0; }
+
   /* NAV */
-  nav { position: sticky; top: 0; z-index: 50; background: rgba(0,0,0,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  .nav-in { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; max-width: 1100px; margin: 0 auto; }
-  .nav-in img { height: 40px; }
+  nav { position: sticky; top: 0; z-index: 50; background: rgba(0,0,0,.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav-in { display: flex; align-items: center; justify-content: space-between; padding: 13px 22px; max-width: 1140px; margin: 0 auto; }
+  .nav-in img { height: 38px; }
   .nav-links { display: flex; gap: 26px; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
   .nav-links a:hover { color: #fff; }
   .nav-links .btn { padding: 9px 20px; font-size: .95rem; color: #fff; }
-  @media (max-width: 820px) { .nav-links a:not(.btn) { display: none; } }
+  @media (max-width: 880px) { .nav-links a:not(.btn) { display: none; } }
+
   /* HERO */
-  .hero { padding: 90px 0 70px; text-align: center; background: radial-gradient(ellipse at 50% -20%, #1c0000 0%, var(--black) 60%); }
-  .hero h1 { font-size: clamp(2.6rem, 7vw, 4.6rem); line-height: 1.05; }
+  .hero { position: relative; min-height: 86vh; display: flex; align-items: center; text-align: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: url('img/fachada-noturna-frota-01.jpeg') center/cover no-repeat; transform: scale(1.05); }
+  .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.55) 45%, rgba(0,0,0,.9) 100%); }
+  .hero .wrap { position: relative; z-index: 2; width: 100%; padding-top: 60px; padding-bottom: 60px; }
+  .hero .eyebrow { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 4px; text-transform: uppercase; color: #d8d8d8; font-size: .92rem; font-weight: 500; margin-bottom: 18px; }
+  .hero .eyebrow b { color: var(--red); font-weight: 700; }
+  .hero h1 { font-size: clamp(2.9rem, 8vw, 5.4rem); line-height: .98; color: #fff; text-shadow: 0 4px 30px rgba(0,0,0,.6); }
   .hero h1 span { color: var(--red); }
-  .hero .sub { max-width: 640px; margin: 22px auto 36px; color: var(--muted); font-size: 1.15rem; }
+  .hero .sub { max-width: 680px; margin: 24px auto 38px; color: #d6d6d6; font-size: clamp(1.05rem, 2.4vw, 1.25rem); }
   .hero .ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
   /* NUMBERS */
   .numbers { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--dark); }
   .numbers .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-  .num { padding: 28px 10px; text-align: center; border-left: 1px solid var(--line); }
+  .num { padding: 30px 10px; text-align: center; border-left: 1px solid var(--line); }
   .num:first-child { border-left: none; }
-  .num b { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #fff; }
-  .num span { font-family: 'Barlow Condensed', sans-serif; font-size: .95rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .num b { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: #fff; line-height: 1; }
+  .num span { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); display: block; margin-top: 6px; }
   @media (max-width: 720px) { .numbers .wrap { grid-template-columns: 1fr 1fr; } .num:nth-child(3) { border-left: none; } .num { border-top: 1px solid var(--line); } .num:nth-child(-n+2) { border-top: none; } }
-  /* SECTIONS */
-  section { padding: 80px 0; }
-  .sec-tag { font-family: 'Barlow Condensed', sans-serif; color: var(--red); letter-spacing: 3px; text-transform: uppercase; font-size: .95rem; }
-  h2 { font-size: clamp(2rem, 5vw, 3rem); margin: 8px 0 40px; }
-  /* SERVICES */
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 30px 26px; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
-  .card:hover { border-color: var(--red); transform: translateY(-3px); }
-  .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+
+  /* QUEM SOMOS / PROVA */
+  .prova { background: var(--black); }
+  .prova-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 44px; align-items: center; }
+  .prova-txt p { color: var(--muted); font-size: 1.07rem; margin-bottom: 16px; max-width: 540px; }
+  .prova-txt .selo { display: flex; align-items: center; gap: 16px; margin-top: 26px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; max-width: 460px; }
+  .prova-txt .selo img { height: 56px; width: auto; border-radius: 4px; }
+  .prova-txt .selo span { font-size: .95rem; color: var(--text); }
+  .prova-txt .selo b { color: #fff; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; display: block; font-size: 1.02rem; }
+  .prova-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .prova-imgs img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); aspect-ratio: 4/3; }
+  .prova-imgs .tall { grid-row: span 2; aspect-ratio: 3/4; }
+  @media (max-width: 860px) { .prova-grid { grid-template-columns: 1fr; gap: 30px; } }
+
+  /* SERVIÇOS / BRAÇOS */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: var(--red); transform: translateY(-4px); }
+  .card .ph { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+  .card .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .card:hover .ph img { transform: scale(1.06); }
+  .card .ph .tag { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,.78); color: #fff; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1.5px; text-transform: uppercase; font-size: .72rem; padding: 5px 11px; border-radius: 3px; border: 1px solid var(--line-2); }
+  .card .ph .tag.new { background: var(--red); border-color: var(--red); }
+  .card .bd { padding: 26px 24px 28px; display: flex; flex-direction: column; flex: 1; }
+  .card h3 { font-size: 1.55rem; margin-bottom: 10px; color: #fff; }
   .card h3 em { color: var(--red); font-style: normal; }
   .card p { color: var(--muted); font-size: .98rem; flex: 1; }
   .card .meta { margin: 14px 0 18px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; color: #fff; font-size: 1rem; }
-  .card a.link { color: var(--red); font-weight: 700; font-size: .95rem; }
+  .card a.link { color: var(--red); font-weight: 700; font-size: .95rem; font-family: 'Barlow Condensed', sans-serif; letter-spacing: .5px; }
   .card a.link:hover { color: var(--red-h); }
-  /* DIFFERENTIALS */
-  .diff { background: var(--dark); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .diff-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .diff-item { border-left: 3px solid var(--red); padding: 6px 0 6px 18px; }
-  .diff-item b { display: block; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; letter-spacing: 1px; text-transform: uppercase; }
-  .diff-item span { color: var(--muted); font-size: .95rem; }
-  /* ABOUT */
-  .sobre p { max-width: 760px; color: var(--muted); font-size: 1.08rem; margin-bottom: 16px; }
-  .sobre .quote { border-left: 3px solid var(--red); padding-left: 20px; color: #fff; font-style: italic; margin-top: 26px; }
-  /* CONTACT */
-  .contato { background: var(--dark); border-top: 1px solid var(--line); text-align: center; }
-  .contato .info { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin: 30px 0 36px; color: var(--muted); font-size: 1rem; }
-  .contato .info b { color: #fff; display: block; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1.5px; text-transform: uppercase; font-size: .9rem; margin-bottom: 4px; }
+  .card a.link + a.link { margin-top: 6px; display: inline-block; }
+
+  /* FROTA / GALERIA */
+  .frota { background: var(--dark); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .gal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .gal a { display: block; overflow: hidden; border-radius: 8px; border: 1px solid var(--line); position: relative; aspect-ratio: 4/3; }
+  .gal img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s; }
+  .gal a:hover img { transform: scale(1.08); }
+  @media (max-width: 720px) { .gal { grid-template-columns: 1fr 1fr; } }
+
+  /* DIFERENCIAIS */
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; align-items: center; }
+  .diff-items { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .diff-item { border-left: 3px solid var(--red); padding: 4px 0 4px 16px; }
+  .diff-item b { display: block; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1.12rem; letter-spacing: 1px; text-transform: uppercase; }
+  .diff-item span { color: var(--muted); font-size: .92rem; }
+  .diff-img img { width: 100%; border-radius: 10px; border: 1px solid var(--line); aspect-ratio: 4/3; object-fit: cover; }
+  @media (max-width: 860px) { .diff-grid { grid-template-columns: 1fr; gap: 30px; } .diff-img { order: -1; } }
+  @media (max-width: 480px) { .diff-items { grid-template-columns: 1fr; } }
+
+  /* SOBRE (quote) */
+  .sobre { background: var(--black); }
+  .sobre .quote { border-left: 3px solid var(--red); padding-left: 22px; color: #fff; font-style: italic; font-size: 1.25rem; max-width: 760px; font-family: 'DM Sans', sans-serif; }
+
+  /* CONTATO + MAPA */
+  .contato { background: var(--dark); border-top: 1px solid var(--line); }
+  .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: stretch; }
+  .info-list { display: grid; gap: 22px; align-content: start; }
+  .info-list .it b { color: #fff; display: block; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1.5px; text-transform: uppercase; font-size: .85rem; margin-bottom: 4px; }
+  .info-list .it span { color: var(--muted); font-size: 1.05rem; }
+  .info-list .btn { margin-top: 8px; justify-self: start; }
+  .mapa { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); min-height: 320px; background: var(--card); }
+  .mapa iframe { position: relative; z-index: 1; width: 100%; height: 100%; min-height: 320px; border: 0; filter: grayscale(.35); }
+  .mapa .mapa-fb { position: absolute; z-index: 0; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; padding: 26px; }
+  .mapa .mapa-fb b { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; color: #fff; font-size: 1.12rem; }
+  .mapa .mapa-fb span { color: var(--muted); font-size: .95rem; }
+  @media (max-width: 860px) { .contato-grid { grid-template-columns: 1fr; gap: 30px; } }
+
   /* FOOTER */
-  footer { padding: 36px 0; border-top: 1px solid var(--line); text-align: center; color: #666; font-size: .85rem; line-height: 1.9; }
-  footer img { height: 34px; opacity: .9; margin-bottom: 12px; }
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s, transform .6s; }
+  footer { padding: 40px 0; border-top: 1px solid var(--line); text-align: center; color: #666; font-size: .85rem; line-height: 1.95; background: var(--black); }
+  footer img { height: 34px; opacity: .9; margin-bottom: 14px; display: inline-block; }
+  footer .fnav { margin: 4px 0 14px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); font-size: .9rem; }
+  footer .fnav a:hover { color: #fff; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
   .reveal.on { opacity: 1; transform: none; }
 </style>
 </head>
@@ -80,21 +144,24 @@
 
 <nav>
   <div class="nav-in">
-    <a href="#"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip Performance Automotiva"></a>
+    <a href="#topo"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip Performance Automotiva"></a>
     <div class="nav-links">
+      <a href="#sobre">Sobre</a>
       <a href="#servicos">Serviços</a>
+      <a href="#frota">Frota</a>
       <a href="/maxi-dna-b2c/">Maxi DNA</a>
       <a href="/diesel-leve/">Diesel Leve</a>
-      <a href="#sobre">Sobre</a>
       <a class="btn" href="https://wa.me/5534991483400" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="topo">
+  <div class="hero-bg"></div>
   <div class="wrap">
+    <p class="eyebrow">12 anos · Uberlândia/MG · <b>Parceiro Bosch</b></p>
     <h1>PERFORMANCE<br><span>INTELIGENTE!</span></h1>
-    <p class="sub">Há 12 anos em Uberlândia, a Maxi Chip extrai o melhor do seu veículo: potência, economia e saúde do motor — com tecnologia eletrônica de nível concessionária.</p>
+    <p class="sub">Há 12 anos extraindo o melhor de cada veículo — potência, economia e saúde do motor — com equipamentos importados e padrão técnico de concessionária. Do superesportivo ao trator no campo.</p>
     <div class="ctas">
       <a class="btn" href="https://wa.me/5534991483400" target="_blank" rel="noopener">Falar com a Maxi Chip</a>
       <a class="btn btn-ghost" href="#servicos">Conhecer os serviços</a>
@@ -104,102 +171,181 @@
 
 <div class="numbers">
   <div class="wrap">
-    <div class="num"><b>2013</b><span>Em Uberlândia desde</span></div>
+    <div class="num"><b>12+</b><span>Anos em Uberlândia</span></div>
     <div class="num"><b>5.000+</b><span>Diagnósticos realizados</span></div>
+    <div class="num"><b>1.250+</b><span>Máquinas agrícolas reprogramadas</span></div>
     <div class="num"><b>98%</b><span>Aprovação dos clientes</span></div>
-    <div class="num"><b>Bosch</b><span>Parceiro oficial</span></div>
   </div>
 </div>
+
+<section class="prova" id="sobre">
+  <div class="wrap">
+    <span class="sec-tag">Quem somos</span>
+    <h2>Existimos no mundo real</h2>
+    <div class="prova-grid">
+      <div class="prova-txt reveal">
+        <p>A Maxi Chip Performance Automotiva nasceu em 2013, em Uberlândia/MG, com uma convicção: todo veículo guarda um potencial que a eletrônica pode revelar — com segurança, técnica e responsabilidade.</p>
+        <p>Não somos um site bonito. Somos oficina de verdade: galpão estruturado, elevadores homologados até 5.000kg, equipamentos importados de alta precisão e equipe fardada que entende o que está fazendo. Aqui passam desde picapes diesel de trabalho até superesportivos europeus.</p>
+        <p>Parceiro Bosch e membro oficial da Rede AMPB (Mecânicos Premium Brasil) — padrão de concessionária, do diagnóstico à entrega.</p>
+        <div class="selo">
+          <img src="img/asset-logo-mecanicos-premium.jpeg" alt="Selo Mecânicos Premium — Membro Oficial">
+          <span><b>Membro Oficial</b>Rede AMPB · Mecânicos Premium Brasil</span>
+        </div>
+      </div>
+      <div class="prova-imgs reveal">
+        <img class="tall" src="img/oficina-interior-galpao.jpeg" alt="Interior do galpão da oficina Maxi Chip, estrutura ampla">
+        <img src="img/equipe-mecanico-limpando-motor.jpeg" alt="Mecânico fardado da Maxi Chip trabalhando sobre motor aberto">
+        <img src="img/equipe-produtos-liquimoly-bosch.jpeg" alt="Bancada com produtos Liqui Moly e Bosch">
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="servicos">
   <div class="wrap">
     <span class="sec-tag">O que fazemos</span>
-    <h2>Serviços Maxi Chip</h2>
+    <h2>Uma marca, cinco frentes</h2>
     <div class="cards">
+
       <div class="card reveal">
-        <h3>REMAPEAMENTO <em>ECU/TCU</em></h3>
-        <p>Liberamos o potencial que o fabricante deixou guardado no software do seu carro. Ajuste eletrônico reversível, dentro dos limites de segurança, validado em dinamômetro.</p>
-        <div class="meta">+10–30% potência · −10–20% consumo</div>
-        <a class="link" href="https://wa.me/5534991483400?text=Quero%20saber%20mais%20sobre%20remapeamento" target="_blank" rel="noopener">Consultar meu modelo →</a>
+        <div class="ph"><img src="img/premium-mustang-laranja.jpeg" alt="Ford Mustang laranja na oficina Maxi Chip"><span class="tag">Performance</span></div>
+        <div class="bd">
+          <h3>MAXI CHIP <em>PERFORMANCE</em></h3>
+          <p>Remapeamento ECU/TCU e manutenção premium. Liberamos o potencial que o fabricante deixou guardado no software — ajuste reversível, dentro dos limites de segurança. Revisões, freios e suspensão com produtos de primeira linha: Liqui Moly, Brembo, K&amp;N.</p>
+          <div class="meta">+10–30% potência · −10–20% consumo</div>
+          <a class="link" href="https://wa.me/5534991483400?text=Quero%20saber%20mais%20sobre%20remapeamento%20e%20performance" target="_blank" rel="noopener">Consultar meu carro →</a>
+        </div>
       </div>
+
       <div class="card reveal">
-        <h3>MANUTENÇÃO <em>PREMIUM</em></h3>
-        <p>Revisões, freios, suspensão e diagnóstico eletrônico avançado com equipamentos importados e produtos de primeira linha: Liqui Moly, Brembo, K&amp;N. Elevadores homologados até 5.000kg.</p>
-        <div class="meta">Padrão técnico de concessionária</div>
-        <a class="link" href="https://wa.me/5534991483400?text=Quero%20agendar%20uma%20manuten%C3%A7%C3%A3o" target="_blank" rel="noopener">Agendar →</a>
+        <div class="ph"><img src="img/diesel-ram-elevador.jpeg" alt="Picape RAM no elevador para serviço diesel"><span class="tag">Diesel</span></div>
+        <div class="bd">
+          <h3>DIESEL <em>LEVE</em></h3>
+          <p>O biodiesel mudou — e carboniza seu motor por dentro, mesmo com revisão em dia. Diagnóstico do estágio real de carbonização e o tratamento certo: preventivo ou descarbonização completa.</p>
+          <div class="meta">Hilux · Amarok · Ranger · S10 · RAM · Toro</div>
+          <a class="link" href="/diesel-leve/">Conhecer o Diagnóstico Diesel Leve →</a>
+        </div>
       </div>
+
       <div class="card reveal">
-        <h3>DIESEL <em>LEVE</em></h3>
-        <p>O biodiesel mudou — e carboniza seu motor por dentro, mesmo com revisão em dia. Diagnóstico do estágio real de carbonização e o tratamento certo: preventivo ou descarbonização completa.</p>
-        <div class="meta">Hilux, Amarok, Ranger, S10, Toro e mais</div>
-        <a class="link" href="/diesel-leve/">Conhecer o Diagnóstico Diesel Leve →</a>
+        <div class="ph"><img src="img/oficina-interior-audi-azul.jpeg" alt="Audi azul na oficina, ambiente de diagnóstico"><span class="tag">Laudo veicular</span></div>
+        <div class="bd">
+          <h3>MAXI <em>DNA</em></h3>
+          <p>O laudo eletrônico veicular: lemos a memória real do carro — KM verdadeiro, motor, módulos, bateria — antes de você comprar um seminovo. Não aprova. Não reprova. Informa.</p>
+          <div class="meta">Assinado por responsável técnico habilitado (CREA/CFT)</div>
+          <a class="link" href="/maxi-dna-b2c/">Para compradores →</a>
+          <a class="link" href="/maxi-dna-b2b/">Para revendas e concessionárias →</a>
+        </div>
       </div>
+
       <div class="card reveal">
-        <h3>MAXI CHIP <em>AGRO</em></h3>
-        <p>Reprogramação de tratores, colheitadeiras e pulverizadores: mais hectares por hora, menos diesel por hectare. ROI real pro produtor — uma safra sem perder dia paga o investimento.</p>
-        <div class="meta">+15–30% potência · −10–25% consumo</div>
-        <a class="link" href="https://wa.me/5534991483400?text=Quero%20reprogramar%20minha%20m%C3%A1quina%20agr%C3%ADcola" target="_blank" rel="noopener">Falar sobre minha máquina →</a>
+        <div class="ph"><img src="img/branding-maxi-agro-recepcao.jpeg" alt="Material da marca Maxi Agro na recepção"><span class="tag">Agro</span></div>
+        <div class="bd">
+          <h3>MAXI <em>AGRO</em></h3>
+          <p>Reprogramação de tratores, colheitadeiras e pulverizadores: mais hectares por hora, menos diesel por hectare. ROI real pro produtor — uma safra sem perder dia paga o investimento.</p>
+          <div class="meta">+15–30% potência · −10–25% consumo</div>
+          <a class="link" href="https://wa.me/5534991483400?text=Quero%20reprogramar%20minha%20m%C3%A1quina%20agr%C3%ADcola" target="_blank" rel="noopener">Falar sobre minha máquina →</a>
+        </div>
       </div>
+
       <div class="card reveal">
-        <h3>MAXI <em>DNA</em></h3>
-        <p>O laudo eletrônico veicular: lemos a memória real do carro — KM verdadeiro, motor, módulos, bateria — antes de você comprar um seminovo. Não aprova. Não reprova. Informa.</p>
-        <div class="meta">Assinado por RT habilitado (CREA/CFT)</div>
-        <a class="link" href="/maxi-dna-b2c/">Para compradores →</a><br>
-        <a class="link" href="/maxi-dna-b2b/">Para revendas e concessionárias →</a>
+        <div class="ph"><img src="img/suv-jetour-entrada.jpeg" alt="SUV recente na entrada da oficina"><span class="tag new">Nova linha</span></div>
+        <div class="bd">
+          <h3>HÍBRIDOS <em>&amp; ELÉTRICOS</em></h3>
+          <p>A nova linha da Maxi Chip para veículos híbridos e elétricos: diagnóstico eletrônico avançado, manutenção e serviços especializados para a tecnologia que já chegou às ruas — com o mesmo padrão técnico de sempre.</p>
+          <div class="meta">Diagnóstico · Manutenção · Serviços HEV/EV</div>
+          <a class="link" href="https://wa.me/5534991483400?text=Quero%20saber%20sobre%20servi%C3%A7os%20para%20h%C3%ADbridos%20e%20el%C3%A9tricos" target="_blank" rel="noopener">Falar sobre meu veículo →</a>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<section class="diff">
+<section class="frota" id="frota">
+  <div class="wrap">
+    <span class="sec-tag">Prova social</span>
+    <h2>A frota que confia na gente</h2>
+    <div class="gal">
+      <a href="#"><img src="img/premium-mustang-laranja.jpeg" alt="Ford Mustang laranja na Maxi Chip" loading="lazy"></a>
+      <a href="#"><img src="img/premium-bmw-420i-racechip.jpeg" alt="BMW 420i no elevador" loading="lazy"></a>
+      <a href="#"><img src="img/premium-porsche-elevador-02.jpeg" alt="Porsche no elevador com headers inox" loading="lazy"></a>
+      <a href="#"><img src="img/premium-gli-traseira-escape.jpeg" alt="VW Jetta GLI com escape esportivo inox" loading="lazy"></a>
+      <a href="#"><img src="img/fachada-entardecer-porsche.jpeg" alt="Porsche Boxster na fachada ao entardecer" loading="lazy"></a>
+      <a href="#"><img src="img/fachada-noturna-frota-02.jpeg" alt="Fachada noturna com frota premium estacionada" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="wrap">
     <span class="sec-tag">Por que a Maxi Chip</span>
     <h2>Diferenciais</h2>
     <div class="diff-grid">
-      <div class="diff-item reveal"><b>Parceiro Bosch</b><span>Equipamentos e padrões técnicos de referência global</span></div>
-      <div class="diff-item reveal"><b>Rede AMPB</b><span>Mecânicos Premium Brasil — qualidade verificada</span></div>
-      <div class="diff-item reveal"><b>Scanner Profissional</b><span>Nível concessionária, leitura de todas as marcas</span></div>
-      <div class="diff-item reveal"><b>Responsável Técnico</b><span>Laudos assinados por RT habilitado (CREA/CFT)</span></div>
-      <div class="diff-item reveal"><b>Liqui Moly Premium</b><span>Lubrificantes escolhidos por equipes de corrida</span></div>
-      <div class="diff-item reveal"><b>12 anos de estrada</b><span>Histórico sem danos documentados em remapeamento</span></div>
+      <div class="diff-items reveal">
+        <div class="diff-item"><b>Parceiro Bosch</b><span>Equipamentos e padrões técnicos de referência global</span></div>
+        <div class="diff-item"><b>Rede AMPB</b><span>Mecânicos Premium Brasil — membro oficial</span></div>
+        <div class="diff-item"><b>Scanner Profissional</b><span>Nível concessionária, leitura de todas as marcas</span></div>
+        <div class="diff-item"><b>Responsável Técnico</b><span>Laudos assinados por RT habilitado (CREA/CFT)</span></div>
+        <div class="diff-item"><b>Elevadores até 5.000kg</b><span>Estrutura homologada para qualquer porte</span></div>
+        <div class="diff-item"><b>Fornecedores Premium</b><span>Liqui Moly, Brembo, K&amp;N, Fuchs, Tunap, Bosch</span></div>
+        <div class="diff-item"><b>12 anos de estrada</b><span>Histórico sem danos documentados em remapeamento</span></div>
+        <div class="diff-item"><b>Reversível e seguro</b><span>Ajuste eletrônico dentro dos limites do motor</span></div>
+      </div>
+      <div class="diff-img reveal">
+        <img src="img/equipe-produtos-liquimoly-bosch.jpeg" alt="Cuidado técnico: produtos Liqui Moly e Bosch na bancada da Maxi Chip" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
 
-<section id="sobre" class="sobre">
+<section class="sobre">
   <div class="wrap">
-    <span class="sec-tag">Quem somos</span>
-    <h2>Sobre a Maxi Chip</h2>
-    <p>A Maxi Chip Performance Automotiva nasceu em 2013, em Uberlândia/MG, com uma convicção: todo veículo guarda um potencial que a eletrônica pode revelar — com segurança, técnica e responsabilidade.</p>
-    <p>De carros de passeio a superesportivos, de picapes diesel a tratores no campo, aplicamos o mesmo padrão: equipamentos de nível concessionária, produtos premium e gente que entende o que está fazendo.</p>
-    <p class="quote">"O mesmo conhecimento que extrai performance de um motor é o que revela a verdade sobre ele."</p>
+    <p class="quote reveal">"O mesmo conhecimento que extrai performance de um motor é o que revela a verdade sobre ele."</p>
   </div>
 </section>
 
 <section class="contato" id="contato">
   <div class="wrap">
     <span class="sec-tag">Fale com a gente</span>
-    <h2>Contato</h2>
-    <div class="info">
-      <div><b>WhatsApp</b>(34) 99148-3400</div>
-      <div><b>Endereço</b>Av. João Naves de Ávila, 2989 — Uberlândia/MG</div>
-      <div><b>Horário</b>Segunda a sexta, 08h às 18h</div>
-      <div><b>Instagram</b>@performancechip · @maxidna</div>
-      <div><b>E-mail</b>comercial@maxichip.com.br</div>
+    <h2>Onde estamos</h2>
+    <div class="contato-grid">
+      <div class="info-list reveal">
+        <div class="it"><b>WhatsApp</b><span>(34) 99148-3400</span></div>
+        <div class="it"><b>Endereço</b><span>Av. João Naves de Ávila, 2989 — Uberlândia/MG · <a href="https://www.google.com/maps/dir/?api=1&destination=Av.+Jo%C3%A3o+Naves+de+%C3%81vila,+2989,+Uberl%C3%A2ndia+-+MG" target="_blank" rel="noopener" style="color:var(--red);font-weight:700">como chegar →</a></span></div>
+        <div class="it"><b>Horário</b><span>Segunda a sexta, 08h às 18h</span></div>
+        <div class="it"><b>Instagram · YouTube</b><span>@performancechip</span></div>
+        <div class="it"><b>E-mail</b><span>comercial@maxichip.com.br</span></div>
+        <a class="btn" href="https://wa.me/5534991483400" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+      </div>
+      <div class="mapa reveal">
+        <div class="mapa-fb">
+          <b>Av. João Naves de Ávila, 2989</b>
+          <span>Uberlândia/MG</span>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&destination=Av.+Jo%C3%A3o+Naves+de+%C3%81vila,+2989,+Uberl%C3%A2ndia+-+MG" target="_blank" rel="noopener">Como chegar</a>
+        </div>
+        <iframe src="https://www.google.com/maps?q=Av.%20Jo%C3%A3o%20Naves%20de%20%C3%81vila%2C%202989%20Uberl%C3%A2ndia%20MG&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da Maxi Chip em Uberlândia"></iframe>
+      </div>
     </div>
-    <a class="btn" href="https://wa.me/5534991483400" target="_blank" rel="noopener">Chamar no WhatsApp</a>
   </div>
 </section>
 
 <footer>
   <img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip">
+  <div class="fnav">
+    <a href="#servicos">Serviços</a>
+    <a href="/maxi-dna-b2c/">Maxi DNA</a>
+    <a href="/diesel-leve/">Diesel Leve</a>
+    <a href="#sobre">Sobre</a>
+    <a href="https://wa.me/5534991483400" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
   <div>Maxi Chip Performance Automotiva · Av. João Naves de Ávila, 2989 — Uberlândia/MG<br>
-  Parceiro Bosch · Rede AMPB · CNPJ 19.415.180/0001-09 — Maxi Performance Chip<br>
+  Parceiro Bosch · Rede AMPB (Mecânicos Premium Brasil) · CNPJ 19.415.180/0001-09 — Maxi Performance Chip<br>
   <em>"Performance Inteligente!"</em></div>
 </footer>
 
 <script>
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .15 });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 
