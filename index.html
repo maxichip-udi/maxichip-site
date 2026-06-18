@@ -16,7 +16,7 @@
   :root {
     --red: #FD0803; --red-h: #ff2d28; --black: #000; --dark: #0a0a0a;
     --card: #141414; --card-2: #181818; --line: #262626; --line-2: #333;
-    --text: #e8e8e8; --muted: #9a9a9a; --white: #fff;
+    --text: #e8e8e8; --muted: #cccccc; --white: #fff;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -108,9 +108,23 @@
   .diff-item { border-left: 3px solid var(--red); padding: 4px 0 4px 16px; }
   .diff-item b { display: block; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1.12rem; letter-spacing: 1px; text-transform: uppercase; }
   .diff-item span { color: var(--muted); font-size: .92rem; }
-  .diff-img img { width: 100%; border-radius: 10px; border: 1px solid var(--line); aspect-ratio: 4/3; object-fit: cover; }
+  .diff-img { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-content: start; }
+  .diff-img img { width: 100%; height: 100%; border-radius: 10px; border: 1px solid var(--line); aspect-ratio: 3/4; object-fit: cover; }
   @media (max-width: 860px) { .diff-grid { grid-template-columns: 1fr; gap: 30px; } .diff-img { order: -1; } }
   @media (max-width: 480px) { .diff-items { grid-template-columns: 1fr; } }
+
+  /* MISSAO / VISAO / VALORES */
+  .mvv-top { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 42px; }
+  .mvv-card { background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--red); border-radius: 10px; padding: 30px 28px; }
+  .mvv-card h3 { font-size: 1.7rem; color: #fff; margin-bottom: 12px; }
+  .mvv-card p { color: var(--muted); font-size: 1.05rem; line-height: 1.7; }
+  .mvv-vsub { font-size: 1.5rem; color: var(--white); margin-bottom: 22px; letter-spacing: 1px; }
+  .vals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 22px; }
+  .val { border-left: 3px solid var(--red); padding: 6px 0 6px 16px; }
+  .val b { display: block; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase; }
+  .val span { color: var(--muted); font-size: .92rem; }
+  @media (max-width: 860px) { .mvv-top { grid-template-columns: 1fr; } .vals { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .vals { grid-template-columns: 1fr; } }
 
   /* SOBRE (quote) */
   .sobre { background: var(--black); }
@@ -147,6 +161,7 @@
     <a href="#topo"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip Performance Automotiva"></a>
     <div class="nav-links">
       <a href="#sobre">Sobre</a>
+      <a href="#proposito">Propósito</a>
       <a href="#servicos">Serviços</a>
       <a href="#frota">Frota</a>
       <a href="/maxi-dna-b2c/">Maxi DNA</a>
@@ -201,6 +216,32 @@
   </div>
 </section>
 
+<section id="proposito">
+  <div class="wrap">
+    <span class="sec-tag">Nosso propósito</span>
+    <h2>Missão, visão e valores</h2>
+    <div class="mvv-top reveal">
+      <div class="mvv-card">
+        <h3>Missão</h3>
+        <p>Liberar o verdadeiro potencial de cada veículo e cada máquina — entregando a motoristas e produtores rurais a tecnologia, o diagnóstico e a performance que antes só as concessionárias e grandes frotas tinham. Sempre com segurança, transparência e resultado comprovado.</p>
+      </div>
+      <div class="mvv-card">
+        <h3>Visão</h3>
+        <p>Ser a referência técnica em performance e diagnóstico automotivo no Brasil — do carro de rua à máquina agrícola — reconhecida por transformar dados em confiança e potencial em resultado.</p>
+      </div>
+    </div>
+    <h3 class="mvv-vsub">Nossos valores</h3>
+    <div class="vals reveal">
+      <div class="val"><b>Transparência técnica</b><span>Mostramos o dado, provamos o resultado.</span></div>
+      <div class="val"><b>Performance com responsabilidade</b><span>Potência sempre dentro dos limites de segurança.</span></div>
+      <div class="val"><b>Paixão pela máquina</b><span>Cada veículo é um projeto.</span></div>
+      <div class="val"><b>Inovação constante</b><span>A tecnologia muda, a gente acompanha.</span></div>
+      <div class="val"><b>Relacionamento de longo prazo</b><span>Referência por anos, não venda única.</span></div>
+      <div class="val"><b>Excelência verificada</b><span>Padrão Bosch e AMPB é compromisso, não decoração.</span></div>
+    </div>
+  </div>
+</section>
+
 <section id="servicos">
   <div class="wrap">
     <span class="sec-tag">O que fazemos</span>
@@ -208,7 +249,7 @@
     <div class="cards">
 
       <div class="card reveal">
-        <div class="ph"><img src="img/premium-mustang-laranja.jpeg" alt="Ford Mustang laranja na oficina Maxi Chip"><span class="tag">Performance</span></div>
+        <div class="ph"><img src="img/premium-porsche-elevador-02.jpeg" alt="Porsche no elevador com coletor de escape inox — serviço premium Maxi Chip"><span class="tag">Performance</span></div>
         <div class="bd">
           <h3>MAXI CHIP <em>PERFORMANCE</em></h3>
           <p>Remapeamento ECU/TCU e manutenção premium. Liberamos o potencial que o fabricante deixou guardado no software — ajuste reversível, dentro dos limites de segurança. Revisões, freios e suspensão com produtos de primeira linha: Liqui Moly, Brembo, K&amp;N, entre muitos outros!</p>
@@ -218,7 +259,7 @@
       </div>
 
       <div class="card reveal">
-        <div class="ph"><img src="img/diesel-ram-elevador.jpeg" alt="Picape RAM no elevador para serviço diesel"><span class="tag">Diesel</span></div>
+        <div class="ph"><img src="img/diesel-ram-2500-elevador-roda.jpeg" alt="RAM 2500 erguida no elevador de coluna da Maxi Chip para serviço diesel"><span class="tag">Diesel</span></div>
         <div class="bd">
           <h3>DIESEL <em>LEVE</em></h3>
           <p>O Diesel mudou. O Biodiesel aumentou, os motores mudaram — e a carbonização agora pode matar aos poucos o seu motor. Diagnóstico do estado real de carbonização e o tratamento certo: preventivo ou descarbonização completa.</p>
@@ -228,7 +269,7 @@
       </div>
 
       <div class="card reveal">
-        <div class="ph"><img src="img/oficina-interior-audi-azul.jpeg" alt="Audi azul na oficina, ambiente de diagnóstico"><span class="tag">Laudo veicular</span></div>
+        <div class="ph"><img src="img/premium-mustang-laranja.jpeg" alt="Ford Mustang laranja na oficina Maxi Chip"><span class="tag">Laudo veicular</span></div>
         <div class="bd">
           <h3>MAXI <em>DNA</em></h3>
           <p>O laudo eletrônico veicular: lemos a memória real do carro — KM verdadeiro, motor, módulos, bateria — antes de você comprar um seminovo. Não aprova. Não reprova. Informa.</p>
@@ -239,7 +280,7 @@
       </div>
 
       <div class="card reveal">
-        <div class="ph"><img src="img/branding-maxi-agro-recepcao.jpeg" alt="Material da marca Maxi Agro na recepção"><span class="tag">Agro</span></div>
+        <div class="ph"><img src="img/agro-trator-jd-8r-frente-hero.jpeg" alt="Trator John Deere 8R reprogramado pela Maxi Agro, de frente no campo"><span class="tag">Agro</span></div>
         <div class="bd">
           <h3>MAXI <em>AGRO</em></h3>
           <p>Reprogramação de tratores, colheitadeiras e pulverizadores: mais hectares por hora, menos diesel por hectare. ROI real pro produtor — uma safra sem perder dia paga o investimento.</p>
@@ -267,12 +308,12 @@
     <span class="sec-tag">Prova social</span>
     <h2>A frota que confia na gente</h2>
     <div class="gal">
-      <a href="#"><img src="img/premium-mustang-laranja.jpeg" alt="Ford Mustang laranja na Maxi Chip" loading="lazy"></a>
+      <a href="#"><img src="img/premium-amarok-dupla-capo-oficina.jpeg" alt="VW Amarok V6 e RAM diesel em serviço na oficina da Maxi Chip" loading="lazy"></a>
       <a href="#"><img src="img/premium-bmw-420i-racechip.jpeg" alt="BMW 420i no elevador" loading="lazy"></a>
-      <a href="#"><img src="img/premium-porsche-elevador-02.jpeg" alt="Porsche no elevador com headers inox" loading="lazy"></a>
-      <a href="#"><img src="img/premium-gli-traseira-escape.jpeg" alt="VW Jetta GLI com escape esportivo inox" loading="lazy"></a>
-      <a href="#"><img src="img/fachada-entardecer-porsche.jpeg" alt="Porsche Boxster na fachada ao entardecer" loading="lazy"></a>
-      <a href="#"><img src="img/fachada-noturna-frota-02.jpeg" alt="Fachada noturna com frota premium estacionada" loading="lazy"></a>
+      <a href="#"><img src="img/premium-porsche-911-carrera-frente-hero.jpeg" alt="Porsche 911 Carrera na frente da Maxi Chip" loading="lazy"></a>
+      <a href="#"><img src="img/premium-bmw-verde-frente-grade.jpeg" alt="BMW M verde — frente e grade esportiva" loading="lazy"></a>
+      <a href="#"><img src="img/premium-mustang-roxo-velar.jpeg" alt="Ford Mustang roxo na fachada da Maxi Chip" loading="lazy"></a>
+      <a href="#"><img src="img/diesel-hilux-grsport-preta-fachada.jpeg" alt="Toyota Hilux GR-Sport diesel na fachada da Maxi Chip" loading="lazy"></a>
     </div>
   </div>
 </section>
@@ -293,7 +334,8 @@
         <div class="diff-item"><b>Reversível e seguro</b><span>Ajuste eletrônico dentro dos limites do motor</span></div>
       </div>
       <div class="diff-img reveal">
-        <img src="img/equipe-produtos-liquimoly-bosch.jpeg" alt="Cuidado técnico: produtos Liqui Moly e Bosch na bancada da Maxi Chip" loading="lazy">
+        <img src="img/produto-liquimoly-oleo-ceratec.jpeg" alt="Óleo Liqui Moly 5W-40 Leichtlauf High Tech e aditivos premium usados na Maxi Chip" loading="lazy">
+        <img src="img/produto-brembo-pastilhas-audi.jpeg" alt="Pastilhas de freio cerâmicas Brembo instaladas na Maxi Chip" loading="lazy">
       </div>
     </div>
   </div>
@@ -337,6 +379,7 @@
     <a href="/maxi-dna-b2c/">Maxi DNA</a>
     <a href="/diesel-leve/">Diesel Leve</a>
     <a href="#sobre">Sobre</a>
+    <a href="#proposito">Propósito</a>
     <a href="https://wa.me/5534991483400" target="_blank" rel="noopener">WhatsApp</a>
   </div>
   <div>Maxi Chip Performance Automotiva · Av. João Naves de Ávila, 2989 — Uberlândia/MG<br>
