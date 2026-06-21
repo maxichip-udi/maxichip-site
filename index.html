@@ -186,10 +186,10 @@
 
 <div class="numbers">
   <div class="wrap">
-    <div class="num"><b>12+</b><span>Anos em Uberlândia</span></div>
-    <div class="num"><b>5.000+</b><span>Diagnósticos realizados</span></div>
-    <div class="num"><b>1.500+</b><span>Máquinas agrícolas reprogramadas</span></div>
-    <div class="num"><b>98%</b><span>Aprovação dos clientes</span></div>
+    <div class="num"><b data-count="12" data-suffix="+">12+</b><span>Anos em Uberlândia</span></div>
+    <div class="num"><b data-count="5000" data-suffix="+">5.000+</b><span>Diagnósticos realizados</span></div>
+    <div class="num"><b data-count="1500" data-suffix="+">1.500+</b><span>Máquinas agrícolas reprogramadas</span></div>
+    <div class="num"><b data-count="98" data-suffix="%">98%</b><span>Aprovação dos clientes</span></div>
   </div>
 </div>
 
@@ -390,6 +390,21 @@
 <script>
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── COUNT-UP DOS NÚMEROS (re-dispara ao reentrar na viewport) ──
+  (function () {
+    const fmt = (v, dec) => v.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    function animate(el) {
+      if (el.dataset.done) return; el.dataset.done = '1';
+      const target = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || '0', 10);
+      const prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '', dur = 1200, t0 = performance.now();
+      const render = v => { el.innerHTML = prefix + fmt(v, dec) + suffix; };
+      const tick = now => { const p = Math.min((now - t0) / dur, 1); render(target * (1 - Math.pow(1 - p, 3))); p < 1 ? requestAnimationFrame(tick) : render(target); };
+      requestAnimationFrame(tick);
+    }
+    const obs = new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? animate(e.target) : (e.target.dataset.done = ''); }), { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => obs.observe(el));
+  })();
 </script>
 
 </body>
