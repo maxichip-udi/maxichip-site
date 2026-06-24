@@ -948,6 +948,8 @@ section {
   border-radius: 4px;
   display: block;
 }
+/* poster clicável dos vídeos junto à calculadora (mesmo mecanismo da galeria) */
+.vid-thumb-calc { margin-top: 18px; border-radius: 4px; overflow: hidden; }
 
 /* ── BRANDS ── */
 .brands-strip {
@@ -1467,27 +1469,50 @@ footer {
   text-align: right;
 }
 
-/* ── WA FLOAT ── */
+/* ── FAB CONTEXTUAL (acompanha a jornada: calculadora → conversão) ── */
 .wa-float {
   position: fixed;
   bottom: 24px; right: 24px;
   z-index: 300;
-  background: #25D366;
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 14px 22px;
   text-decoration: none;
-  color: #fff;
   font-family: 'DM Sans', sans-serif;
   font-weight: 600;
   font-size: 13px;
   clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-  box-shadow: 0 4px 24px rgba(37,211,102,.3);
-  transition: all .2s;
+  cursor: pointer;
+  transition: background .25s, color .25s, box-shadow .25s, transform .2s;
 }
-.wa-float:hover { background: #1ebe5d; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,.4); }
-.wa-float svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
+.wa-float svg { width: 20px; height: 20px; flex-shrink: 0; }
+.wa-float .fab-label { white-space: nowrap; }
+/* troca de ícone por estado */
+.wa-float .fab-ico-wa   { display: none; }
+.wa-float .fab-ico-calc { display: block; }
+.wa-float.is-convert .fab-ico-wa   { display: block; }
+.wa-float.is-convert .fab-ico-calc { display: none; }
+/* estado A — leva até a calculadora (glass âmbar translúcido) */
+.wa-float.is-calc {
+  background: rgba(212,149,10,.16);
+  backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
+  border: 1px solid rgba(240,174,26,.55);
+  color: var(--amber3);
+  box-shadow: 0 4px 24px rgba(212,149,10,.22);
+}
+.wa-float.is-calc svg { fill: var(--amber3); }
+.wa-float.is-calc:hover { background: rgba(212,149,10,.28); transform: translateY(-2px); }
+/* estado B — conversão (âmbar sólido, punch forte) */
+.wa-float.is-convert {
+  background: var(--amber2);
+  border: 1px solid var(--amber2);
+  color: var(--soil);
+  font-weight: 700;
+  box-shadow: 0 6px 28px rgba(240,174,26,.42);
+}
+.wa-float.is-convert svg { fill: var(--soil); }
+.wa-float.is-convert:hover { background: var(--amber3); transform: translateY(-2px); box-shadow: 0 8px 34px rgba(240,174,26,.5); }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
@@ -1526,8 +1551,9 @@ footer {
   .cta-final { padding: var(--gap) 24px; }
   footer { padding: 24px; flex-direction: column; text-align: center; }
   .foot-info { text-align: center; }
-  .wa-float { padding: 13px; clip-path: none; border-radius: 50%; width: 52px; height: 52px; justify-content: center; }
-  .wa-float span { display: none; }
+  .wa-float { padding: 12px 16px; clip-path: none; border-radius: 999px; font-size: 12px; gap: 8px; max-width: calc(100vw - 28px); }
+  .wa-float svg { width: 18px; height: 18px; }
+  .wa-float .fab-label { overflow: hidden; text-overflow: ellipsis; }
   .cal-section { overflow-x: auto; }
   .cal-table { min-width: 600px; }
 }
@@ -1780,7 +1806,7 @@ footer {
 </div>
 
 <!-- ROI -->
-<div class="roi-section">
+<div class="roi-section" id="roi-calculadora">
   <section>
     <p class="eyebrow reveal">Pense como empresário rural</p>
     <h2 class="sec-title reveal">UM INVESTIMENTO<br>QUE A <em>safra</em><br>PAGA.</h2>
@@ -1904,8 +1930,10 @@ footer {
           </div>
         </div>
         <p class="roi-calc-note">Cálculo: área × <strong style="color:var(--cream2)">1,75 L/ha economizados</strong> — caso real Puma 205, plantadeira de 18 linhas (50 cm · 9,0 m) a 8 km/h (consumo de 34,3 → 21,7 L/h = 4,76 → 3,01 L/ha).</p>
-        <button class="vid-cta" type="button" data-id="hJDRSGRfvGc">▶ Veja esse depoimento</button>
-        <div class="vid-inline"></div>
+        <div class="vid-thumb vid-thumb-calc" data-id="hJDRSGRfvGc" role="button" tabindex="0" aria-label="Reproduzir depoimento Case IH Puma 205">
+          <img loading="lazy" src="img/cap-puma205-calc.webp" alt="Case IH Puma 205 — economia gravada pelo cliente, Maxi Agro">
+          <div class="vid-play"></div>
+        </div>
       </div>
     </div>
 
@@ -2004,9 +2032,11 @@ footer {
             <div class="roi-out-val" id="colh-reais" data-fmt="RS"><span class="sym">R$ </span>0</div>
           </div>
         </div>
-        <p class="roi-calc-note">Base — depoimento real do operador (colhedora de soja JD S770, plataforma 40 pés): <strong style="color:var(--cream2)">5 → 6 km/h = +20% de produtividade</strong> (você fecha a colheita ~17% mais rápido) e consumo de <strong style="color:var(--cream2)">74 → 64 L/h (−10 L/h)</strong> — na plataforma de 40 pés, ~3,4 L de diesel economizados por hectare. E os dias que sobram podem antecipar a 2ª safra: <strong style="color:var(--cream2)">uma ou duas chuvas a mais no ciclo</strong> viram mais produtividade na próxima lavoura. <span style="color:var(--cream3)">Veja o depoimento no botão abaixo.</span></p>
-        <button class="vid-cta" type="button" data-id="jlwCM8-lIsA">▶ Veja esse depoimento</button>
-        <div class="vid-inline"></div>
+        <p class="roi-calc-note">Base — depoimento real do operador (colhedora de soja JD S770, plataforma 40 pés): <strong style="color:var(--cream2)">5 → 6 km/h = +20% de produtividade</strong> (você fecha a colheita ~17% mais rápido) e consumo de <strong style="color:var(--cream2)">74 → 64 L/h (−10 L/h)</strong> — na plataforma de 40 pés, ~3,4 L de diesel economizados por hectare. E os dias que sobram podem antecipar a 2ª safra: <strong style="color:var(--cream2)">uma ou duas chuvas a mais no ciclo</strong> viram mais produtividade na próxima lavoura. <span style="color:var(--cream3)">Veja o depoimento logo abaixo.</span></p>
+        <div class="vid-thumb vid-thumb-calc" data-id="jlwCM8-lIsA" role="button" tabindex="0" aria-label="Reproduzir depoimento John Deere S770">
+          <img loading="lazy" src="img/cap-s770-calc.webp" alt="Colhedora John Deere S770 — depoimento do operador, Maxi Agro">
+          <div class="vid-play"></div>
+        </div>
       </div>
     </div>
 
@@ -2038,7 +2068,7 @@ footer {
 
     <div class="vid-card reveal">
       <div class="vid-thumb" data-id="mpgKQzv0O1I" role="button" tabindex="0" aria-label="Reproduzir depoimento New Holland T7-245">
-        <img loading="lazy" src="https://i.ytimg.com/vi/mpgKQzv0O1I/hqdefault.jpg" alt="Depoimento real — New Holland T7-245 reprogramada pela Maxi Agro">
+        <img loading="lazy" src="img/cap-t7-245.webp" alt="Depoimento real — New Holland T7-245 reprogramada pela Maxi Agro">
         <div class="vid-play"></div>
       </div>
       <div class="vid-cap">
@@ -2049,7 +2079,7 @@ footer {
 
     <div class="vid-card reveal">
       <div class="vid-thumb" data-id="2yFBhbWRcgI" role="button" tabindex="0" aria-label="Reproduzir depoimento de cliente Maxi Agro">
-        <img loading="lazy" src="https://i.ytimg.com/vi/2yFBhbWRcgI/hqdefault.jpg" alt="Cliente satisfeito com a reprogramação da Maxi Agro">
+        <img loading="lazy" src="img/cap-reprog-agricola.webp" alt="Cliente satisfeito com a reprogramação da Maxi Agro">
         <div class="vid-play"></div>
       </div>
       <div class="vid-cap">
@@ -2060,7 +2090,7 @@ footer {
 
     <div class="vid-card reveal">
       <div class="vid-thumb" data-id="_znqUAhAAmg" role="button" tabindex="0" aria-label="Reproduzir vídeo John Deere Cotton 7700">
-        <img loading="lazy" src="https://i.ytimg.com/vi/_znqUAhAAmg/hqdefault.jpg" alt="John Deere Cotton 7700 a pleno vapor na colheita após remap Maxi Agro">
+        <img loading="lazy" src="img/cap-jd-cotton.webp" alt="John Deere Cotton 7700 a pleno vapor na colheita após remap Maxi Agro">
         <div class="vid-play"></div>
       </div>
       <div class="vid-cap">
@@ -2070,35 +2100,35 @@ footer {
     </div>
 
     <div class="vid-card reveal">
-      <div class="vid-thumb" data-id="niW0wpsOX6E" role="button" tabindex="0" aria-label="Reproduzir depoimento New Holland T7">
-        <img loading="lazy" src="https://i.ytimg.com/vi/niW0wpsOX6E/hqdefault.jpg" alt="Depoimento em New Holland T7 — o agro não para, Maxi Agro">
+      <div class="vid-thumb" data-id="C-H28a7tOsg" role="button" tabindex="0" aria-label="Reproduzir depoimento Colhedora John Deere S550">
+        <img loading="lazy" src="img/cap-jd-s550.webp" alt="Depoimento do produtor — Colhedora John Deere S550 reprogramada pela Maxi Agro">
         <div class="vid-play"></div>
       </div>
       <div class="vid-cap">
-        <div class="vid-cap-mac">New Holland T7</div>
-        <div class="vid-cap-desc">O agro não para — resultado entregue na hora.</div>
+        <div class="vid-cap-mac">Colhedora John Deere S550</div>
+        <div class="vid-cap-desc">Economia e produtividade — só a plataforma ficou pequena pro fôlego novo.</div>
       </div>
     </div>
 
     <div class="vid-card reveal">
-      <div class="vid-thumb" data-id="LdnLq5bca8E" role="button" tabindex="0" aria-label="Reproduzir vídeo John Deere 9R">
-        <img loading="lazy" src="https://i.ytimg.com/vi/LdnLq5bca8E/hqdefault.jpg" alt="John Deere 9R — trator grande, resultado grande com Maxi Agro">
+      <div class="vid-thumb" data-id="-L8-kESvjKw" role="button" tabindex="0" aria-label="Reproduzir depoimento John Deere 7J e 7M">
+        <img loading="lazy" src="img/cap-jd-7j-7m.webp" alt="Tratores John Deere 7J e 7M — cliente CNPJ reprogramou de novo com a Maxi Agro">
         <div class="vid-play"></div>
       </div>
       <div class="vid-cap">
-        <div class="vid-cap-mac">John Deere 9R</div>
-        <div class="vid-cap-desc">Trator grande, resultado grande no campo.</div>
+        <div class="vid-cap-mac">John Deere 7J e 7M</div>
+        <div class="vid-cap-desc">Cliente CNPJ chamou de novo — e mede a economia com lupa.</div>
       </div>
     </div>
 
     <div class="vid-card reveal">
-      <div class="vid-thumb" data-id="hJDRSGRfvGc" role="button" tabindex="0" aria-label="Reproduzir depoimento Case IH Puma 205">
-        <img loading="lazy" src="https://i.ytimg.com/vi/hJDRSGRfvGc/hqdefault.jpg" alt="Case IH Puma 205 — resultado gravado pelo cliente, Maxi Agro">
+      <div class="vid-thumb" data-id="fY_h4rDCdP8" role="button" tabindex="0" aria-label="Reproduzir depoimento Valtra BH224">
+        <img loading="lazy" src="img/cap-valtra-bh224.webp" alt="Valtra BH224 reprogramada pela Maxi Agro — o cliente recomenda">
         <div class="vid-play"></div>
       </div>
       <div class="vid-cap">
-        <div class="vid-cap-mac">Case IH Puma 205</div>
-        <div class="vid-cap-desc">Resultado gravado pelo próprio cliente.</div>
+        <div class="vid-cap-mac">Valtra BH224</div>
+        <div class="vid-cap-desc">Agora tem força pra puxar a plantadeira. O cliente recomenda.</div>
       </div>
     </div>
 
@@ -2185,10 +2215,13 @@ footer {
   </div>
 </footer>
 
-<!-- WA FLOAT -->
-<a href="https://wa.me/5534991483400?text=Olá!%20Vim%20pelo%20site%20e%20quero%20saber%20sobre%20reprogramação%20agrícola." class="wa-float" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.106.544 4.09 1.497 5.817L0 24l6.39-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.787 9.787 0 01-5.003-1.374l-.36-.214-3.732.858.882-3.63-.235-.373A9.794 9.794 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
-  <span>Falar agora</span>
+<!-- FAB CONTEXTUAL (estado A: leva à calculadora · estado B: conversão WhatsApp) -->
+<a id="wa-float" href="#roi-calculadora" class="wa-float is-calc" aria-label="Ir para a calculadora de resultados">
+  <!-- ícone estado A: gráfico/barras -->
+  <svg class="fab-ico fab-ico-calc" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h2v18H3V3zm4 10h3v8H7v-8zm5-6h3v14h-3V7zm5 3h3v11h-3V10z"/></svg>
+  <!-- ícone estado B: whatsapp -->
+  <svg class="fab-ico fab-ico-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.106.544 4.09 1.497 5.817L0 24l6.39-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.787 9.787 0 01-5.003-1.374l-.36-.214-3.732.858.882-3.63-.235-.373A9.794 9.794 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+  <span class="fab-label">Calculadora de Resultados</span>
 </a>
 
 <script>
@@ -2260,13 +2293,48 @@ function animateCount(el) {
   requestAnimationFrame(tick);
 }
 const countObs = new IntersectionObserver(
-  es => es.forEach(e => {
-    if (e.isIntersecting) animateCount(e.target);
-    else e.target.dataset.done = '';   // libera pra re-animar na próxima vez que aparecer
+  (es, ob) => es.forEach(e => {
+    // threshold 0 + margem: dispara assim que o número entra na tela (não pula em
+    // scroll rápido nem em salto do FAB). Anima 1x e para de observar (sem flicker).
+    if (e.isIntersecting) { animateCount(e.target); ob.unobserve(e.target); }
   }),
-  { threshold: 0.5 }
+  { threshold: 0, rootMargin: '0px 0px -12% 0px' }
 );
 document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+
+// ── FAB CONTEXTUAL: estado A (leva à calculadora) → estado B (conversão) ──
+(function () {
+  const fab = document.getElementById('wa-float');
+  const roi = document.getElementById('roi-calculadora');
+  if (!fab || !roi) return;
+  const WA = 'https://wa.me/5534991483400?text=Quero%20reprogramar%20minha%20m%C3%A1quina%20e%20parar%20de%20perder%20dinheiro%20com%20diesel';
+  const label = fab.querySelector('.fab-label');
+  let state = '';
+  function setState(s) {
+    if (s === state) return;
+    state = s;
+    const convert = s === 'convert';
+    fab.classList.toggle('is-convert', convert);
+    fab.classList.toggle('is-calc', !convert);
+    label.textContent = convert ? 'Não quero mais perder dinheiro!' : 'Calculadora de Resultados';
+    fab.setAttribute('aria-label', convert ? 'Falar no WhatsApp e parar de perder dinheiro' : 'Ir para a calculadora de resultados');
+    fab.setAttribute('href', convert ? WA : '#roi-calculadora');
+    if (convert) { fab.target = '_blank'; fab.rel = 'noopener'; }
+    else { fab.removeAttribute('target'); fab.removeAttribute('rel'); }
+  }
+  function update() {
+    // vira conversão quando o topo da calculadora cruza a metade da viewport
+    setState(roi.getBoundingClientRect().top <= window.innerHeight * 0.5 ? 'convert' : 'calc');
+  }
+  // no estado A, clique faz scroll suave até a calculadora (não abre WhatsApp)
+  fab.addEventListener('click', e => {
+    if (state !== 'convert') { e.preventDefault(); roi.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+  let ticking = false;
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { update(); ticking = false; }); } }, { passive: true });
+  addEventListener('resize', update, { passive: true });
+  update();
+})();
 
 // ── CALCULADORAS DE ECONOMIA ──
 const DIESEL_DEFAULT = 6.50;
