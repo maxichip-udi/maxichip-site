@@ -42,7 +42,14 @@
   .nav-links .btn { padding: 9px 20px; font-size: .95rem; color: #fff; }
   /* Logo dos bracos com marca propria — so nos cards (Maxi DNA + Maxi Agro) */
   .card .bd h3 img { height: 46px; width: auto; display: block; }
-  @media (max-width: 880px) { .nav-links a:not(.btn) { display: none; } }
+  /* Dropdown de Servicos no nav */
+  .has-dd { position: relative; }
+  .has-dd > a::after { content: "▾"; margin-left: 6px; font-size: .8em; color: var(--red); }
+  .nav-dd { position: absolute; top: 100%; left: 0; display: flex; flex-direction: column; min-width: 190px; background: rgba(10,10,10,.98); border: 1px solid var(--line); border-radius: 6px; padding: 8px 0; box-shadow: 0 16px 40px rgba(0,0,0,.5); opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity .18s ease, transform .18s ease; }
+  .has-dd:hover .nav-dd, .has-dd:focus-within .nav-dd { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dd a { padding: 9px 22px; white-space: nowrap; font-size: .95rem; color: var(--muted); text-transform: uppercase; }
+  .nav-dd a:hover { color: #fff; background: rgba(253,8,3,.12); }
+  @media (max-width: 880px) { .nav-links a:not(.btn), .has-dd { display: none; } }
 
   /* HERO */
   .hero { position: relative; min-height: 86vh; display: flex; align-items: center; text-align: center; overflow: hidden; }
@@ -164,12 +171,16 @@
     <div class="nav-links">
       <a href="#sobre">Sobre</a>
       <a href="#proposito">Propósito</a>
-      <a href="#servicos">Serviços</a>
+      <div class="has-dd">
+        <a href="#servicos">Serviços</a>
+        <div class="nav-dd">
+          <a href="/performance/">Performance</a>
+          <a href="/diesel-leve/">Diesel Leve</a>
+          <a href="/maxi-dna-b2c/">Maxi DNA</a>
+          <a href="/maxi-agro/">Maxi Agro</a>
+        </div>
+      </div>
       <a href="#frota">Frota</a>
-      <a href="/performance/">Performance</a>
-      <a href="/diesel-leve/">Diesel Leve</a>
-      <a href="/maxi-dna-b2c/">Maxi DNA</a>
-      <a href="/maxi-agro/">Maxi Agro</a>
       <a class="btn" href="https://wa.me/5534991483400" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
