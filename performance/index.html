@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reprogramação Eletrônica — Arquivo Autoral Maxi Chip | Performance Inteligente</title>
+<meta name="description" content="Reprogramação não é tudo igual. Existe o arquivo clonado que estraga o motor e some — e existe o Arquivo Autoral Maxi Chip: desenvolvido em dinamômetro, feito um a um para o seu modelo. Mais potência, torque e resposta, com segurança. Maxi Chip — Uberlândia/MG.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --preto:#000000;
+  --carbono:#0a0a0b;
+  --grafite:#141416;
+  --painel:#1b1b1e;
+  --borda:#2a2a2e;
+  --branco:#ffffff;
+  --cinza:#a5a5a5;
+  --cinza-esc:#6b6b70;
+  --vermelho:#FD0803;
+  --vermelho-esc:#b00502;
+  --verde:#19c37d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--preto);color:var(--branco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.mono{font-family:'JetBrains Mono',monospace}
+.container{max-width:1140px;margin:0 auto;padding:0 24px}
+section{padding:88px 0;position:relative}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--vermelho);border:1px solid rgba(253,8,3,.35);padding:6px 14px;border-radius:2px;background:rgba(253,8,3,.06);margin-bottom:22px}
+.tag::before{content:"";width:7px;height:7px;background:var(--vermelho);border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.red{color:var(--vermelho)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:16px 34px;border-radius:3px;transition:.25s;cursor:pointer}
+.btn-red{background:var(--vermelho);color:#fff;box-shadow:0 8px 32px rgba(253,8,3,.35)}
+.btn-red:hover{background:var(--vermelho-esc);transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,8,3,.5)}
+.btn-ghost{border:1px solid var(--borda);color:var(--branco)}
+.btn-ghost:hover{border-color:var(--vermelho);color:var(--vermelho)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-decoration:none;color:#fff;display:inline-flex;align-items:center}
+.logo img{height:42px;width:auto;display:block}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--cinza);text-decoration:none;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--vermelho);color:#fff !important;padding:9px 18px;border-radius:3px;font-weight:600}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 90px;background:
+  radial-gradient(ellipse 80% 55% at 70% 20%, rgba(253,8,3,.10), transparent 60%),
+  linear-gradient(180deg,#050505 0%, #000 100%)}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;mask-image:radial-gradient(ellipse at 60% 30%,#000 30%,transparent 75%)}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(40px,6vw,68px);font-weight:800;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--vermelho)}
+.hero .sub{font-size:19px;color:var(--cinza);max-width:540px;margin-bottom:36px}
+.hero .sub strong{color:#fff}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.hero-note{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc);letter-spacing:.04em}
+.hero-note b{color:var(--verde);font-weight:600}
+
+/* scan card */
+.scan-card{background:linear-gradient(160deg,var(--grafite),var(--carbono));border:1px solid var(--borda);border-radius:8px;padding:28px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.scan-card::before{content:"";position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--vermelho),transparent);animation:scanline 3.2s ease-in-out infinite;box-shadow:0 0 18px var(--vermelho)}
+@keyframes scanline{0%{top:8%}50%{top:92%}100%{top:8%}}
+.scan-head{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--cinza-esc);text-transform:uppercase;margin-bottom:20px}
+.scan-head .live{color:var(--vermelho)}
+.scan-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed var(--borda);font-size:14px}
+.scan-row:last-child{border-bottom:none}
+.scan-row .k{color:var(--cinza)}
+.scan-row .v{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600}
+.v.ok{color:var(--verde)}
+.v.alert{color:var(--vermelho)}
+.scan-verdict{margin-top:18px;padding:14px;border:1px solid rgba(253,8,3,.4);background:rgba(253,8,3,.07);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#ffb3b1;letter-spacing:.02em}
+@media(max-width:900px){.hero .container{grid-template-columns:1fr}.scan-card{max-width:520px}}
+
+/* ===== STATS ===== */
+.stats{background:var(--carbono);border-top:1px solid var(--borda);border-bottom:1px solid var(--borda);padding:54px 0}
+.stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat .n{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;color:var(--vermelho);line-height:1}
+.stat .l{font-size:13.5px;color:var(--cinza);margin-top:8px}
+@media(max-width:860px){.stats .container{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== STORY ===== */
+.story{background:#000}
+.story h2{font-size:clamp(32px,4.4vw,48px);font-weight:800;margin-bottom:20px}
+.story p{color:var(--cinza);margin-bottom:16px;font-size:16.5px;max-width:760px}
+.story p strong{color:#fff}
+.quote{border-left:3px solid var(--vermelho);padding:18px 24px;margin:28px 0;background:var(--grafite);border-radius:0 6px 6px 0;font-size:18px;font-style:italic;color:#fff;max-width:760px}
+.alt{background:var(--carbono)}
+
+/* identificação */
+.ident-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:30px 0}
+.ident-card{background:var(--grafite);border:1px solid var(--borda);border-left:3px solid var(--vermelho);border-radius:0 6px 6px 0;padding:18px 22px;font-size:16px;font-style:italic;color:#fff}
+@media(max-width:760px){.ident-grid{grid-template-columns:1fr}}
+
+/* frase-âncora destaque */
+.anchor-phrase{max-width:820px;margin:34px auto 0;text-align:center;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:800;font-size:clamp(26px,3.6vw,40px);line-height:1.15;color:#fff}
+.anchor-phrase .red{color:var(--vermelho)}
+
+/* ===== GALERIA (single carousel) ===== */
+.carousel{position:relative;max-width:820px;margin:0 auto}
+.carousel-track{overflow:hidden;border-radius:10px}
+.carousel-slide{display:none}
+.carousel-slide.active{display:block}
+.cs-single{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:16/10;background:var(--grafite)}
+.cs-single img{width:100%;height:100%;object-fit:cover;display:block}
+.cs-caption{margin-top:14px;text-align:center;color:var(--cinza);font-size:14.5px}
+.carousel-btn{position:absolute;top:42%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid var(--borda);background:rgba(0,0,0,.65);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:5}
+.carousel-btn:hover{border-color:var(--vermelho);color:var(--vermelho)}
+.carousel-btn.prev{left:-21px}
+.carousel-btn.next{right:-21px}
+.carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.carousel-dot{width:9px;height:9px;border-radius:50%;background:var(--borda);cursor:pointer;border:none;padding:0;transition:.2s}
+.carousel-dot.active{background:var(--vermelho)}
+@media(max-width:640px){.carousel-btn{width:34px;height:34px;font-size:18px}.carousel-btn.prev{left:-8px}.carousel-btn.next{right:-8px}}
+
+/* badges */
+.badge-grid{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0}
+.badge-pill{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);border:1px solid var(--borda);background:var(--grafite);padding:10px 18px;border-radius:30px}
+.badge-pill b{color:#fff}
+a.badge-pill{text-decoration:none;transition:.2s}
+a.badge-pill:hover{border-color:var(--vermelho);color:var(--vermelho)}
+a.badge-pill:hover b{color:var(--vermelho)}
+
+/* módulos / cards de ganho */
+.modules{background:linear-gradient(180deg,var(--carbono),#000)}
+.sec-head{text-align:center;max-width:760px;margin:0 auto 56px}
+.sec-head h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:16px}
+.sec-head p{color:var(--cinza);font-size:17px}
+.context-block{max-width:760px;margin:40px auto 0;color:var(--cinza);font-size:15.5px;background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:22px 26px}
+.context-block strong{color:#fff}
+.mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.mod{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:28px;transition:.3s;position:relative}
+.mod:hover{border-color:rgba(253,8,3,.55);transform:translateY(-4px);box-shadow:0 18px 48px rgba(0,0,0,.5)}
+.mod .ico{font-size:26px;margin-bottom:12px}
+.mod h3{font-size:23px;margin-bottom:10px}
+.mod p{color:var(--cinza);font-size:14.5px}
+@media(max-width:900px){.mod-grid{grid-template-columns:1fr}}
+
+/* oferta */
+.oferta{background:#000}
+.oferta-card{max-width:760px;margin:0 auto;background:var(--grafite);border:1px solid var(--borda);border-radius:10px;padding:40px;text-align:left}
+.oferta-card h2{font-size:clamp(30px,4.4vw,44px);font-weight:800;margin-bottom:18px}
+.oferta-card ul{margin:18px 0 0;padding-left:22px;color:var(--cinza);font-size:16px}
+.oferta-card ul li{margin-bottom:8px}
+.oferta-card ul li strong{color:#fff}
+.oferta-card .btn{margin-top:30px}
+.reforco{margin-top:18px;color:var(--cinza-esc);font-size:14px;max-width:560px}
+
+/* posicionamento */
+.position{background:linear-gradient(180deg,var(--carbono),#000);text-align:center}
+.position h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,5vw,52px);font-weight:800;text-transform:uppercase;line-height:1.15;margin-bottom:24px}
+.position .red-line{color:var(--vermelho)}
+.position p{max-width:680px;margin:18px auto 0;color:var(--cinza);font-size:17px}
+.position .tagline{margin-top:32px;font-size:20px;font-style:italic;color:#fff}
+
+/* objeções / faq */
+.qa-list{display:flex;flex-direction:column;gap:16px;max-width:820px;margin:0 auto}
+.qa-item{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:24px 28px}
+.qa-item h3{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.qa-item p{color:var(--cinza);font-size:15.5px;margin:0}
+.qa-item p strong{color:#fff}
+
+/* depoimento */
+.testi{max-width:780px;margin:0 auto;background:var(--grafite);border:1px solid var(--borda);border-left:3px solid var(--verde);border-radius:0 8px 8px 0;padding:30px 34px}
+.testi .q{font-size:19px;font-style:italic;color:#fff;line-height:1.5}
+.testi .a{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cinza);letter-spacing:.04em}
+
+/* cta final */
+.final{background:radial-gradient(ellipse 70% 90% at 50% 110%, rgba(253,8,3,.18), transparent 65%),#000;text-align:center;padding:110px 0}
+.final h2{font-size:clamp(34px,5vw,56px);font-weight:800;margin-bottom:18px}
+.final p{color:var(--cinza);font-size:18px;max-width:600px;margin:0 auto 36px}
+.final .micro{margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc)}
+
+/* footer */
+footer{border-top:1px solid var(--borda);background:#050505;padding:48px 0 32px}
+footer .container{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px}
+footer h4{font-family:'Barlow Condensed',sans-serif;font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:14px}
+footer p,footer a{color:var(--cinza-esc);font-size:14px;text-decoration:none;display:block;margin-bottom:6px}
+footer a:hover{color:var(--vermelho)}
+.copy{grid-column:1/-1;border-top:1px solid var(--borda);margin-top:28px;padding-top:22px;font-size:12.5px;color:var(--cinza-esc);text-align:center}
+@media(max-width:760px){footer .container{grid-template-columns:1fr}}
+
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:99;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.45);transition:.25s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="logo" href="/" aria-label="Voltar para a página inicial Maxi Chip"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip"></a>
+    <div class="nav-links">
+      <a href="#mecanismo">O mecanismo</a>
+      <a href="#ganho">O que ganha</a>
+      <a href="#oferta">O diagnóstico</a>
+      <a href="#faq">Dúvidas</a>
+      <a class="nav-cta" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20Performance%20da%20Maxi%20Chip%20e%20quero%20reprogramar%20meu%20carro." target="_blank">Reprogramar meu carro</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div>
+      <div class="tag">Reprogramação Eletrônica · Maxi Chip · Uberlândia/MG</div>
+      <h1>Seu carro saiu de fábrica com mais potência do que entrega. A Maxi Chip libera — com o <em>Arquivo Autoral Maxi Chip</em></h1>
+      <p class="sub">Reprogramação não é tudo igual. Tem o arquivo clonado, barato, que estraga teu motor e some. E tem a engenharia responsável: um arquivo <strong>desenvolvido em dinamômetro, feito um a um para o seu modelo</strong>. Mais força, torque e resposta — com segurança.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-red" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20Performance%20da%20Maxi%20Chip%20e%20quero%20reprogramar%20meu%20carro." target="_blank">QUERO REPROGRAMAR MEU CARRO!</a>
+        <a class="btn btn-ghost" href="#mecanismo">Entender o mecanismo</a>
+      </div>
+      <div class="hero-note">> 12 anos de estrada · <b>100% reversível</b> · responsabilidade técnica em cada arquivo</div>
+    </div>
+    <div class="scan-card">
+      <div class="scan-head"><span>// ARQUIVO AUTORAL MAXI CHIP</span><span class="live">● EM DESENVOLVIMENTO</span></div>
+      <div class="scan-row"><span class="k">Potência travada de fábrica</span><span class="v alert">Identificada</span></div>
+      <div class="scan-row"><span class="k">Arquivo</span><span class="v ok">Desenvolvido em dinamômetro</span></div>
+      <div class="scan-row"><span class="k">Feito para</span><span class="v ok">O seu modelo · um a um</span></div>
+      <div class="scan-row"><span class="k">Clonagem (ctrl+c / ctrl+v)</span><span class="v alert">Bloqueado</span></div>
+      <div class="scan-row"><span class="k">Reprogramação</span><span class="v ok">100% reversível</span></div>
+      <div class="scan-row"><span class="k">Responsabilidade técnica</span><span class="v ok">Assinada</span></div>
+      <div class="scan-verdict">>> O Arquivo Autoral libera a potência travada do SEU modelo — com segurança e responsabilidade técnica.</div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="container">
+    <div class="stat reveal"><div class="n" data-count="12" data-suffix=" anos">12 anos</div><div class="l">de Maxi Chip liberando potência com segurança</div></div>
+    <div class="stat reveal"><div class="n" data-count="1250" data-suffix="+">1.250+</div><div class="l">máquinas e motores já reprogramados</div></div>
+    <div class="stat reveal"><div class="n">1 a 1</div><div class="l">cada arquivo desenvolvido em dinamômetro, sem clonagem</div></div>
+    <div class="stat reveal"><div class="n">100%</div><div class="l">reversível — a ECU sempre pode voltar ao original</div></div>
+  </div>
+</div>
+
+<!-- MECANISMO -->
+<section class="story" id="mecanismo">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Como funciona</div>
+      <h2>O que separa uma reprogramação que dá força do "chipzinho" que <span class="red">queima o motor</span> e te deixa na mão?</h2>
+      <p>Uma palavra: <strong>autoria</strong>.</p>
+      <p>O <strong>Arquivo Autoral Maxi Chip</strong> é desenvolvido em dinamômetro, pelo nosso engenheiro, e feito um a um para o modelo do SEU carro. Não é arquivo clonado, copiado de um genérico e jogado em qualquer motor (ctrl+c / ctrl+v).</p>
+      <p>É <strong>reprogramação reversível</strong>: ajuste de software dentro dos limites de segurança. Tudo o que a gente faz tem como reverter — a ECU volta ao original quando você precisar. A gente diagnostica antes, te mostra o cenário exato do SEU modelo, e só então toca no carro.</p>
+      <div class="quote">Mal feito, quebra. Por isso o que importa não é SE faz — é QUEM faz.</div>
+      <p><strong>Mas se é assim que se faz certo… por que tanta gente se queima fazendo errado?</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTIFICAÇÃO -->
+<section class="story alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Identificação</div>
+      <h2>Se você já pensou isso, presta atenção aqui:</h2>
+      <div class="ident-grid">
+        <div class="ident-card">"Quero fazer a reprogramação, mas tô com medo… isso não quebra o motor?"</div>
+        <div class="ident-card">"No zé da esquina é mais barato. Não dá pra fazer o mesmo preço?"</div>
+        <div class="ident-card">"Por que o carro não vem de fábrica já assim?"</div>
+        <div class="ident-card">"Já paguei barato uma vez e me ferrei. Não quero cair de novo."</div>
+      </div>
+      <p style="margin-top:28px"><strong>Se você se reconheceu em pelo menos uma, a próxima parte é pra você.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- VIRADA / INIMIGO -->
+<section class="story">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">A peça que faltava</div>
+      <h2>Ninguém te contou que existem <span class="red">dois mercados</span>.</h2>
+      <p>O barato que você viu não é "a mesma coisa mais em conta". É outra coisa. É arquivo clonado — copiado de um motor genérico, sem dinamômetro, sem ninguém assinando embaixo. Quando dá problema, o cara some — e o prejuízo é seu (perdeu dinheiro <strong>E</strong> arriscou o motor).</p>
+      <p>Do outro lado existe a engenharia responsável: arquivo desenvolvido em dinamômetro, feito um a um para o seu modelo, com responsabilidade técnica de quem faz isso há 12 anos.</p>
+      <p><strong>O problema nunca foi o preço. Foi ninguém te explicar essa diferença.</strong></p>
+      <div class="anchor-phrase">"Mal feito, quebra.<br>O que importa não é SE faz — é <span class="red">QUEM faz</span>."</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="story alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Reprogramados na Maxi</div>
+      <h2>Carro bom não entra em <span class="red">qualquer oficina</span></h2>
+      <p>Uma parte dos carros que já receberam o Arquivo Autoral Maxi Chip.</p>
+    </div>
+    <div class="carousel reveal" id="galeria">
+      <button class="carousel-btn prev" type="button" aria-label="Anterior">‹</button>
+      <div class="carousel-track">
+        <div class="carousel-slide active"><div class="cs-single"><img src="carro-porsche911.jpeg" alt="Porsche 911 Carrera reprogramado na Maxi Chip"></div><div class="cs-caption">Porsche 911 Carrera — reprogramado na Maxi Chip</div></div>
+        <div class="carousel-slide"><div class="cs-single"><img src="carro-amarok.jpeg" alt="VW Amarok reprogramada na oficina Maxi Chip"></div><div class="cs-caption">VW Amarok — reprogramada na Maxi Chip</div></div>
+        <div class="carousel-slide"><div class="cs-single"><img src="carro-porsche-elevador.jpeg" alt="Porsche no elevador da oficina Maxi Chip"></div><div class="cs-caption">Porsche — reprogramado na Maxi Chip</div></div>
+        <div class="carousel-slide"><div class="cs-single"><img src="carro-hilux.jpeg" alt="Toyota Hilux GR-Sport reprogramada na Maxi Chip"></div><div class="cs-caption">Hilux GR-Sport — reprogramada na Maxi Chip</div></div>
+      </div>
+      <button class="carousel-btn next" type="button" aria-label="Próximo">›</button>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE GANHA -->
+<section class="modules" id="ganho">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>O que muda quando o arquivo é feito <span class="red">pro SEU carro</span></h2>
+      <p>O que a Maxi entrega — e controla.</p>
+    </div>
+    <div class="mod-grid">
+      <div class="mod reveal">
+        <div class="ico">⚡</div>
+        <h3>Mais potência</h3>
+        <p>Você sente o carro respondendo — não "no papel", na estrada.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="ico">🔩</div>
+        <h3>Torque em baixa</h3>
+        <p>Aquela força pra sair, ultrapassar e subir carregado sem sofrer.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="ico">🎯</div>
+        <h3>Resposta de acelerador</h3>
+        <p>O carro deixa de ser "mole". Pisou, andou.</p>
+      </div>
+    </div>
+    <div class="context-block reveal">
+      <strong>🛡️ E com segurança:</strong> reprogramação dentro dos limites do motor, com arquivo desenvolvido em dinamômetro. E <strong>100% reversível</strong> — tudo o que a gente faz tem como reverter, a ECU volta ao original quando você precisar. Não é apertar parafuso no escuro.
+      <br><br>
+      <strong>E o consumo?</strong> 9 em cada 10 clientes relatam gastar menos no dia a dia. Mas a gente <strong>não promete economia</strong> — porque ela depende de manutenção, combustível e do seu pé. Cavalo que anda, cavalo que bebe. Quem te <strong>promete</strong> economia já deixou a desculpa pronta pra quando não acontecer. A gente entrega o que controla: potência, torque e resposta.
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTO -->
+<section class="story">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Quem viveu os dois lados</div>
+      <h2>"Não deu conta lá. Aqui <span class="red">voltou ao normal</span>."</h2>
+    </div>
+    <div class="testi reveal">
+      <div class="q">"Sofri uns dois, três meses com a caminhonete. O mecânico lá da minha cidade reformou o motor mas não deu conta de regular — três meses só pra configurar o chip, e configurou tudo errado. Trouxe pra Maxi e voltou ao normal: a bicha veio voando, não perdeu força, não acendeu luz de injeção. Voltou o que era antes."</div>
+      <div class="a">— Cliente de Ipiaçu/MG · reprogramação de picape</div>
+    </div>
+    <div class="reveal" style="max-width:760px;margin:36px auto 0">
+      <p style="color:var(--cinza);font-size:16px;margin-bottom:10px"><strong style="color:#fff">Como a gente garante isso sem "chute":</strong></p>
+      <p style="color:var(--cinza);font-size:16px;margin:0">• Arquivo desenvolvido em dinamômetro pelo nosso engenheiro, feito um a um para o seu modelo<br>• Diagnóstico antes de tocar no carro — e tudo 100% reversível<br>• 12 anos fazendo isso, com responsabilidade técnica</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="oferta" id="oferta">
+  <div class="oferta-card reveal">
+    <div class="tag">O primeiro passo</div>
+    <h2>Quanto custa? Depende do seu carro — e é assim que tem que ser.</h2>
+    <p style="color:var(--cinza);font-size:16px">Preço de reprogramação sério não é tabela de prateleira. Cada modelo tem seu motor, seu cenário de garantia, seu potencial. Por isso a gente começa pelo diagnóstico: olha o SEU carro, te explica exatamente o que dá pra fazer (e o que não dá), e aí sim fala de valor — sem surpresa.</p>
+    <ul>
+      <li>Diagnóstico do seu modelo</li>
+      <li><strong>Arquivo Autoral Maxi Chip</strong> (desenvolvido em dinamômetro, feito um a um para o seu modelo)</li>
+      <li>Reprogramação <strong>100% reversível</strong>, dentro dos limites de segurança</li>
+      <li>Transparência total — inclusive sobre garantia — antes de tocar no carro</li>
+    </ul>
+    <a class="btn btn-red" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20Performance%20da%20Maxi%20Chip%20e%20quero%20reprogramar%20meu%20carro." target="_blank">QUERO REPROGRAMAR MEU CARRO!</a>
+    <div class="reforco">Diagnóstico primeiro. A gente só toca no carro depois que você entende exatamente o que vai ser feito.</div>
+  </div>
+</section>
+
+<!-- AUTORIDADE -->
+<section class="story alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Quem assina o arquivo do seu carro</div>
+      <h2>A Maxi Chip faz isso há <span class="red">12 anos</span></h2>
+      <p>A Maxi Chip Performance Automotiva é especialista em performance e reparação automotiva desde 2013 — 12 anos liberando o potencial de carros e máquinas com tecnologia de nível concessionária.</p>
+      <p>Cada Arquivo Autoral é desenvolvido em dinamômetro pelo nosso engenheiro e feito um a um para cada modelo. Nada de arquivo clonado. Fazemos parte da <strong>Rede AMPB</strong> (Mecânicos Premium Brasil) — e assumimos responsabilidade técnica pelo que entregamos.</p>
+      <div class="badge-grid">
+        <a class="badge-pill" href="https://www.mecanicospremium.com/membros" target="_blank" rel="noopener"><b>Rede AMPB</b> · Mecânicos Premium Brasil ↗</a>
+        <div class="badge-pill"><b>1.250+</b> máquinas reprogramadas</div>
+        <div class="badge-pill"><b>100% reversível</b> · a ECU volta ao original</div>
+        <div class="badge-pill"><b>Arquivo autoral</b> · desenvolvido em dinamômetro</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJEÇÕES -->
+<section class="story">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">As perguntas que todo mundo faz</div>
+      <h2>A resposta <span class="red">honesta</span></h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal"><h3>"Isso não quebra o motor?"</h3><p>Mal feito, quebra. Bem feito — arquivo um a um, desenvolvido em dinamômetro, dentro dos limites de segurança — não. Não é SE faz, é QUEM faz.</p></div>
+      <div class="qa-item reveal"><h3>"No zé é mais barato."</h3><p>O barato é arquivo clonado, sem responsabilidade. Quando estraga, o zé some e o prejuízo é seu. Aqui é engenharia + 12 anos de responsabilidade técnica.</p></div>
+      <div class="qa-item reveal"><h3>"Tô com medo."</h3><p>Normal. Por isso tudo o que a gente faz é <strong>100% reversível</strong>, com diagnóstico antes e transparência total — a gente só toca no carro depois que você entende exatamente o que vai ser feito.</p></div>
+      <div class="qa-item reveal"><h3>"Vou perder a garantia?"</h3><p>Depende do modelo e da montadora. Em alguns não há impacto, em outros existe risco. A gente te diz o cenário exato do SEU carro <strong>antes</strong> de fazer qualquer coisa. Sem promessa que a gente não controla.</p></div>
+      <div class="qa-item reveal"><h3>"Vou economizar combustível?"</h3><p>A gente entrega potência, torque e resposta. Economia é consequência — 9 em 10 relatam gastar menos, mas <strong>não prometemos</strong>, porque depende de manutenção, combustível e do seu pé. Quem te promete economia já deixou a desculpa pronta.</p></div>
+      <div class="qa-item reveal"><h3>"Por que não vem de fábrica?"</h3><p>A fábrica usa o mesmo motor por anos e libera potência aos poucos — inclusive pra vender o "modelo novo" mais caro depois. Sobra potencial travado. A calibração de fábrica ainda mira o pior cenário global (combustível ruim, clima, normas). O Arquivo Autoral destrava o que é seguro pro SEU carro.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="story alt" id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Perguntas frequentes</div>
+      <h2>Antes de chamar</h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal"><h3>Quanto tempo leva?</h3><p>Depende do modelo — a maioria sai no mesmo dia. A gente confirma o prazo do seu carro no diagnóstico.</p></div>
+      <div class="qa-item reveal"><h3>Serve pro meu carro?</h3><p>Trabalhamos com carros com injeção eletrônica <strong>a partir de 2010</strong>. Manda o modelo/ano no WhatsApp que a gente confirma a compatibilidade do seu.</p></div>
+      <div class="qa-item reveal"><h3>É reversível?</h3><p>Sim, <strong>100%</strong>. A reprogramação é software — tudo o que a gente faz tem como reverter: a ECU volta ao original quando você precisar.</p></div>
+      <div class="qa-item reveal"><h3>Vocês fazem em diesel e em flex/gasolina?</h3><p>Sim, os dois. A promessa é a mesma: potência, torque e resposta, com segurança.</p></div>
+      <div class="qa-item reveal"><h3>Onde é feito?</h3><p>Na Maxi Chip, em Uberlândia/MG — <a href="https://www.google.com/maps/search/?api=1&query=Maxi+Chip+Performance%2C+Av.+Jo%C3%A3o+Naves+de+%C3%81vila%2C+2989+-+Uberl%C3%A2ndia%2FMG" target="_blank" rel="noopener" style="color:var(--vermelho);text-decoration:underline">Av. João Naves de Ávila, 2989 (toque pra abrir no mapa)</a>. Atendimento com hora marcada.</p></div>
+      <div class="qa-item reveal"><h3>Como começo?</h3><p>Chama no WhatsApp (34) 99148-3400 com o modelo do seu carro. A gente faz o diagnóstico e te explica tudo antes de qualquer coisa.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final">
+  <div class="container reveal">
+    <div class="tag" style="margin:0 auto 26px">Performance Inteligente</div>
+    <h2>Seu carro já tem a <span class="red">potência</span>.</h2>
+    <p>Ela só tá esperando alguém que saiba liberar — sem clonagem, sem gambiarra, com responsabilidade. Isso é Performance Inteligente.</p>
+    <a class="btn btn-red" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20Performance%20da%20Maxi%20Chip%20e%20quero%20reprogramar%20meu%20carro." target="_blank">QUERO REPROGRAMAR MEU CARRO!</a>
+    <div class="micro">> Diagnóstico primeiro · Transparência total · <a href="https://www.google.com/maps/search/?api=1&query=Maxi+Chip+Performance%2C+Av.+Jo%C3%A3o+Naves+de+%C3%81vila%2C+2989+-+Uberl%C3%A2ndia%2FMG" target="_blank" rel="noopener" style="color:var(--vermelho);text-decoration:underline">Av. João Naves de Ávila, 2989 — Uberlândia/MG (abrir no mapa)</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <a class="logo" href="/" aria-label="Voltar para a página inicial Maxi Chip" style="margin-bottom:14px"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip" style="height:52px"></a>
+      <p>Reprogramação Eletrônica — Maxi Chip Performance Automotiva. Rede AMPB · responsabilidade técnica. CNPJ 19.415.180/0001-09.</p>
+    </div>
+    <div>
+      <h4>Fale com a gente</h4>
+      <a href="https://wa.me/5534991483400" target="_blank">WhatsApp: (34) 99148-3400</a>
+      <a href="mailto:comercial@maxichip.com.br">comercial@maxichip.com.br</a>
+      <a href="https://instagram.com/performancechip" target="_blank">Instagram: @performancechip</a>
+      <a href="https://youtube.com/@performancechip" target="_blank">YouTube: @performancechip</a>
+    </div>
+    <div>
+      <h4>Endereço</h4>
+      <a href="https://www.google.com/maps/search/?api=1&query=Maxi+Chip+Performance%2C+Av.+Jo%C3%A3o+Naves+de+%C3%81vila%2C+2989+-+Uberl%C3%A2ndia%2FMG" target="_blank" rel="noopener">Av. João Naves de Ávila, 2989<br>Uberlândia/MG · abrir no mapa ↗</a>
+      <p>Seg a sex · 08h às 18h<br>Atendimento com hora marcada</p>
+    </div>
+    <div class="copy">"Performance Inteligente." · © 2026 Maxi Chip Performance Automotiva</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20Performance%20da%20Maxi%20Chip%20e%20quero%20reprogramar%20meu%20carro." target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+(function(){
+  const fmt=(v,dec)=>v.toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+  function animate(el){
+    if(el.dataset.done)return; el.dataset.done='1';
+    const target=parseFloat(el.dataset.count),dec=parseInt(el.dataset.dec||'0',10);
+    const prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'',dur=1200,t0=performance.now();
+    const render=v=>{el.innerHTML=prefix+fmt(v,dec)+suffix;};
+    const tick=now=>{const p=Math.min((now-t0)/dur,1);render(target*(1-Math.pow(1-p,3)));p<1?requestAnimationFrame(tick):render(target);};
+    requestAnimationFrame(tick);
+  }
+  const cObs=new IntersectionObserver(es=>es.forEach(e=>{e.isIntersecting?animate(e.target):(e.target.dataset.done='');}),{threshold:0.5});
+  document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
+})();
+
+function initCarousel(scope){
+  const root=document.querySelector(scope);
+  if(!root) return;
+  const slides=root.querySelectorAll('.carousel-slide');
+  const dotsWrap=root.querySelector('.carousel-dots');
+  if(!slides.length) return;
+  let idx=0;
+  slides.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='carousel-dot'+(i===0?' active':'');
+    d.type='button';
+    d.setAttribute('aria-label','Ir pro slide '+(i+1));
+    d.addEventListener('click',()=>go(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots=root.querySelectorAll('.carousel-dot');
+  function go(i){
+    slides[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx=(i+slides.length)%slides.length;
+    slides[idx].classList.add('active');
+    dots[idx].classList.add('active');
+  }
+  root.querySelector('.carousel-btn.prev').addEventListener('click',()=>go(idx-1));
+  root.querySelector('.carousel-btn.next').addEventListener('click',()=>go(idx+1));
+}
+initCarousel('#galeria');
+</script>
+</body>
+</html>
