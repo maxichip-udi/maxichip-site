@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oficina Mecânica Premium em Uberlândia | Maxi Chip — Diagnóstico Inteligente</title>
+<meta name="description" content="Oficina mecânica premium em Uberlândia: o Diagnóstico Inteligente Maxi Chip comprova o problema antes de trocar qualquer peça. Freios, suspensão, revisões e ar-condicionado — padrão Bosch Car Service.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --preto:#000000;
+  --carbono:#0a0a0b;
+  --grafite:#141416;
+  --painel:#1b1b1e;
+  --borda:#2a2a2e;
+  --branco:#ffffff;
+  --cinza:#a5a5a5;
+  --cinza-esc:#6b6b70;
+  --dourado:#D9B24C;
+  --dourado-claro:#EBCB78;
+  --dourado-esc:#9a7c2e;
+  --verde:#19c37d;
+  --verde-wa:#25d366;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--preto);color:var(--branco);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.mono{font-family:'JetBrains Mono',monospace}
+.container{max-width:1140px;margin:0 auto;padding:0 24px}
+section{padding:88px 0;position:relative}
+.tag{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--dourado);border:1px solid rgba(217,178,76,.35);padding:6px 14px;border-radius:2px;background:rgba(217,178,76,.06);margin-bottom:22px}
+.tag::before{content:"";width:7px;height:7px;background:var(--dourado);border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.gold{color:var(--dourado)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:16px 34px;border-radius:3px;transition:.25s;cursor:pointer}
+.btn-wa{background:var(--verde-wa);color:#04150b;box-shadow:0 8px 32px rgba(37,211,102,.30)}
+.btn-wa:hover{background:#1fbd5b;transform:translateY(-2px);box-shadow:0 12px 40px rgba(37,211,102,.45)}
+.btn-ghost{border:1px solid var(--borda);color:var(--branco)}
+.btn-ghost:hover{border-color:var(--dourado);color:var(--dourado)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--borda)}
+nav .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;letter-spacing:.04em;text-decoration:none;color:#fff;display:inline-flex;align-items:center}
+.logo img{height:42px;width:auto;display:block}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--cinza);text-decoration:none;font-size:14px;font-weight:500;transition:.2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--verde-wa);color:#04150b !important;padding:9px 18px;border-radius:3px;font-weight:600}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 90px;background:
+  radial-gradient(ellipse 80% 55% at 70% 20%, rgba(217,178,76,.10), transparent 60%),
+  linear-gradient(180deg,#050505 0%, #000 100%)}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;mask-image:radial-gradient(ellipse at 60% 30%,#000 30%,transparent 75%)}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(38px,5.8vw,64px);font-weight:800;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--dourado)}
+.hero .sub{font-size:19px;color:var(--cinza);max-width:540px;margin-bottom:36px}
+.hero .sub strong{color:#fff}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.hero-note{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc);letter-spacing:.04em}
+.hero-note b{color:var(--dourado)}
+
+/* scan card */
+.scan-card{background:linear-gradient(160deg,var(--grafite),var(--carbono));border:1px solid var(--borda);border-radius:8px;padding:28px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.scan-card::before{content:"";position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--dourado),transparent);animation:scanline 3.2s ease-in-out infinite;box-shadow:0 0 18px var(--dourado)}
+@keyframes scanline{0%{top:8%}50%{top:92%}100%{top:8%}}
+.scan-head{display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--cinza-esc);text-transform:uppercase;margin-bottom:20px}
+.scan-head .live{color:var(--dourado)}
+.scan-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed var(--borda);font-size:14px}
+.scan-row:last-child{border-bottom:none}
+.scan-row .k{color:var(--cinza)}
+.scan-row .v{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600}
+.v.ok{color:var(--verde)}
+.v.alert{color:var(--dourado)}
+.scan-verdict{margin-top:18px;padding:14px;border:1px solid rgba(217,178,76,.4);background:rgba(217,178,76,.07);border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--dourado-claro);letter-spacing:.02em}
+@media(max-width:900px){.hero .container{grid-template-columns:1fr}.scan-card{max-width:520px}}
+
+/* ===== STATS ===== */
+.stats{background:var(--carbono);border-top:1px solid var(--borda);border-bottom:1px solid var(--borda);padding:54px 0}
+.stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+.stat .n{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:800;color:var(--dourado);line-height:1}
+.stat .l{font-size:13.5px;color:var(--cinza);margin-top:8px}
+@media(max-width:860px){.stats .container{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== STORY ===== */
+.story{background:#000}
+.story h2{font-size:clamp(32px,4.4vw,48px);font-weight:800;margin-bottom:20px}
+.story p{color:var(--cinza);margin-bottom:16px;font-size:16.5px;max-width:760px}
+.story p strong{color:#fff}
+.quote{border-left:3px solid var(--dourado);padding:18px 24px;margin:28px 0;background:var(--grafite);border-radius:0 6px 6px 0;font-size:18px;font-style:italic;color:#fff;max-width:760px}
+.alt{background:var(--carbono)}
+
+/* identificação */
+.ident-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:30px 0}
+.ident-card{background:var(--grafite);border:1px solid var(--borda);border-left:3px solid var(--dourado);border-radius:0 6px 6px 0;padding:18px 22px;font-size:16px;font-style:italic;color:#fff}
+@media(max-width:760px){.ident-grid{grid-template-columns:1fr}}
+
+/* frase destaque */
+.anchor-phrase{max-width:820px;margin:34px auto 0;text-align:center;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:800;font-size:clamp(26px,3.6vw,40px);line-height:1.15;color:#fff}
+.anchor-phrase .gold{color:var(--dourado)}
+
+/* ===== GALERIA mosaico (fotos verticais) ===== */
+.mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:980px;margin:0 auto}
+.mosaic-item{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/4;background:var(--grafite);border:1px solid var(--borda)}
+.mosaic-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.mosaic-item:hover img{transform:scale(1.04)}
+.mosaic-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:36px 14px 12px;font-size:13px;color:#eee;background:linear-gradient(transparent,rgba(0,0,0,.85))}
+@media(max-width:860px){.mosaic{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.mosaic{grid-template-columns:1fr}.mosaic-item{aspect-ratio:4/5}}
+
+/* badges */
+.badge-grid{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0}
+.badge-pill{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);border:1px solid var(--borda);background:var(--grafite);padding:10px 18px;border-radius:30px}
+.badge-pill b{color:#fff}
+a.badge-pill{text-decoration:none;transition:.2s}
+a.badge-pill:hover{border-color:var(--dourado);color:var(--dourado)}
+a.badge-pill:hover b{color:var(--dourado)}
+
+/* serviços / cards */
+.modules{background:linear-gradient(180deg,var(--carbono),#000)}
+.sec-head{text-align:center;max-width:760px;margin:0 auto 56px}
+.sec-head h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:16px}
+.sec-head p{color:var(--cinza);font-size:17px}
+.context-block{max-width:760px;margin:40px auto 0;color:var(--cinza);font-size:15.5px;background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:22px 26px}
+.context-block strong{color:#fff}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.mod{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:28px;transition:.3s;position:relative}
+.mod:hover{border-color:rgba(217,178,76,.55);transform:translateY(-4px);box-shadow:0 18px 48px rgba(0,0,0,.5)}
+.mod .ico{font-size:26px;margin-bottom:12px}
+.mod h3{font-size:23px;margin-bottom:10px}
+.mod p{color:var(--cinza);font-size:14.5px}
+
+/* oferta */
+.oferta{background:#000}
+.oferta-card{max-width:760px;margin:0 auto;background:var(--grafite);border:1px solid var(--borda);border-radius:10px;padding:40px;text-align:left}
+.oferta-card h2{font-size:clamp(30px,4.4vw,44px);font-weight:800;margin-bottom:18px}
+.oferta-card ul{margin:18px 0 0;padding-left:22px;color:var(--cinza);font-size:16px}
+.oferta-card ul li{margin-bottom:8px}
+.oferta-card ul li strong{color:#fff}
+.oferta-card .btn{margin-top:30px}
+.reforco{margin-top:18px;color:var(--cinza-esc);font-size:14px;max-width:560px}
+
+/* objeções / faq */
+.qa-list{display:flex;flex-direction:column;gap:16px;max-width:820px;margin:0 auto}
+.qa-item{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:24px 28px}
+.qa-item h3{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.qa-item p{color:var(--cinza);font-size:15.5px;margin:0}
+.qa-item p strong{color:#fff}
+.qa-item a{color:var(--dourado);text-decoration:underline}
+
+/* depoimento */
+.testi{max-width:780px;margin:0 auto;background:var(--grafite);border:1px solid var(--borda);border-left:3px solid var(--dourado);border-radius:0 8px 8px 0;padding:30px 34px}
+.testi .q{font-size:19px;font-style:italic;color:#fff;line-height:1.5}
+.testi .a{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cinza);letter-spacing:.04em}
+
+/* cta final */
+.final{background:radial-gradient(ellipse 70% 90% at 50% 110%, rgba(217,178,76,.16), transparent 65%),#000;text-align:center;padding:110px 0}
+.final h2{font-size:clamp(34px,5vw,56px);font-weight:800;margin-bottom:18px}
+.final p{color:var(--cinza);font-size:18px;max-width:640px;margin:0 auto 12px}
+.final .anchor-final{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-weight:800;font-size:clamp(30px,4.6vw,50px);line-height:1.12;color:var(--dourado);margin:30px auto 36px;max-width:860px}
+.final .micro{margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cinza-esc)}
+.final .micro a{color:var(--dourado);text-decoration:underline}
+
+/* footer */
+footer{border-top:1px solid var(--borda);background:#050505;padding:48px 0 32px}
+footer .container{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px}
+footer h4{font-family:'Barlow Condensed',sans-serif;font-size:17px;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);margin-bottom:14px}
+footer p,footer a{color:var(--cinza-esc);font-size:14px;text-decoration:none;display:block;margin-bottom:6px}
+footer a:hover{color:var(--dourado)}
+.copy{grid-column:1/-1;border-top:1px solid var(--borda);margin-top:28px;padding-top:22px;font-size:12.5px;color:var(--cinza-esc);text-align:center}
+@media(max-width:760px){footer .container{grid-template-columns:1fr}}
+
+.wa-float{position:fixed;bottom:24px;right:24px;z-index:99;width:58px;height:58px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.45);transition:.25s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="logo" href="/" aria-label="Voltar para a página inicial Maxi Chip"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip"></a>
+    <div class="nav-links">
+      <a href="#mecanismo">O diagnóstico</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#oferta">Quanto custa</a>
+      <a href="#faq">Dúvidas</a>
+      <a class="nav-cta" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20da%20Oficina%20Premium%20da%20Maxi%20Chip%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20carro." target="_blank">Agendar diagnóstico</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <div>
+      <div class="tag">Oficina Premium · Maxi Chip · Uberlândia/MG</div>
+      <h1>Oficina boa não é a que troca peça. É a que descobre <em>qual peça</em> — e te prova.</h1>
+      <p class="sub">Manutenção premium com diagnóstico de nível concessionária: a gente <strong>comprova o problema no equipamento antes de qualquer troca</strong> — e você sai sabendo o quê foi feito e por quê.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-wa" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20da%20Oficina%20Premium%20da%20Maxi%20Chip%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20carro." target="_blank">AGENDAR O DIAGNÓSTICO DO MEU CARRO</a>
+        <a class="btn btn-ghost" href="#mecanismo">Entender como funciona</a>
+      </div>
+      <div class="hero-note">> 12 anos · <b>5.000+ diagnósticos realizados</b> · 98% de aprovação</div>
+    </div>
+    <div class="scan-card">
+      <div class="scan-head"><span>// DIAGNÓSTICO INTELIGENTE MAXI CHIP</span><span class="live">● EM ANÁLISE</span></div>
+      <div class="scan-row"><span class="k">Defeito relatado</span><span class="v alert">"3 oficinas não acharam"</span></div>
+      <div class="scan-row"><span class="k">Leitura eletrônica</span><span class="v ok">Comprovada no equipamento</span></div>
+      <div class="scan-row"><span class="k">Causa</span><span class="v ok">Identificada e explicada</span></div>
+      <div class="scan-row"><span class="k">Meta de venda de peça</span><span class="v ok">Inexistente</span></div>
+      <div class="scan-row"><span class="k">Troca de peças</span><span class="v ok">Só o necessário</span></div>
+      <div class="scan-row"><span class="k">Você entende o quê e por quê</span><span class="v ok">Sim</span></div>
+      <div class="scan-verdict">>> Você vê o defeito comprovado antes de autorizar qualquer serviço. Sem meta. Sem chute. Sem surpresa.</div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="container">
+    <div class="stat reveal"><div class="n" data-count="12" data-suffix=" anos">12 anos</div><div class="l">cuidando de carros — e de quem anda neles</div></div>
+    <div class="stat reveal"><div class="n" data-count="5000" data-suffix="+">5.000+</div><div class="l">diagnósticos realizados</div></div>
+    <div class="stat reveal"><div class="n" data-count="98" data-suffix="%">98%</div><div class="l">de aprovação dos clientes</div></div>
+    <div class="stat reveal"><div class="n">1ª linha</div><div class="l">Brembo · Liqui Moly · K&amp;N · Fuchs · Tunap</div></div>
+  </div>
+</div>
+
+<!-- MECANISMO -->
+<section class="story" id="mecanismo">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Como funciona</div>
+      <h2>Como uma oficina descobre um defeito que outras três <span class="gold">não acharam</span>?</h2>
+      <p>Com uma palavra que quase ninguém no mercado pode usar: <strong>comprovação</strong>.</p>
+      <p>O <strong>Diagnóstico Inteligente Maxi Chip</strong> usa equipamentos de nível concessionária — padrão Bosch Car Service — para ENXERGAR o problema, não para chutar. Você vê o defeito comprovado no aparelho, entende a linha de trabalho e só então autoriza o serviço.</p>
+      <div class="quote">Aqui o diagnóstico não tem meta de venda. Tem comprovação.</div>
+      <p><strong>Mas se é assim que se faz certo… por que as suas últimas experiências com oficina foram tão diferentes?</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- IDENTIFICAÇÃO -->
+<section class="story alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Identificação</div>
+      <h2>Já levou seu carro em três oficinas e ninguém achou <span class="gold">o defeito</span>?</h2>
+      <div class="ident-grid">
+        <div class="ident-card">"Levei em outras três oficinas e não acharam o defeito."</div>
+        <div class="ident-card">"Ninguém me explicou o que estava acontecendo com o meu carro."</div>
+        <div class="ident-card">"Será que essa peça precisava mesmo ser trocada?"</div>
+        <div class="ident-card">"Tenho medo de cair em outra oficina que só quer vender serviço."</div>
+      </div>
+      <p style="margin-top:28px"><strong>Se você se reconheceu em pelo menos uma dessas frases, a próxima parte explica por que isso acontece — e por que a culpa não é sua.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- VIRADA / INIMIGO -->
+<section class="story">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">A peça que faltava</div>
+      <h2>O problema não é você. É a <span class="gold">manutenção às cegas</span>.</h2>
+      <p>Existem dois jeitos de errar com o seu carro.</p>
+      <p>Na concessionária, você vira número de OS — e, em alguns lugares, a peça que trocam no seu carro tem mais a ver com a <strong>meta do mês</strong> do que com o problema que você tem. Não são todas. Mas existem — e você nunca sabe em qual está.</p>
+      <p>Na oficina de esquina, falta o que um carro moderno mais exige: <strong>tecnologia</strong>. Sem equipamento que enxerga o defeito, sobra o método antigo — trocar peça no chute, com o seu dinheiro, até acertar.</p>
+      <p><strong>Nos dois casos você paga sem ver. E sai sem entender.</strong></p>
+      <div class="anchor-phrase">O diagnóstico do seu carro não deveria ter meta de venda.<br>Por isso o nosso tem <span class="gold">comprovação</span>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="story alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Dentro da Maxi</div>
+      <h2>O padrão que o seu carro <span class="gold">encontra aqui</span></h2>
+      <p>Sem foto de banco de imagem. Isso é a nossa oficina, em operação.</p>
+    </div>
+    <div class="mosaic reveal">
+      <figure class="mosaic-item"><img src="img/premium-porsche-elevador-01.jpeg" alt="Porsche no elevador da oficina premium Maxi Chip em Uberlândia, com freios à mostra" loading="lazy"><figcaption>Porsche no elevador — freios e suspensão premium</figcaption></figure>
+      <figure class="mosaic-item"><img src="img/equipe-mecanico-limpando-motor.jpeg" alt="Mecânico da Maxi Chip debruçado sobre motor aberto, com óculos de proteção" loading="lazy"><figcaption>Cuidado é gente debruçada no seu motor</figcaption></figure>
+      <figure class="mosaic-item"><img src="img/produto-brembo-pastilhas-audi.jpeg" alt="Pastilhas de freio Brembo na oficina Maxi Chip, com Audi ao fundo" loading="lazy"><figcaption>Brembo — primeira linha, sempre</figcaption></figure>
+      <figure class="mosaic-item"><img src="img/servico-arcondicionado-bmw-x1.jpeg" alt="Serviço de ar-condicionado automotivo em BMW X1 na oficina Maxi Chip em Uberlândia" loading="lazy"><figcaption>Ar-condicionado com equipamento dedicado</figcaption></figure>
+      <figure class="mosaic-item"><img src="img/equipe-produtos-liquimoly-bosch.jpeg" alt="Bancada da Maxi Chip com produtos Liqui Moly e Bosch e injetores organizados" loading="lazy"><figcaption>Liqui Moly e Bosch na bancada</figcaption></figure>
+      <figure class="mosaic-item"><img src="img/oficina-interior-galpao.jpeg" alt="Interior do galpão da oficina mecânica premium Maxi Chip em Uberlândia" loading="lazy"><figcaption>Estrutura de verdade — elevadores até 5.000 kg</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="modules" id="servicos">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>O que o seu carro <span class="gold">encontra aqui</span></h2>
+      <p>Manutenção e reparação premium — do diagnóstico à entrega explicada.</p>
+    </div>
+    <div class="mod-grid">
+      <div class="mod reveal">
+        <div class="ico">🔬</div>
+        <h3>Diagnóstico eletrônico avançado</h3>
+        <p>Equipamentos de nível concessionária que comprovam o problema antes de qualquer serviço.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="ico">🛑</div>
+        <h3>Freios e suspensão</h3>
+        <p>Brembo, Blue Friction — e o rigor de quem sabe que é ali que mora a sua segurança.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="ico">🛢️</div>
+        <h3>Revisões e troca de óleo</h3>
+        <p>Liqui Moly, Fuchs e Tunap. Produto de primeira linha, sempre.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="ico">❄️</div>
+        <h3>Ar-condicionado</h3>
+        <p>Conforto tratado com o mesmo rigor da mecânica.</p>
+      </div>
+      <div class="mod reveal">
+        <div class="ico">🏗️</div>
+        <h3>Estrutura de verdade</h3>
+        <p>Elevadores homologados até 5.000 kg · padrão AMPB verificado · equipamentos importados de alta precisão.</p>
+      </div>
+    </div>
+    <div class="context-block reveal">
+      <strong>Você só paga pelo que o seu carro PRECISA.</strong> Quem manda é o diagnóstico — não a meta.
+    </div>
+  </div>
+</section>
+
+<!-- PROVA -->
+<section class="story">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Prova</div>
+      <h2>Quem chega desenganado, sai <span class="gold">entendendo</span></h2>
+    </div>
+    <div class="testi reveal">
+      <div class="q">"Ninguém me explicou o que estava acontecendo com o meu carro. Agora eu entendi!"</div>
+      <div class="a">— reação comum de primeira visita à Maxi</div>
+    </div>
+    <div class="reveal" style="max-width:760px;margin:36px auto 0">
+      <p style="color:var(--cinza);font-size:16px;margin-bottom:10px"><strong style="color:#fff">Como a gente sustenta isso:</strong></p>
+      <p style="color:var(--cinza);font-size:16px;margin:0">• Defeito comprovado no equipamento — você vê antes de autorizar<br>• Explicação completa do quê será feito e por quê<br>• Peças e produtos de primeira linha (Brembo, Liqui Moly, K&amp;N)<br>• Padrão Bosch Car Service + Rede AMPB (Mecânicos Premium Brasil)</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="oferta" id="oferta">
+  <div class="oferta-card reveal">
+    <div class="tag">O primeiro passo</div>
+    <h2>Quanto custa? O que o seu carro precisar — e nem uma peça a mais.</h2>
+    <p style="color:var(--cinza);font-size:16px">Manutenção séria não tem tabela de prateleira. Cada carro chega com uma história — e é por isso que aqui tudo começa pelo diagnóstico. A gente comprova o problema, mostra a você, explica a linha de trabalho e o valor ANTES de tocar no carro. Sem surpresa na retirada.</p>
+    <ul>
+      <li><strong>Diagnóstico eletrônico avançado</strong> do SEU carro</li>
+      <li>Defeito <strong>comprovado no equipamento</strong> — você vê antes de autorizar</li>
+      <li><strong>Explicação completa:</strong> o quê será feito e por quê</li>
+      <li>Peças e produtos de <strong>primeira linha</strong> (Brembo, Liqui Moly, K&amp;N)</li>
+    </ul>
+    <a class="btn btn-wa" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20da%20Oficina%20Premium%20da%20Maxi%20Chip%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20carro." target="_blank">AGENDAR O DIAGNÓSTICO DO MEU CARRO</a>
+    <div class="reforco">Hora marcada. A gente só toca no carro depois que você entende exatamente o que vai ser feito.</div>
+  </div>
+</section>
+
+<!-- SOBRE / AUTORIDADE -->
+<section class="story alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="tag">Quem cuida do seu carro (e de você)</div>
+      <h2>A Maxi Chip faz isso há <span class="gold">12 anos</span></h2>
+      <p>A Maxi Chip é especialista em reparação e performance automotiva desde 2013 — 12 anos cuidando de carros com tecnologia de nível concessionária, e cuidando de gente com atendimento que comprova, explica e respeita.</p>
+      <p>Somos <strong>Bosch Car Service</strong> e fazemos parte da <strong>Rede AMPB</strong> (Mecânicos Premium Brasil). Equipamentos importados de alta precisão, elevadores homologados até 5.000 kg — estrutura que você confere ao vivo quando chega.</p>
+      <div class="badge-grid">
+        <div class="badge-pill"><b>Bosch Car Service</b> · padrão de concessionária</div>
+        <a class="badge-pill" href="https://www.mecanicospremium.com/membros" target="_blank" rel="noopener"><b>Rede AMPB</b> · Mecânicos Premium Brasil ↗</a>
+        <div class="badge-pill"><b>5.000+</b> diagnósticos em 12 anos</div>
+        <div class="badge-pill"><b>98%</b> de aprovação dos clientes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJEÇÕES -->
+<section class="story">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">As perguntas que todo mundo faz</div>
+      <h2>A resposta <span class="gold">honesta</span></h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal"><h3>"Padrão de concessionária… deve ser caro."</h3><p>Caro é trocar três peças no chute e o defeito continuar. Aqui você paga pelo que o seu carro <strong>PRECISA</strong> — o diagnóstico comprova antes de qualquer troca. Sem meta de peça. Sem surpresa.</p></div>
+      <div class="qa-item reveal"><h3>"Já levei em outras oficinas e não resolveram."</h3><p>É o nosso caso mais comum. Carro moderno exige equipamento que enxerga o problema — quem não investe em tecnologia só pode chutar. Traga o histórico: <strong>a gente comprova o que é</strong>.</p></div>
+      <div class="qa-item reveal"><h3>"Como sei que vocês não vão trocar coisa que não precisa?"</h3><p>Você <strong>VÊ o defeito comprovado no equipamento antes de autorizar</strong> — e sai sabendo o quê foi feito e por quê. É o contrário de pagar no escuro.</p></div>
+      <div class="qa-item reveal"><h3>"Meu carro está na garantia. Posso fazer manutenção fora da concessionária?"</h3><p>Resposta transparente: as revisões do plano, com o carro em garantia, você faz na concessionária — a garantia cobre motor, câmbio e parte elétrica, e a gente nunca vai te orientar a arriscar isso. Mas itens de <strong>USO e DESGASTE</strong> — freios, suspensão, ar-condicionado — não têm essa obrigação: <strong>você pode fazer onde confia</strong>.</p></div>
+      <div class="qa-item reveal"><h3>"Meu carro é importado / muito moderno."</h3><p>É a nossa casa. Porsche, BMW e Mustang passam pelos nossos elevadores — com equipamento de nível concessionária e os produtos que essas marcas pedem.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="story alt" id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Perguntas frequentes</div>
+      <h2>Antes de chamar</h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal"><h3>Preciso agendar?</h3><p>Sim — trabalhamos com hora marcada, para o seu carro ter a atenção que merece. Chama no WhatsApp e a gente encaixa o melhor horário.</p></div>
+      <div class="qa-item reveal"><h3>Quanto tempo leva o diagnóstico?</h3><p>Depende do caso — a gente confirma o prazo no agendamento, antes de você trazer o carro.</p></div>
+      <div class="qa-item reveal"><h3>Vocês atendem que tipo de carro?</h3><p>Do carro de uso diário ao esportivo. O critério aqui é outro: <strong>atendemos gente que valoriza o próprio carro</strong>.</p></div>
+      <div class="qa-item reveal"><h3>De quanto em quanto tempo devo fazer a revisão do carro?</h3><p>Pelo plano do manual do seu carro — na maioria dos modelos, a cada 10 a 20 mil km ou 12 meses, o que vier primeiro. Uso severo (trânsito pesado, poeira, trajetos curtos) pede intervalo menor. Manda o modelo no WhatsApp que a gente consulta o plano do seu carro.</p></div>
+      <div class="qa-item reveal"><h3>Quanto custa a revisão / manutenção?</h3><p>Depende do modelo e do que o seu carro realmente precisa — e é por isso que aqui tudo começa pelo diagnóstico: você recebe o valor <strong>ANTES</strong> de autorizar, item por item, sem surpresa na retirada.</p></div>
+      <div class="qa-item reveal"><h3>A luz da injeção acendeu. Posso continuar rodando?</h3><p>A luz é o carro avisando que o sistema detectou uma falha. Dá para rodar? Às vezes. Vale a pena arriscar? Não — a falha pode evoluir e custar caro. O diagnóstico eletrônico lê o código exato do problema e <strong>comprova a causa antes de qualquer troca</strong>.</p></div>
+      <div class="qa-item reveal"><h3>Barulho na suspensão: o que pode ser?</h3><p>De uma bucha a um amortecedor — as causas possíveis são muitas, e é exatamente por isso que trocar peça no chute sai caro. Aqui a suspensão é verificada com equipamento, e <strong>você vê o que precisa (e o que não precisa) ser trocado</strong>.</p></div>
+      <div class="qa-item reveal"><h3>O ar-condicionado não gela. É só completar o gás?</h3><p>Quase nunca. Se o gás baixou, existe um vazamento — e completar sem achar o vazamento é <strong>pagar duas vezes pelo mesmo problema</strong>. A gente localiza a causa primeiro, comprova, e só então recarrega o sistema.</p></div>
+      <div class="qa-item reveal"><h3>Quando trocar as pastilhas de freio?</h3><p>Pelo desgaste <strong>medido</strong>, não por palpite. Rodar com a pastilha no limite destrói o disco — um item simples vira um reparo caro. Aqui os freios são medidos, e você vê os números antes de decidir.</p></div>
+      <div class="qa-item reveal"><h3>Usam peça original?</h3><p>Primeira linha, sempre: Brembo, Blue Friction, Liqui Moly, Fuchs, Tunap, K&amp;N. E <strong>você aprova tudo antes</strong>.</p></div>
+      <div class="qa-item reveal"><h3>Onde vocês ficam?</h3><p><a href="https://www.google.com/maps/search/?api=1&query=Maxi+Chip+Performance%2C+Av.+Jo%C3%A3o+Naves+de+%C3%81vila%2C+2989+-+Uberl%C3%A2ndia%2FMG" target="_blank" rel="noopener">Av. João Naves de Ávila, 2989 — Uberlândia/MG (toque para abrir no mapa)</a>. Segunda a sexta, 08h às 18h.</p></div>
+      <div class="qa-item reveal"><h3>Como começo?</h3><p>Chama no WhatsApp <strong>(34) 99148-3400</strong> com o modelo do carro e o que você está sentindo nele. A gente cuida do resto.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final">
+  <div class="container reveal">
+    <div class="tag" style="margin:0 auto 26px">Maxi Chip · Oficina Premium</div>
+    <p>Oficina que mexe em carro existe em toda esquina. O que faltava era uma que comprovasse o problema, explicasse a solução — e tratasse você como gente, não como número de OS.</p>
+    <div class="anchor-final">"Aqui cuidamos de pessoas<br>que têm carros."</div>
+    <a class="btn btn-wa" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20da%20Oficina%20Premium%20da%20Maxi%20Chip%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20carro." target="_blank">QUERO ESSE CUIDADO COM O MEU CARRO</a>
+    <div class="micro">> Diagnóstico comprovado · Explicação completa · 12 anos · 98% de aprovação · <a href="https://www.google.com/maps/search/?api=1&query=Maxi+Chip+Performance%2C+Av.+Jo%C3%A3o+Naves+de+%C3%81vila%2C+2989+-+Uberl%C3%A2ndia%2FMG" target="_blank" rel="noopener">Av. João Naves de Ávila, 2989 — Uberlândia/MG</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>
+      <a class="logo" href="/" aria-label="Voltar para a página inicial Maxi Chip" style="margin-bottom:14px"><img src="logo-maxi-chip-fundo-preto.png" alt="Maxi Chip" style="height:52px"></a>
+      <p>Oficina Premium — Maxi Chip Performance Automotiva. Bosch Car Service · Rede AMPB — Mecânicos Premium Brasil. CNPJ 19.415.180/0001-09.</p>
+    </div>
+    <div>
+      <h4>Fale com a gente</h4>
+      <a href="https://wa.me/5534991483400" target="_blank">WhatsApp: (34) 99148-3400</a>
+      <a href="mailto:comercial@maxichip.com.br">comercial@maxichip.com.br</a>
+      <a href="https://instagram.com/performancechip" target="_blank">Instagram: @performancechip</a>
+      <a href="https://youtube.com/@performancechip" target="_blank">YouTube: @performancechip</a>
+    </div>
+    <div>
+      <h4>Endereço</h4>
+      <a href="https://www.google.com/maps/search/?api=1&query=Maxi+Chip+Performance%2C+Av.+Jo%C3%A3o+Naves+de+%C3%81vila%2C+2989+-+Uberl%C3%A2ndia%2FMG" target="_blank" rel="noopener">Av. João Naves de Ávila, 2989<br>Uberlândia/MG · abrir no mapa ↗</a>
+      <p>Seg a sex · 08h às 18h<br>Atendimento com hora marcada</p>
+    </div>
+    <div class="copy">"Aqui cuidamos de pessoas que têm carros." · © 2026 Maxi Chip Performance Automotiva</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5534991483400?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20da%20Oficina%20Premium%20da%20Maxi%20Chip%20e%20quero%20agendar%20o%20diagn%C3%B3stico%20do%20meu%20carro." target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": "Maxi Chip — Oficina Premium",
+  "url": "https://maxichip.com.br/oficina/",
+  "telephone": "+55-34-99148-3400",
+  "email": "comercial@maxichip.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. João Naves de Ávila, 2989",
+    "addressLocality": "Uberlândia",
+    "addressRegion": "MG",
+    "addressCountry": "BR"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Maxi Chip Performance Automotiva",
+    "url": "https://maxichip.com.br/"
+  },
+  "sameAs": [
+    "https://instagram.com/performancechip",
+    "https://youtube.com/@performancechip"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Preciso agendar?","acceptedAnswer":{"@type":"Answer","text":"Sim — trabalhamos com hora marcada, para o seu carro ter a atenção que merece. Chama no WhatsApp (34) 99148-3400 e a gente encaixa o melhor horário."}},
+    {"@type":"Question","name":"Quanto tempo leva o diagnóstico?","acceptedAnswer":{"@type":"Answer","text":"Depende do caso — a gente confirma o prazo no agendamento, antes de você trazer o carro."}},
+    {"@type":"Question","name":"Vocês atendem que tipo de carro?","acceptedAnswer":{"@type":"Answer","text":"Do carro de uso diário ao esportivo. O critério aqui é outro: atendemos gente que valoriza o próprio carro."}},
+    {"@type":"Question","name":"De quanto em quanto tempo devo fazer a revisão do carro?","acceptedAnswer":{"@type":"Answer","text":"Pelo plano do manual do seu carro — na maioria dos modelos, a cada 10 a 20 mil km ou 12 meses, o que vier primeiro. Uso severo (trânsito pesado, poeira, trajetos curtos) pede intervalo menor."}},
+    {"@type":"Question","name":"Quanto custa a revisão ou manutenção?","acceptedAnswer":{"@type":"Answer","text":"Depende do modelo e do que o seu carro realmente precisa — por isso tudo começa pelo diagnóstico: você recebe o valor antes de autorizar, item por item, sem surpresa na retirada."}},
+    {"@type":"Question","name":"A luz da injeção acendeu. Posso continuar rodando?","acceptedAnswer":{"@type":"Answer","text":"A luz é o carro avisando que o sistema detectou uma falha. Rodar assim é arriscar uma falha que pode evoluir e custar caro. O diagnóstico eletrônico lê o código exato do problema e comprova a causa antes de qualquer troca."}},
+    {"@type":"Question","name":"Barulho na suspensão: o que pode ser?","acceptedAnswer":{"@type":"Answer","text":"De uma bucha a um amortecedor — as causas possíveis são muitas, e é por isso que trocar peça no chute sai caro. A suspensão é verificada com equipamento, e você vê o que precisa (e o que não precisa) ser trocado."}},
+    {"@type":"Question","name":"O ar-condicionado não gela. É só completar o gás?","acceptedAnswer":{"@type":"Answer","text":"Quase nunca. Se o gás baixou, existe um vazamento — e completar sem achar o vazamento é pagar duas vezes pelo mesmo problema. A gente localiza a causa primeiro, comprova, e só então recarrega o sistema."}},
+    {"@type":"Question","name":"Quando trocar as pastilhas de freio?","acceptedAnswer":{"@type":"Answer","text":"Pelo desgaste medido, não por palpite. Rodar com a pastilha no limite destrói o disco — um item simples vira um reparo caro. Os freios são medidos, e você vê os números antes de decidir."}},
+    {"@type":"Question","name":"Posso fazer manutenção fora da concessionária com o carro na garantia?","acceptedAnswer":{"@type":"Answer","text":"As revisões do plano, com o carro em garantia, você faz na concessionária — a garantia cobre motor, câmbio e parte elétrica. Mas itens de uso e desgaste — freios, suspensão, ar-condicionado — não têm essa obrigação: você pode fazer onde confia."}},
+    {"@type":"Question","name":"Usam peça original?","acceptedAnswer":{"@type":"Answer","text":"Primeira linha, sempre: Brembo, Blue Friction, Liqui Moly, Fuchs, Tunap, K&N. E você aprova tudo antes."}},
+    {"@type":"Question","name":"Onde fica a oficina da Maxi Chip?","acceptedAnswer":{"@type":"Answer","text":"Av. João Naves de Ávila, 2989 — Uberlândia/MG. Segunda a sexta, das 08h às 18h, com hora marcada."}},
+    {"@type":"Question","name":"Como começo?","acceptedAnswer":{"@type":"Answer","text":"Chama no WhatsApp (34) 99148-3400 com o modelo do carro e o que você está sentindo nele. A gente cuida do resto."}}
+  ]
+}
+</script>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+(function(){
+  const fmt=(v,dec)=>v.toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+  function animate(el){
+    if(el.dataset.done)return; el.dataset.done='1';
+    const target=parseFloat(el.dataset.count),dec=parseInt(el.dataset.dec||'0',10);
+    const prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'',dur=1200,t0=performance.now();
+    const render=v=>{el.innerHTML=prefix+fmt(v,dec)+suffix;};
+    const tick=now=>{const p=Math.min((now-t0)/dur,1);render(target*(1-Math.pow(1-p,3)));p<1?requestAnimationFrame(tick):render(target);};
+    requestAnimationFrame(tick);
+  }
+  const cObs=new IntersectionObserver(es=>es.forEach(e=>{e.isIntersecting?animate(e.target):(e.target.dataset.done='');}),{threshold:0.5});
+  document.querySelectorAll('[data-count]').forEach(el=>cObs.observe(el));
+})();
+</script>
+</body>
+</html>
