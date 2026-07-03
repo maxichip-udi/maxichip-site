@@ -171,6 +171,14 @@ nav .container{display:flex;align-items:center;justify-content:space-between;hei
 .position .big .fire{color:var(--vermelho)}
 .position p{max-width:640px;margin:28px auto 0;color:var(--cinza);font-size:17px}
 
+/* ===== FAQ ===== */
+.faq{background:var(--carbono)}
+.qa-list{display:flex;flex-direction:column;gap:16px;max-width:820px;margin:0 auto}
+.qa-item{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:24px 28px}
+.qa-item h3{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.qa-item p{color:var(--cinza);font-size:15.5px;margin:0}
+.qa-item p strong{color:#fff}
+
 /* ===== CTA FINAL ===== */
 .final{background:radial-gradient(ellipse 70% 90% at 50% 110%, rgba(253,8,3,.18), transparent 65%),#000;text-align:center;padding:110px 0}
 .final h2{font-size:clamp(36px,5.4vw,60px);font-weight:800;margin-bottom:18px}
@@ -203,6 +211,7 @@ footer a:hover{color:var(--vermelho)}
       <a href="#laudo">O laudo</a>
       <a href="#comparativo">Comparativo</a>
       <a href="#precos">Preços</a>
+      <a href="#faq">Dúvidas</a>
       <a class="nav-cta" href="https://wa.me/5534991483400?text=Quero%20agendar%20um%20laudo%20Maxi%20DNA" target="_blank">Agendar laudo</a>
     </div>
   </div>
@@ -380,6 +389,27 @@ footer a:hover{color:var(--vermelho)}
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Perguntas frequentes</div>
+      <h2>Antes de <span class="red">assinar o cheque</span></h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal"><h3>Como saber se o KM do carro foi adulterado?</h3><p>Pelo painel, você não sabe — adulteração bem feita <strong>não deixa nenhum alerta visível</strong>. O KM real fica gravado nos módulos eletrônicos do veículo. O Maxi DNA lê esses módulos com equipamento de nível concessionária e compara com o painel: se houver divergência, ela aparece <strong>documentada no laudo</strong>.</p></div>
+      <div class="qa-item reveal"><h3>Qual a diferença entre o Maxi DNA e o laudo cautelar?</h3><p>O cautelar verifica estrutura e documentação — chassi, sinais de batida, histórico de leilão. O Maxi DNA lê a <strong>eletrônica</strong>: KM real nos módulos, saúde do câmbio, falhas ocultas, injeção, bateria de híbrido. Um não substitui o outro — para proteção completa, recomendamos os dois.</p></div>
+      <div class="qa-item reveal"><h3>Vale a pena fazer diagnóstico antes de comprar um carro usado?</h3><p>Faça a conta: o laudo custa a partir de 199. O prejuízo médio de quem compra um carro com fraude sem saber passa de <strong>R$ 20 mil</strong>. O laudo custa menos de 1% do risco que evita — e ainda vira <strong>poder de negociação</strong> na sua mão.</p></div>
+      <div class="qa-item reveal"><h3>Quanto custa o laudo Maxi DNA?</h3><p>O diagnóstico base vai de <strong>199</strong> (nacional básico) a <strong>359</strong> (esportivo e pickup premium), conforme a categoria do veículo. Módulos opcionais têm desconto progressivo no combo. Preço fechado por categoria — <strong>sem surpresa</strong>.</p></div>
+      <div class="qa-item reveal"><h3>O laudo aprova ou reprova o carro?</h3><p>Nenhum dos dois: <strong>informa</strong>. Você recebe os fatos técnicos documentados e decide — comprar, negociar desconto com o laudo na mão, ou sair do negócio a tempo. A decisão é sempre sua.</p></div>
+      <div class="qa-item reveal"><h3>Funciona para carro híbrido ou elétrico?</h3><p>Sim — e é onde o laudo mais se paga. A bateria de tração custa de <strong>R$ 30 a 80 mil</strong> para repor, e a degradação não aparece no painel. Verificamos a saúde da bateria (SOH) via scanner no Básico, ou direto no pack, célula a célula, no Avançado.</p></div>
+      <div class="qa-item reveal"><h3>O carro precisa ser desmontado?</h3><p>Não. O diagnóstico é eletrônico — leitura dos módulos do veículo — mais inspeção no elevador e medições a laser nos módulos opcionais. <strong>Nada é desmontado</strong>, nada fica marcado: o carro sai como entrou.</p></div>
+      <div class="qa-item reveal"><h3>Preciso levar o carro até vocês?</h3><p>O laudo é feito na estrutura Maxi, em Uberlândia — com elevadores homologados até 5.000 kg para inspecionar o carro por baixo, o que nenhum scanner sozinho enxerga. É comum o próprio vendedor levar o carro. Chama no WhatsApp que a gente te orienta como combinar.</p></div>
+      <div class="qa-item reveal"><h3>Como agendar o laudo?</h3><p>Chama no WhatsApp <strong>(34) 99148-3400</strong> com o modelo do veículo. Você recebe o orçamento na hora e agenda com hora marcada — segunda a sexta, das 08h às 18h.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
 <section class="final">
   <div class="container reveal">
@@ -417,6 +447,56 @@ footer a:hover{color:var(--vermelho)}
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   <span class="wa-label">Agendar laudo</span>
 </a>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  "name": "Maxi DNA — Laudo Eletrônico Veicular",
+  "url": "https://maxichip.com.br/maxi-dna-b2c/",
+  "telephone": "+55-34-99148-3400",
+  "email": "comercial@maxichip.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. João Naves de Ávila, 2989",
+    "addressLocality": "Uberlândia",
+    "addressRegion": "MG",
+    "addressCountry": "BR"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Maxi Chip Performance Automotiva",
+    "url": "https://maxichip.com.br/"
+  },
+  "sameAs": [
+    "https://instagram.com/performancechip",
+    "https://youtube.com/@performancechip"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Como saber se o KM do carro foi adulterado?","acceptedAnswer":{"@type":"Answer","text":"Pelo painel, você não sabe — adulteração bem feita não deixa nenhum alerta visível. O KM real fica gravado nos módulos eletrônicos do veículo. O Maxi DNA lê esses módulos com equipamento de nível concessionária e compara com o painel: se houver divergência, ela aparece documentada no laudo."}},
+    {"@type":"Question","name":"Qual a diferença entre o Maxi DNA e o laudo cautelar?","acceptedAnswer":{"@type":"Answer","text":"O cautelar verifica estrutura e documentação — chassi, sinais de batida, histórico de leilão. O Maxi DNA lê a eletrônica: KM real nos módulos, saúde do câmbio, falhas ocultas, injeção, bateria de híbrido. Um não substitui o outro — para proteção completa, recomendamos os dois."}},
+    {"@type":"Question","name":"Vale a pena fazer diagnóstico antes de comprar um carro usado?","acceptedAnswer":{"@type":"Answer","text":"O laudo custa a partir de 199. O prejuízo médio de quem compra um carro com fraude sem saber passa de R$ 20 mil. O laudo custa menos de 1% do risco que evita — e ainda vira poder de negociação."}},
+    {"@type":"Question","name":"Quanto custa o laudo Maxi DNA?","acceptedAnswer":{"@type":"Answer","text":"O diagnóstico base vai de 199 (nacional básico) a 359 (esportivo e pickup premium), conforme a categoria do veículo. Módulos opcionais têm desconto progressivo no combo. Preço fechado por categoria, sem surpresa."}},
+    {"@type":"Question","name":"O laudo aprova ou reprova o carro?","acceptedAnswer":{"@type":"Answer","text":"Nenhum dos dois: informa. Você recebe os fatos técnicos documentados e decide — comprar, negociar desconto com o laudo na mão, ou sair do negócio a tempo. A decisão é sempre sua."}},
+    {"@type":"Question","name":"Funciona para carro híbrido ou elétrico?","acceptedAnswer":{"@type":"Answer","text":"Sim — e é onde o laudo mais se paga. A bateria de tração custa de R$ 30 a 80 mil para repor, e a degradação não aparece no painel. A saúde da bateria (SOH) é verificada via scanner no Básico, ou direto no pack, célula a célula, no Avançado."}},
+    {"@type":"Question","name":"O carro precisa ser desmontado?","acceptedAnswer":{"@type":"Answer","text":"Não. O diagnóstico é eletrônico — leitura dos módulos do veículo — mais inspeção no elevador e medições a laser nos módulos opcionais. Nada é desmontado: o carro sai como entrou."}},
+    {"@type":"Question","name":"Preciso levar o carro até vocês?","acceptedAnswer":{"@type":"Answer","text":"O laudo é feito na estrutura Maxi, em Uberlândia — com elevadores homologados até 5.000 kg para inspecionar o carro por baixo. É comum o próprio vendedor levar o carro. Chame no WhatsApp (34) 99148-3400 para combinar."}},
+    {"@type":"Question","name":"Como agendar o laudo?","acceptedAnswer":{"@type":"Answer","text":"Chame no WhatsApp (34) 99148-3400 com o modelo do veículo. Você recebe o orçamento na hora e agenda com hora marcada — segunda a sexta, das 08h às 18h."}}
+  ]
+}
+</script>
 
 <script>
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}}),{threshold:.12});

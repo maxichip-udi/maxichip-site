@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maxi Agro — Performance Inteligente no Campo</title>
+<meta name="description" content="Reprogramação de tratores, colheitadeiras e pulverizadores: mais produtividade e menos diesel por hectare, com casos reais medidos no campo. Atendimento 100% na fazenda, máquina parada por menos de 1 hora. Maxi Agro, uma marca Maxi Chip — Uberlândia/MG.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -1188,7 +1189,7 @@ section {
 @media (max-width: 760px) { .roi-stats { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .roi-stats.two { grid-template-columns: 1fr; } }
 
-/* destaque "de volta pro bolso" */
+/* destaque "de volta para o bolso" */
 .roi-punch-box {
   border: 1px solid rgba(212,149,10,.35);
   background: linear-gradient(135deg, rgba(212,149,10,.10), rgba(212,149,10,.02));
@@ -1493,16 +1494,35 @@ footer {
 .wa-float .fab-ico-calc { display: block; }
 .wa-float.is-convert .fab-ico-wa   { display: block; }
 .wa-float.is-convert .fab-ico-calc { display: none; }
-/* estado A — leva até a calculadora (glass âmbar translúcido) */
+/* estado A — MOEDA DOURADA girando (leva até a calculadora) */
 .wa-float.is-calc {
-  background: rgba(212,149,10,.16);
-  backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
-  border: 1px solid rgba(240,174,26,.55);
-  color: var(--amber3);
-  box-shadow: 0 4px 24px rgba(212,149,10,.22);
+  background: transparent;
+  border: none;
+  padding: 0;
+  clip-path: none;
+  box-shadow: none;
+  perspective: 640px;
 }
-.wa-float.is-calc svg { fill: var(--amber3); }
-.wa-float.is-calc:hover { background: rgba(212,149,10,.28); transform: translateY(-2px); }
+.wa-float.is-calc .fab-label { display: none; }
+.fab-coin { display: none; }
+.wa-float.is-calc .fab-coin {
+  display: block;
+  width: 86px; height: 86px;
+  transform-style: preserve-3d;
+  animation: coin-spin 5.2s ease-in-out infinite;
+  filter: drop-shadow(0 6px 22px rgba(240,174,26,.5));
+}
+.fab-coin svg { width: 100%; height: 100%; display: block; }
+.wa-float.is-calc:hover { transform: translateY(-2px); background: transparent; }
+.wa-float.is-calc:hover .fab-coin { animation-play-state: paused; }
+@keyframes coin-spin {
+  0%   { transform: rotateY(0deg); }
+  50%  { transform: rotateY(360deg); }
+  100% { transform: rotateY(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wa-float.is-calc .fab-coin { animation: none; }
+}
 /* estado B — conversão (âmbar sólido, punch forte) */
 .wa-float.is-convert {
   background: var(--amber2);
@@ -1554,6 +1574,9 @@ footer {
   .wa-float { padding: 12px 16px; clip-path: none; border-radius: 999px; font-size: 12px; gap: 8px; max-width: calc(100vw - 28px); }
   .wa-float svg { width: 18px; height: 18px; }
   .wa-float .fab-label { overflow: hidden; text-overflow: ellipsis; }
+  .wa-float.is-calc { padding: 0; }
+  .wa-float.is-calc .fab-coin { width: 68px; height: 68px; }
+  .wa-float.is-calc .fab-coin svg { width: 100%; height: 100%; }
   .cal-section { overflow-x: auto; }
   .cal-table { min-width: 600px; }
 }
@@ -1747,7 +1770,7 @@ footer {
   <section>
     <p class="eyebrow reveal">Nosso diferencial</p>
     <h2 class="sec-title reveal">A GENTE VAI ATÉ<br>A SUA <em>lavoura.</em></h2>
-    <p class="reveal" style="font-size:16px;font-weight:300;color:var(--cream2);max-width:580px;margin-top:20px;line-height:1.8;">Você não para a operação pra levar máquina em lugar nenhum. Nossos carros vão até a fazenda — reprogramação feita no campo, com o produtor do lado, resultado medido na hora.</p>
+    <p class="reveal" style="font-size:16px;font-weight:300;color:var(--cream2);max-width:580px;margin-top:20px;line-height:1.8;">Você não para a operação para levar máquina em lugar nenhum. Nossos carros vão até a fazenda — reprogramação feita no campo, com o produtor do lado, resultado medido na hora.</p>
     <div class="field-gallery reveal">
       <figure>
         <img src="img/agro-frota-maxi-algodao.jpeg" alt="Frota de carros Maxi plotados no meio do algodoal ao entardecer">
@@ -1814,7 +1837,7 @@ footer {
 
     <div class="roi-card reveal">
       <div class="roi-title">📊 Caso real — Case IH Puma 205 (plantio)</div>
-      <p style="font-size:13px;color:var(--cream3);margin:-18px 0 26px;line-height:1.6;">Mesma máquina, mesmo dia, a 7,5 km/h — <strong style="color:var(--cream2);">os dois plantando na mesma velocidade.</strong> O original puxou plantadeira de <strong style="color:var(--cream2);">11 linhas (5,5 m)</strong>; o reprogramado, de <strong style="color:var(--cream2);">16 linhas (8,0 m)</strong>. É a reprogramação que dá motor pra puxar a barra maior gastando menos diesel por hectare. Diesel a R$ 6,50/L.</p>
+      <p style="font-size:13px;color:var(--cream3);margin:-18px 0 26px;line-height:1.6;">Mesma máquina, mesmo dia, a 7,5 km/h — <strong style="color:var(--cream2);">os dois plantando na mesma velocidade.</strong> O original puxou plantadeira de <strong style="color:var(--cream2);">11 linhas (5,5 m)</strong>; o reprogramado, de <strong style="color:var(--cream2);">16 linhas (8,0 m)</strong>. É a reprogramação que dá motor para puxar a barra maior gastando menos diesel por hectare. Diesel a R$ 6,50/L.</p>
 
       <div class="roi-stats">
         <div class="roi-stat">
@@ -1839,7 +1862,7 @@ footer {
 
       <div class="roi-punch-box">
         <div class="roi-punch-val" data-count="10.92" data-dec="2" data-prefix="R$ ">R$ 0</div>
-        <div class="roi-punch-txt">por hectare de volta pro seu bolso</div>
+        <div class="roi-punch-txt">por hectare de volta para o seu bolso</div>
       </div>
 
       <div class="roi-total-row" style="margin-top:10px;">
@@ -1852,7 +1875,7 @@ footer {
     <!-- CALCULADORA INTERATIVA -->
     <div class="roi-calc reveal">
       <div class="roi-calc-title">🧮 Calcule a economia da SUA lavoura</div>
-      <p class="roi-calc-sub">Informe a área que você planta e veja, na hora, quanto de diesel e de dinheiro a reprogramação devolve pro seu caixa a cada safra.</p>
+      <p class="roi-calc-sub">Informe a área que você planta e veja, na hora, quanto de diesel e de dinheiro a reprogramação devolve para o seu caixa a cada safra.</p>
       <div class="roi-calc-inputs">
         <div class="roi-field">
           <label for="calc-area">Sua área de plantio (hectares)</label>
@@ -1877,7 +1900,7 @@ footer {
     </div>
 
     <!-- PONTE: DOIS JEITOS -->
-    <p class="reveal" style="font-size:15px;color:var(--cream2);max-width:700px;margin-top:40px;line-height:1.8;">Tem <strong style="color:var(--amber);">dois jeitos</strong> da reprogramação devolver dinheiro pra você. O Puma 205 acima mostrou o primeiro: <strong style="color:var(--cream);">produzir mais</strong> no mesmo tempo. Esse próximo mostra o segundo — <strong style="color:var(--cream);">gastar muito menos fazendo exatamente o mesmo</strong>.</p>
+    <p class="reveal" style="font-size:15px;color:var(--cream2);max-width:700px;margin-top:40px;line-height:1.8;">Tem <strong style="color:var(--amber);">dois jeitos</strong> da reprogramação devolver dinheiro para você. O Puma 205 acima mostrou o primeiro: <strong style="color:var(--cream);">produzir mais</strong> no mesmo tempo. Esse próximo mostra o segundo — <strong style="color:var(--cream);">gastar muito menos fazendo exatamente o mesmo</strong>.</p>
 
     <!-- TRATOR 2 — PUMA 230 (economia pura) -->
     <div class="roi-card reveal" style="margin-top:24px;">
@@ -1982,7 +2005,7 @@ footer {
     <!-- COLHEITADEIRA -->
     <div class="roi-card reveal" style="margin-top:24px;">
       <div class="roi-title">🌾 Caso real — Colheitadeira JD S770 · plataforma 40 pés</div>
-      <p style="font-size:13px;color:var(--cream3);margin:-18px 0 26px;line-height:1.6;">Antes, a 5 km/h, a colhedora já trabalhava no talo — <strong style="color:var(--cream2);">100% da reserva de torque consumida e 74 L/h de diesel.</strong> Depois da reprogramação, colhendo mais rápido (6 km/h), ela <strong style="color:var(--cream2);">nem entra na reserva de torque</strong> — e o consumo caiu pra menos de 64 L/h. Plataforma de 40 pés, diesel a R$ 6,50/L.</p>
+      <p style="font-size:13px;color:var(--cream3);margin:-18px 0 26px;line-height:1.6;">Antes, a 5 km/h, a colhedora já trabalhava no talo — <strong style="color:var(--cream2);">100% da reserva de torque consumida e 74 L/h de diesel.</strong> Depois da reprogramação, colhendo mais rápido (6 km/h), ela <strong style="color:var(--cream2);">nem entra na reserva de torque</strong> — e o consumo caiu para menos de 64 L/h. Plataforma de 40 pés, diesel a R$ 6,50/L.</p>
 
       <div class="roi-stats">
         <div class="roi-stat">
@@ -2106,7 +2129,7 @@ footer {
       </div>
       <div class="vid-cap">
         <div class="vid-cap-mac">Colhedora John Deere S550</div>
-        <div class="vid-cap-desc">Economia e produtividade — só a plataforma ficou pequena pro fôlego novo.</div>
+        <div class="vid-cap-desc">Economia e produtividade — só a plataforma ficou pequena para o fôlego novo.</div>
       </div>
     </div>
 
@@ -2128,7 +2151,7 @@ footer {
       </div>
       <div class="vid-cap">
         <div class="vid-cap-mac">Valtra BH224</div>
-        <div class="vid-cap-desc">Agora tem força pra puxar a plantadeira. O cliente recomenda.</div>
+        <div class="vid-cap-desc">Agora tem força para puxar a plantadeira. O cliente recomenda.</div>
       </div>
     </div>
 
@@ -2145,16 +2168,16 @@ footer {
       <div class="result-card reveal">
         <div class="result-icon">🛡️</div>
         <div class="result-title">"Isso não força o motor?"</div>
-        <p class="result-desc">Se a reprogramação é bem feita, definitivamente não. Sua máquina passa a trabalhar com <strong style="color:var(--amber)">sobra de motor</strong>: gira menos RPM pra fazer o mesmo serviço, injeta menos diesel, sofre menos desgaste de bico e de peça. Menos esforço, mais economia, mais produtividade — e mais dinheiro no seu bolso.</p>
+        <p class="result-desc">Se a reprogramação é bem feita, definitivamente não. Sua máquina passa a trabalhar com <strong style="color:var(--amber)">sobra de motor</strong>: gira menos RPM para fazer o mesmo serviço, injeta menos diesel, sofre menos desgaste de bico e de peça. Menos esforço, mais economia, mais produtividade — e mais dinheiro no seu bolso.</p>
       </div>
       <div class="result-card reveal">
         <div class="result-icon">📄</div>
         <div class="result-title">"E a garantia de fábrica?"</div>
-        <p class="result-desc">Não assumimos a garantia da montadora — mas em <strong style="color:var(--amber)">12+ anos nunca tivemos um problema de garantia</strong>, e hoje prestamos serviço pra diversas concessionárias pelo Brasil. O risco pode existir um dia? Pode. Mas a economia que entra no seu caixa costuma fazer esse risco valer a pena — tem cliente que hoje até nos liga pra saber qual máquina comprar.</p>
+        <p class="result-desc">Não assumimos a garantia da montadora — mas em <strong style="color:var(--amber)">12+ anos nunca tivemos um problema de garantia</strong>, e hoje prestamos serviço para diversas concessionárias pelo Brasil. O risco pode existir um dia? Pode. Mas a economia que entra no seu caixa costuma fazer esse risco valer a pena — tem cliente que hoje até nos liga para saber qual máquina comprar.</p>
       </div>
       <div class="result-card reveal">
         <div class="result-icon">↩️</div>
-        <div class="result-title">"Dá pra voltar ao original?"</div>
+        <div class="result-title">"Dá para voltar ao original?"</div>
         <p class="result-desc">Dá, <strong style="color:var(--amber)">100% reversível</strong>. Tanto por nós quanto pela própria montadora, numa atualização de software da controladora. Você não fica preso a nada.</p>
       </div>
     </div>
@@ -2169,7 +2192,7 @@ footer {
     <div class="reveal" style="margin-top:52px;max-width:840px;">
       <div style="border-bottom:1px solid rgba(212,149,10,.12);padding:24px 0;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Quanto tempo a máquina fica parada?</div>
-        <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">Em média, <strong style="color:var(--amber)">menos de 1 hora</strong> de máquina parada. Reprogramou, voltou pro campo no mesmo dia.</p>
+        <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">Em média, <strong style="color:var(--amber)">menos de 1 hora</strong> de máquina parada. Reprogramou, voltou para o campo no mesmo dia.</p>
       </div>
       <div style="border-bottom:1px solid rgba(212,149,10,.12);padding:24px 0;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Preciso levar a máquina até vocês?</div>
@@ -2177,11 +2200,23 @@ footer {
       </div>
       <div style="border-bottom:1px solid rgba(212,149,10,.12);padding:24px 0;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Quanto custa?</div>
-        <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">O valor depende da necessidade e do tipo de software da sua máquina. Mas pra você ter referência: temos casos com <strong style="color:var(--amber)">retorno do investimento em menos de 100 horas de trabalho</strong> da máquina.</p>
+        <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">O valor depende da necessidade e do tipo de software da sua máquina. Mas para você ter referência: temos casos com <strong style="color:var(--amber)">retorno do investimento em menos de 100 horas de trabalho</strong> da máquina.</p>
       </div>
       <div style="border-bottom:1px solid rgba(212,149,10,.12);padding:24px 0;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Serve pra minha máquina?</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Serve para a minha máquina?</div>
         <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">De modo geral, <strong style="color:var(--amber)">praticamente toda máquina agrícola semi-eletrônica ou eletrônica</strong> pode ser reprogramada. Máquina com bomba injetora mecânica, não. Na dúvida, me chama com o modelo que eu confirmo na hora.</p>
+      </div>
+      <div style="border-bottom:1px solid rgba(212,149,10,.12);padding:24px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Remap agrícola reduz mesmo o consumo de diesel?</div>
+        <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">Nos casos reais medidos aqui da página: Case IH Puma 205 caiu de <strong style="color:var(--amber)">R$ 28,72 para R$ 18,38 por hectare</strong> no plantio, pulverizador foi de 0,78 para 0,63 L/ha e colheitadeira de 62 para 51 L/h. O resultado varia com a máquina, o implemento e a operação — por isso analisamos o seu caso antes e te dizemos exatamente o que dá para ganhar.</p>
+      </div>
+      <div style="border-bottom:1px solid rgba(212,149,10,.12);padding:24px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Qual a diferença entre chip de potência e reprogramação?</div>
+        <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">Chip externo, em máquina agrícola, faz uma coisa só: aumenta a injeção de combustível no rail (a linha que alimenta os bicos). Trator moderno exige um equilíbrio <strong style="color:var(--amber)">muito maior</strong> do que isso — por isso não trabalhamos com chip no agro. A reprogramação ajusta o software da própria controladora, sob medida para o seu modelo e a sua operação — e <strong style="color:var(--amber)">100% reversível</strong>.</p>
+      </div>
+      <div style="border-bottom:1px solid rgba(212,149,10,.12);padding:24px 0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Quais marcas vocês reprogramam?</div>
+        <p style="font-size:15px;font-weight:300;color:var(--cream2);line-height:1.8;">John Deere, Case IH, New Holland, Massey Ferguson, Valtra — e outras. A regra é simples: máquina <strong style="color:var(--amber)">semi-eletrônica ou eletrônica</strong>, dá para reprogramar. Manda o modelo no WhatsApp que eu confirmo na hora.</p>
       </div>
       <div style="padding:24px 0;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.03em;color:var(--cream);margin-bottom:10px;">Como pago?</div>
@@ -2217,12 +2252,86 @@ footer {
 
 <!-- FAB CONTEXTUAL (estado A: leva à calculadora · estado B: conversão WhatsApp) -->
 <a id="wa-float" href="#roi-calculadora" class="wa-float is-calc" aria-label="Ir para a calculadora de resultados">
-  <!-- ícone estado A: gráfico/barras -->
-  <svg class="fab-ico fab-ico-calc" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h2v18H3V3zm4 10h3v8H7v-8zm5-6h3v14h-3V7zm5 3h3v11h-3V10z"/></svg>
+  <!-- estado A: moeda dourada girando -->
+  <span class="fab-coin" aria-hidden="true">
+    <svg viewBox="0 0 120 120">
+      <defs>
+        <radialGradient id="coinGrad" cx="35%" cy="28%" r="85%">
+          <stop offset="0%" stop-color="#ffe08a"/>
+          <stop offset="45%" stop-color="#f0ae1a"/>
+          <stop offset="100%" stop-color="#a87407"/>
+        </radialGradient>
+        <linearGradient id="cifraoGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4a3607"/>
+          <stop offset="100%" stop-color="#140e02"/>
+        </linearGradient>
+        <path id="coinTextArc" d="M 60,60 m 0,47 a 47,47 0 1,1 0.01,0" fill="none"/>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="url(#coinGrad)" stroke="#7d5605" stroke-width="2.5"/>
+      <circle cx="60" cy="60" r="55" fill="none" stroke="rgba(255,224,138,.55)" stroke-width="1"/>
+      <circle cx="60" cy="60" r="38" fill="none" stroke="rgba(26,20,6,.30)" stroke-width="1.5"/>
+      <text font-family="'DM Sans',sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#1a1406">
+        <textPath href="#coinTextArc" startOffset="0" textLength="288" lengthAdjust="spacingAndGlyphs">· CALCULADORA · DE · RESULTADOS ·</textPath>
+      </text>
+      <!-- $ em relevo 3D: extrusão (profundidade) + brilho (luz) + face -->
+      <g font-family="'Bebas Neue',sans-serif" font-size="64" text-anchor="middle" dominant-baseline="central">
+        <text x="62.4" y="65.4" fill="#6e4c03">$</text>
+        <text x="61.8" y="64.8" fill="#7d5605">$</text>
+        <text x="61.2" y="64.2" fill="#8f6506">$</text>
+        <text x="58.9" y="61.9" fill="#ffeeb2">$</text>
+        <text x="60" y="63" fill="url(#cifraoGrad)">$</text>
+      </g>
+    </svg>
+  </span>
   <!-- ícone estado B: whatsapp -->
   <svg class="fab-ico fab-ico-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.106.544 4.09 1.497 5.817L0 24l6.39-1.47A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.787 9.787 0 01-5.003-1.374l-.36-.214-3.732.858.882-3.63-.235-.373A9.794 9.794 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
   <span class="fab-label">Calculadora de Resultados</span>
 </a>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  "name": "Maxi Agro — Reprogramação de Máquinas Agrícolas",
+  "url": "https://maxichip.com.br/maxi-agro/",
+  "telephone": "+55-34-99148-3400",
+  "email": "comercial@maxichip.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Uberlândia",
+    "addressRegion": "MG",
+    "addressCountry": "BR"
+  },
+  "areaServed": "Triângulo Mineiro e Alto Paranaíba — atendimento em qualquer região",
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Maxi Chip Performance Automotiva",
+    "url": "https://maxichip.com.br/"
+  },
+  "sameAs": [
+    "https://instagram.com/maxi.agrobr"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Reprogramação força o motor do trator?","acceptedAnswer":{"@type":"Answer","text":"Se a reprogramação é bem feita, definitivamente não. A máquina passa a trabalhar com sobra de motor: gira menos RPM para fazer o mesmo serviço, injeta menos diesel, sofre menos desgaste de bico e de peça. Menos esforço, mais economia, mais produtividade."}},
+    {"@type":"Question","name":"Reprogramar máquina agrícola faz perder a garantia de fábrica?","acceptedAnswer":{"@type":"Answer","text":"A Maxi Agro não assume a garantia da montadora — mas em mais de 12 anos nunca teve um problema de garantia, e hoje presta serviço para diversas concessionárias pelo Brasil. O risco pode existir? Pode. Mas a economia que entra no caixa costuma fazer esse risco valer a pena."}},
+    {"@type":"Question","name":"Dá para voltar ao original depois da reprogramação?","acceptedAnswer":{"@type":"Answer","text":"Dá, 100% reversível. Tanto pela Maxi Agro quanto pela própria montadora, numa atualização de software da controladora. Você não fica preso a nada."}},
+    {"@type":"Question","name":"Quanto tempo a máquina fica parada?","acceptedAnswer":{"@type":"Answer","text":"Em média, menos de 1 hora de máquina parada. Reprogramou, voltou para o campo no mesmo dia."}},
+    {"@type":"Question","name":"Preciso levar a máquina até vocês?","acceptedAnswer":{"@type":"Answer","text":"Não. Atendimento 100% na fazenda — ou onde a máquina estiver. A Maxi Agro vai até você."}},
+    {"@type":"Question","name":"Quanto custa reprogramar um trator ou máquina agrícola?","acceptedAnswer":{"@type":"Answer","text":"O valor depende da necessidade e do tipo de software da máquina. Como referência: há casos com retorno do investimento em menos de 100 horas de trabalho da máquina."}},
+    {"@type":"Question","name":"Serve para a minha máquina?","acceptedAnswer":{"@type":"Answer","text":"De modo geral, praticamente toda máquina agrícola semi-eletrônica ou eletrônica pode ser reprogramada. Máquina com bomba injetora mecânica, não. Na dúvida, envie o modelo no WhatsApp (34) 99148-3400."}},
+    {"@type":"Question","name":"Remap agrícola reduz mesmo o consumo de diesel?","acceptedAnswer":{"@type":"Answer","text":"Nos casos reais medidos pela Maxi Agro: Case IH Puma 205 caiu de R$ 28,72 para R$ 18,38 por hectare no plantio, pulverizador foi de 0,78 para 0,63 L/ha e colheitadeira de 62 para 51 L/h. O resultado varia com a máquina, o implemento e a operação — o caso é analisado antes."}},
+    {"@type":"Question","name":"Qual a diferença entre chip de potência e reprogramação?","acceptedAnswer":{"@type":"Answer","text":"Chip externo, em máquina agrícola, faz uma coisa só: aumenta a injeção de combustível no rail (a linha que alimenta os bicos). Trator moderno exige um equilíbrio muito maior do que isso — por isso a Maxi Agro não trabalha com chip no agro. A reprogramação ajusta o software da própria controladora, sob medida para o modelo e a operação — e 100% reversível."}},
+    {"@type":"Question","name":"Quais marcas de máquinas agrícolas vocês reprogramam?","acceptedAnswer":{"@type":"Answer","text":"John Deere, Case IH, New Holland, Massey Ferguson, Valtra — e outras. A regra: máquina semi-eletrônica ou eletrônica pode ser reprogramada. Envie o modelo no WhatsApp (34) 99148-3400 para confirmar na hora."}},
+    {"@type":"Question","name":"Como pago?","acceptedAnswer":{"@type":"Answer","text":"Cartão, PIX ou dinheiro. Faturamento/boleto, é só consultar com antecedência."}}
+  ]
+}
+</script>
 
 <script>
 const obs = new IntersectionObserver(
