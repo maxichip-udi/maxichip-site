@@ -148,6 +148,16 @@ nav .container{display:flex;align-items:center;justify-content:space-between;hei
 .cred .l{font-size:13.5px;color:var(--cinza);margin-top:8px}
 @media(max-width:860px){.creds .container{grid-template-columns:repeat(2,1fr)}}
 
+/* FAQ */
+.faq{background:var(--carbono);padding:88px 0}
+.faq .sec-head{text-align:center;max-width:720px;margin:0 auto 56px}
+.faq .sec-head h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:16px}
+.qa-list{display:flex;flex-direction:column;gap:16px;max-width:820px;margin:0 auto}
+.qa-item{background:var(--grafite);border:1px solid var(--borda);border-radius:8px;padding:24px 28px}
+.qa-item h3{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.qa-item p{color:var(--cinza);font-size:15.5px;margin:0}
+.qa-item p strong{color:#fff}
+
 /* CTA FINAL */
 .final{background:radial-gradient(ellipse 70% 90% at 50% 110%, rgba(253,8,3,.18), transparent 65%),#000;text-align:center;padding:110px 0}
 .final h2{font-size:clamp(36px,5.4vw,58px);font-weight:800;margin-bottom:18px}
@@ -179,6 +189,7 @@ footer a:hover{color:var(--vermelho)}
       <a href="#como">Como funciona</a>
       <a href="#pacotes">Pacotes</a>
       <a href="#quem">Para quem</a>
+      <a href="#faq">Dúvidas</a>
       <a class="nav-cta" href="https://wa.me/5534991483400?text=Tenho%20uma%20revenda%20e%20quero%20conhecer%20os%20pacotes%20B2B%20do%20Maxi%20DNA" target="_blank">Falar com comercial</a>
     </div>
   </div>
@@ -340,6 +351,27 @@ footer a:hover{color:var(--vermelho)}
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="tag" style="margin:0 auto 22px">Perguntas frequentes</div>
+      <h2>Antes de fechar <span class="red">a parceria</span></h2>
+    </div>
+    <div class="qa-list">
+      <div class="qa-item reveal"><h3>Como funciona a parceria Maxi DNA para revendas?</h3><p>Simples: você agenda o lote pelo WhatsApp comercial, os carros passam pelo diagnóstico na estrutura Maxi, e cada um sai com <strong>laudo assinado por responsável técnico habilitado (CREA/CFT)</strong> — mais material de apoio para o vendedor e relatório gerencial por lote para a sua gestão.</p></div>
+      <div class="qa-item reveal"><h3>Quanto custa o laudo para lojista?</h3><p>Valores sob consulta — <strong>o preço por laudo reduz conforme o volume</strong>. No avulso vale a tabela padrão por categoria de veículo; nos pacotes Mensal e Premium o comercial monta a proposta para o giro do seu estoque, na mesma conversa.</p></div>
+      <div class="qa-item reveal"><h3>Laudo veicular ajuda a vender seminovo mais rápido?</h3><p>É o argumento central da parceria: carro com DNA verificado é <strong>comparado diferente</strong>. O comprador para de negociar sobre desconfiança ("será que esse KM é real?") e passa a negociar sobre fatos — barganha menos e aceita o seu preço com mais naturalidade.</p></div>
+      <div class="qa-item reveal"><h3>Preciso de contrato ou mensalidade para começar?</h3><p>Não. O formato <strong>Avulso</strong> existe exatamente para isso: 1 laudo por solicitação, sem mensalidade, sem contrato — você testa o efeito do selo na ponta antes de falar de pacote.</p></div>
+      <div class="qa-item reveal"><h3>O laudo protege a loja na compra e na troca?</h3><p>Protege — e é onde muita loja perde dinheiro sem perceber: <strong>1 em cada 3 seminovos tem histórico adulterado ou omitido</strong>. O laudo na entrada do estoque protege a sua compra de terceiros, e o carro que o cliente entrega na troca passa pelo mesmo processo. Um único processo valoriza a compra e a venda.</p></div>
+      <div class="qa-item reveal"><h3>O que o laudo Maxi DNA verifica?</h3><p>Todos os módulos eletrônicos do veículo com equipamento de nível concessionária: <strong>KM real nos módulos</strong>, saúde do câmbio, injeção, módulos originais de fábrica — mais freios e pneus com medição a laser e suspensão verificada no elevador com ferramentas dedicadas.</p></div>
+      <div class="qa-item reveal"><h3>Qual a diferença entre o Maxi DNA e o laudo cautelar?</h3><p>O cautelar verifica estrutura e documentação — chassi, sinais de batida, histórico de leilão. O Maxi DNA lê a <strong>eletrônica</strong>, onde a fraude bem feita se esconde. Um não substitui o outro: estoque com os dois é estoque blindado.</p></div>
+      <div class="qa-item reveal"><h3>Os carros vão até vocês ou vocês vão até a loja?</h3><p>O diagnóstico é feito na estrutura Maxi, em Uberlândia — <strong>elevadores homologados até 5.000 kg</strong> para inspecionar suspensão, freios e motor por baixo do veículo, o que nenhum scanner sozinho enxerga. Agendamento em lote, com prioridade e agenda dedicada para parceiros.</p></div>
+      <div class="qa-item reveal"><h3>Como começo?</h3><p>Chama o comercial no WhatsApp <strong>(34) 99148-3400</strong>, conta quantos carros giram por mês na sua operação, e recebe a proposta com custo por laudo, prazo e agendamento — na mesma conversa.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
 <section class="final">
   <div class="container reveal">
@@ -373,10 +405,64 @@ footer a:hover{color:var(--vermelho)}
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/5534991483400?text=Quero%20conhecer%20a%20parceria%20Maxi%20DNA%20pra%20minha%20revenda" target="_blank" aria-label="Quero ser parceiro — falar no WhatsApp">
+<a class="wa-float" href="https://wa.me/5534991483400?text=Quero%20conhecer%20a%20parceria%20Maxi%20DNA%20para%20a%20minha%20revenda" target="_blank" aria-label="Quero ser parceiro — falar no WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   <span class="wa-label">Quero ser parceiro</span>
 </a>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  "name": "Maxi DNA para Revendas e Concessionárias — Laudo Eletrônico Veicular B2B",
+  "url": "https://maxichip.com.br/maxi-dna-b2b/",
+  "image": "https://maxichip.com.br/maxi-dna-b2b/logo-maxi-dna.jpeg",
+  "logo": "https://maxichip.com.br/maxi-dna-b2b/logo-maxi-dna.jpeg",
+  "priceRange": "Sob consulta",
+  "telephone": "+55-34-99148-3400",
+  "email": "comercial@maxichip.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. João Naves de Ávila, 2989",
+    "addressLocality": "Uberlândia",
+    "postalCode": "38408-144",
+    "addressRegion": "MG",
+    "addressCountry": "BR"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "Maxi Chip Performance Automotiva",
+    "url": "https://maxichip.com.br/"
+  },
+  "sameAs": [
+    "https://instagram.com/performancechip",
+    "https://youtube.com/@performancechip"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Como funciona a parceria Maxi DNA para revendas?","acceptedAnswer":{"@type":"Answer","text":"O lote é agendado pelo WhatsApp comercial, os carros passam pelo diagnóstico na estrutura Maxi, e cada um sai com laudo assinado por responsável técnico habilitado (CREA/CFT) — mais material de apoio para o vendedor e relatório gerencial por lote."}},
+    {"@type":"Question","name":"Quanto custa o laudo para lojista?","acceptedAnswer":{"@type":"Answer","text":"Valores sob consulta — o preço por laudo reduz conforme o volume. No avulso vale a tabela padrão por categoria de veículo; nos pacotes Mensal e Premium o comercial monta a proposta para o giro do estoque."}},
+    {"@type":"Question","name":"Laudo veicular ajuda a vender seminovo mais rápido?","acceptedAnswer":{"@type":"Answer","text":"Carro com DNA verificado é comparado diferente: o comprador para de negociar sobre desconfiança e passa a negociar sobre fatos — barganha menos e aceita o preço com mais naturalidade."}},
+    {"@type":"Question","name":"Preciso de contrato ou mensalidade para começar?","acceptedAnswer":{"@type":"Answer","text":"Não. O formato Avulso existe para isso: 1 laudo por solicitação, sem mensalidade, sem contrato — a loja testa o efeito do selo antes de falar de pacote."}},
+    {"@type":"Question","name":"O laudo protege a loja na compra e na troca?","acceptedAnswer":{"@type":"Answer","text":"Protege: 1 em cada 3 seminovos tem histórico adulterado ou omitido. O laudo na entrada do estoque protege a compra de terceiros, e o carro que o cliente entrega na troca passa pelo mesmo processo — um único processo valoriza a compra e a venda."}},
+    {"@type":"Question","name":"O que o laudo Maxi DNA verifica?","acceptedAnswer":{"@type":"Answer","text":"Todos os módulos eletrônicos do veículo com equipamento de nível concessionária: KM real nos módulos, saúde do câmbio, injeção, módulos originais de fábrica — mais freios e pneus com medição a laser e suspensão verificada no elevador."}},
+    {"@type":"Question","name":"Qual a diferença entre o Maxi DNA e o laudo cautelar?","acceptedAnswer":{"@type":"Answer","text":"O cautelar verifica estrutura e documentação — chassi, sinais de batida, histórico de leilão. O Maxi DNA lê a eletrônica, onde a fraude bem feita se esconde. Um não substitui o outro."}},
+    {"@type":"Question","name":"Os carros vão até vocês ou vocês vão até a loja?","acceptedAnswer":{"@type":"Answer","text":"O diagnóstico é feito na estrutura Maxi, em Uberlândia — elevadores homologados até 5.000 kg para inspecionar suspensão, freios e motor por baixo do veículo. Agendamento em lote, com prioridade e agenda dedicada para parceiros."}},
+    {"@type":"Question","name":"Como começo?","acceptedAnswer":{"@type":"Answer","text":"Chame o comercial no WhatsApp (34) 99148-3400, informe quantos carros giram por mês na operação, e receba a proposta com custo por laudo, prazo e agendamento na mesma conversa."}}
+  ]
+}
+</script>
 
 <script>
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target)}}),{threshold:.12});
