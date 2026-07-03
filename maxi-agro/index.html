@@ -409,8 +409,8 @@ nav {
 .cq-steam span:nth-child(3) { left: 82px; animation-delay: 2.8s; }
 @keyframes steam-rise {
   0%   { transform: translateY(26px) translateX(0) scaleY(.6); opacity: 0; }
-  30%  { opacity: .5; }
-  60%  { transform: translateY(-34px) translateX(-7px) scaleY(1); opacity: .3; }
+  30%  { opacity: .65; }
+  60%  { transform: translateY(-34px) translateX(-7px) scaleY(1); opacity: .4; }
   100% { transform: translateY(-78px) translateX(7px) scaleY(1.25); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1590,6 +1590,10 @@ footer {
   .hero-bottom { display: none; }
   section { padding: var(--gap) 24px; }
   .coffee-quote { padding: 48px 24px; }
+  .coffee-quote::before { font-size: 200px; right: 12px; }
+  .cq-steam { right: 62px; top: calc(50% - 104px); height: 92px; }
+  .cq-steam span { height: 48px; }
+  .cq-steam span:nth-child(2) { height: 58px; }
   .numbers { grid-template-columns: repeat(2, 1fr); }
   .num-item:nth-child(2) { border-right: none; }
   .problem-grid { grid-template-columns: 1fr; }
@@ -2306,15 +2310,22 @@ footer {
       <text font-family="'DM Sans',sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#1a1406">
         <textPath href="#coinTextArc" startOffset="0" textLength="288" lengthAdjust="spacingAndGlyphs">· CALCULADORA · DE · RESULTADOS ·</textPath>
       </text>
-      <!-- $ em relevo 3D: extrusão (profundidade) + brilho (luz) + face.
-           Baseline posicionada manualmente (y) — dominant-baseline é ignorado
-           em navegadores móveis (Safari) e descentralizava o cifrão. -->
-      <g font-family="'Bebas Neue',sans-serif" font-size="64" text-anchor="middle">
-        <text x="62.4" y="86.4" fill="#6e4c03">$</text>
-        <text x="61.8" y="85.8" fill="#7d5605">$</text>
-        <text x="61.2" y="85.2" fill="#8f6506">$</text>
-        <text x="58.9" y="82.9" fill="#ffeeb2">$</text>
-        <text x="60" y="84" fill="url(#cifraoGrad)">$</text>
+      <!-- $ em relevo 3D desenhado como PATH VETORIAL (não depende de fonte —
+           métricas de texto variavam entre navegadores móveis e descentralizavam
+           o cifrão; geometria pura centraliza idêntico em qualquer aparelho). -->
+      <g fill="none" stroke-linecap="round">
+        <g stroke="#6e4c03" transform="translate(2.2,2.2)">
+          <path stroke-width="5" d="M 60,36 V 84"/>
+          <path stroke-width="7" d="M 71,49 C 71,43 66,40 60,40 C 54,40 49,43.5 49,49 C 49,54.5 54,57 60,60 C 66,63 71,65.5 71,71 C 71,76.5 66,80 60,80 C 54,80 49,77 49,71"/>
+        </g>
+        <g stroke="#ffeeb2" transform="translate(-1.1,-1.1)">
+          <path stroke-width="5" d="M 60,36 V 84"/>
+          <path stroke-width="7" d="M 71,49 C 71,43 66,40 60,40 C 54,40 49,43.5 49,49 C 49,54.5 54,57 60,60 C 66,63 71,65.5 71,71 C 71,76.5 66,80 60,80 C 54,80 49,77 49,71"/>
+        </g>
+        <g stroke="url(#cifraoGrad)">
+          <path stroke-width="5" d="M 60,36 V 84"/>
+          <path stroke-width="7" d="M 71,49 C 71,43 66,40 60,40 C 54,40 49,43.5 49,49 C 49,54.5 54,57 60,60 C 66,63 71,65.5 71,71 C 71,76.5 66,80 60,80 C 54,80 49,77 49,71"/>
+        </g>
       </g>
     </svg>
   </span>
