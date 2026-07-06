@@ -1,4 +1,20 @@
 User-agent: *
 Allow: /
 
+# Bots de IA — liberados explicitamente (quick wins SEO/AEO 07/2026)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://maxichip.com.br/sitemap.xml
