@@ -136,9 +136,17 @@ function montarRegistro(placa, api) {
       cilindradas: extra.cilindradas,
     }),
     fipe_codigo: (fipeTop && fipeTop.codigo_fipe) || null,
-    fipe_valor: (fipeTop && fipeTop.texto_valor) || null,
+    // fipe_valor é NUMERIC no banco — nunca grava o texto formatado ("R$ 29.570,00") direto, sempre o número
+    fipe_valor: (fipeTop && fipeTop.texto_valor) ? parseValorBR(fipeTop.texto_valor) : null,
     fipe_mes_referencia: (fipeTop && fipeTop.mes_referencia) || null,
   };
+}
+
+// "R$ 29.570,00" -> 29570 (formato BR: ponto de milhar, vírgula decimal)
+function parseValorBR(texto) {
+  const limpo = String(texto).replace(/[^\d,]/g, "").replace(",", ".");
+  const num = parseFloat(limpo);
+  return Number.isFinite(num) ? num : null;
 }
 
 function formatarResposta(registro, fonte) {
@@ -158,7 +166,10 @@ function formatarResposta(registro, fonte) {
     categoria: registro.categoria_maxi_dna,
     categoriaLabel: CATEGORIA_LABEL[(registro.categoria_maxi_dna || 1) - 1],
     fipe: registro.fipe_valor
-      ? { valor: registro.fipe_valor, mesReferencia: registro.fipe_mes_referencia }
+      ? {
+          valor: Number(registro.fipe_valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }),
+          mesReferencia: registro.fipe_mes_referencia,
+        }
       : null,
     fonte,
   };
