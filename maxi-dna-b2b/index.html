@@ -249,6 +249,11 @@ footer a:hover{color:var(--vermelho)}
 .sim-riscado[hidden]{display:none}
 .sim-venda{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:800;line-height:1;color:#fff}
 .sim-venda-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza-esc);margin-top:8px}
+.sim-fipe-badge{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--verde);border:1px solid rgba(25,195,125,.55);background:rgba(25,195,125,.09);padding:9px 14px;border-radius:999px;animation:fipe-glow 1.8s ease-in-out infinite}
+.sim-fipe-badge[hidden]{display:none}
+.sim-fipe-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--verde);flex-shrink:0;animation:pulse 1.6s infinite}
+@keyframes fipe-glow{0%,100%{box-shadow:0 0 0 0 rgba(25,195,125,.4)}50%{box-shadow:0 0 10px 3px rgba(25,195,125,.15)}}
+@media(prefers-reduced-motion:reduce){.sim-fipe-badge{animation:none}.sim-fipe-badge::before{animation:none}}
 .sim-cta{width:100%;justify-content:center;margin-top:22px;font-size:17px}
 .sim-aster{font-size:11px;color:var(--cinza-esc);margin-top:14px;line-height:1.45}
 .sim-fipe-hook{font-size:12.5px;color:var(--verde);margin-top:12px;line-height:1.4;border-top:1px dashed var(--borda);padding-top:12px}
@@ -518,7 +523,7 @@ footer a:hover{color:var(--vermelho)}
             <button type="button" class="btn btn-ghost sim-placa-btn" data-placa-btn>Identificar</button>
           </div>
           <p class="sim-placa-msg" data-placa-msg hidden></p>
-          <button type="button" class="sim-placa-link" data-placa-fallback-open hidden>Não é isso, corrigir</button>
+          <button type="button" class="sim-placa-link" data-placa-fallback-open>Prefiro escolher marca e modelo</button>
           <div class="sim-fallback" data-fallback hidden>
             <p class="sim-hint">Sem a placa em mãos? Escolha marca, modelo e versão — a categoria é identificada do mesmo jeito.</p>
             <div class="sim-fallback-row">
@@ -606,6 +611,7 @@ footer a:hover{color:var(--vermelho)}
           <div class="sim-riscado" data-sum="risc" hidden></div>
           <div class="sim-venda" data-sum="venda">0,00</div>
           <div class="sim-venda-lbl">por laudo · tabela</div>
+          <div class="sim-fipe-badge" data-sum="fipebadge" hidden></div>
         </div>
         <a class="btn btn-red sim-cta" data-sum="cta" href="https://wa.me/5534991483400?text=Quero%20condi%C3%A7%C3%B5es%20de%20parceria%20Maxi%20DNA%20para%20a%20minha%20revenda" target="_blank" rel="noopener">Falar sobre condições de parceria</a>
         <p class="sim-aster">* Valor de tabela por laudo. Trabalha com volume de veículos? O custo por laudo cai — condições de parceria montadas no 1:1. O desconto progressivo não se aplica ao módulo de Híbridos e Elétricos (HEV).</p>
@@ -858,7 +864,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   const $=s=>root.querySelector(s);
   const catEl=$('[data-sum="cat"]'),listEl=$('[data-sum="list"]'),discEl=$('[data-sum="disc"]'),
         riscEl=$('[data-sum="risc"]'),vendaEl=$('[data-sum="venda"]'),ctaEl=$('[data-sum="cta"]'),
-        fipehookEl=$('[data-sum="fipehook"]');
+        fipehookEl=$('[data-sum="fipehook"]'),fipebadgeEl=$('[data-sum="fipebadge"]');
 
   function ctaHref(r){
     const mods=r.conv.map(m=>'M'+m.slice(1)+' '+NAMES[m]).concat(state.hev?[HEVNAME[state.hev]]:[]).join(', ');
@@ -876,16 +882,23 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     if(r.somaCheia>r.venda){riscEl.hidden=false;riscEl.innerHTML='R$ '+money(r.somaCheia);}else riscEl.hidden=true;
     vendaEl.textContent=money(r.venda);
     ctaEl.setAttribute('href',ctaHref(r));
-    if(fipehookEl){
+    if(fipehookEl||fipebadgeEl){
       if(fipeInfo && fipeInfo.valorNum>0){
         const vendaReais=r.venda/1000;
         const pct=vendaReais/fipeInfo.valorNum*100;
         const pctTxt=pct<1?pct.toFixed(1).replace('.',','):Math.ceil(pct).toString();
-        const veiculo=(fipeInfo.marca||fipeInfo.modelo)?('Esse '+[fipeInfo.marca,fipeInfo.modelo].filter(Boolean).join(' ')):'O veículo';
-        fipehookEl.hidden=false;
-        fipehookEl.textContent=veiculo+' está avaliado em '+fipeInfo.valorNum.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:0})+' pela tabela FIPE. O laudo completo custa menos de '+pctTxt+'% disso — argumento pronto pra negociar o valor da troca com o cliente.';
+        if(fipebadgeEl){
+          fipebadgeEl.hidden=false;
+          fipebadgeEl.textContent=pctTxt+'% hoje · argumento na negociação';
+        }
+        if(fipehookEl){
+          const veiculo=(fipeInfo.marca||fipeInfo.modelo)?('Esse '+[fipeInfo.marca,fipeInfo.modelo].filter(Boolean).join(' ')):'O veículo';
+          fipehookEl.hidden=false;
+          fipehookEl.textContent=veiculo+' está avaliado em '+fipeInfo.valorNum.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:0})+' pela tabela FIPE. O laudo completo custa menos de '+pctTxt+'% disso — argumento pronto para negociar o valor da troca com o cliente.';
+        }
       } else {
-        fipehookEl.hidden=true;
+        if(fipebadgeEl)fipebadgeEl.hidden=true;
+        if(fipehookEl)fipehookEl.hidden=true;
       }
     }
   }
@@ -952,11 +965,10 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
         setMsg('Identificamos: '+data.marca+' '+data.modelo+' — '+data.categoriaLabel+'.','ok');
         selecionarCategoria(data.categoria);
         window.__setFipeValor && window.__setFipeValor(data.fipe?{valor:data.fipe.valor,marca:data.marca,modelo:data.modelo}:null);
-        fbOpenBtn.hidden=false;
+        fbOpenBtn.textContent='Não é isso, corrigir';
       } else {
         setMsg('Não identificamos essa placa automaticamente. Use a seleção manual abaixo, ou escolha a categoria pelos exemplos.','err');
         fallback.hidden=false;
-        fbOpenBtn.hidden=true;
       }
     }catch(e){
       setMsg('Não foi possível consultar agora. Use a seleção manual abaixo, ou escolha a categoria pelos exemplos.','err');
