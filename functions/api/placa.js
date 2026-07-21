@@ -190,6 +190,26 @@ function norm(s) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
+// Regra confirmada pelo Luciano (21/07): todo híbrido/elétrico vai pra Cat 3,
+// não importa a marca — o diagnóstico da bateria de tração já é padrão premium.
+function isHibridoOuEletrico(V, COMB) {
+  return /HIBRID/.test(V) || /HIBRID/.test(COMB) || /ELETRIC/.test(V) || /ELETRIC/.test(COMB);
+}
+
+// Padrões de turbo confirmados na tabela FIPE (21/07): THP e TCE aparecem sozinhos
+// (sem a palavra "Turbo" no texto), e a APIPLACAS às vezes retorna o código
+// abreviado da versão (ex. "ACT T200") em vez do texto completo da FIPE
+// ("1.0 Turbo 200") — T100-T399 é a faixa confirmada pro Peugeot 2008 ACT T200;
+// vale reconfirmar com o Luciano se aparecer um caso fora dessa faixa.
+function isNacionalTurbo(V, cilindradas) {
+  if (/\bTURBO\b/.test(V) || /\bTSI\b/.test(V) || /\bGTS\b/.test(V)) return true;
+  if (/THP/.test(V) || /TCE/.test(V) || /ECOBOOST/.test(V)) return true;
+  if (/\bT[123]\d{2}\b/.test(V)) return true;
+  const cc = parseInt(cilindradas, 10);
+  if (cc && (Math.abs(cc - 999) <= 50 || Math.abs(cc - 1395) <= 50)) return true;
+  return false;
+}
+
 function classificarCategoria({ marca, modelo, versao, combustivel, cilindradas }) {
   const M = norm(marca), MOD = norm(modelo), V = norm(versao), COMB = norm(combustivel);
   const isDiesel = COMB.includes("DIESEL");
@@ -204,18 +224,19 @@ function classificarCategoria({ marca, modelo, versao, combustivel, cilindradas 
   if (M === "RAM") return 6;
   if (MODELOS_PICKUP_HD.some((m) => MOD.includes(m))) return 6;
 
-  // 3 — Cat 4: Diesel Leve (precisa vir ANTES do premium, por causa do Jeep diesel)
+  // 3 — Cat 3: Híbrido/Elétrico (sempre, qualquer marca — regra 21/07)
+  if (isHibridoOuEletrico(V, COMB)) return 3;
+
+  // 4 — Cat 4: Diesel Leve (precisa vir ANTES do premium, por causa do Jeep diesel)
   if (isDiesel && MODELOS_DIESEL_LEVE.some((m) => MOD.includes(m))) return 4;
 
-  // 4 — Cat 3: Premium/Importados (Jeep só chega aqui se não bateu a regra 3, ex. versão gasolina)
+  // 5 — Cat 3: Premium/Importados (Jeep só chega aqui se não bateu a regra 4, ex. versão gasolina)
   if (MARCAS_PREMIUM.some((m) => M.includes(m))) return 3;
 
-  // 5 — Cat 2: Nacionais Turbo
-  if (/\bTURBO\b/.test(V) || /\bTSI\b/.test(V) || /\bGTS\b/.test(V)) return 2;
-  const cc = parseInt(cilindradas, 10);
-  if (cc && (Math.abs(cc - 999) <= 50 || Math.abs(cc - 1395) <= 50)) return 2;
+  // 6 — Cat 2: Nacionais Turbo
+  if (isNacionalTurbo(V, cilindradas)) return 2;
 
-  // 6 (default) — Cat 1: Básico/Nacionais Aspirados
+  // 7 (default) — Cat 1: Básico/Nacionais Aspirados
   return 1;
 }
 

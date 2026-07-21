@@ -812,7 +812,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   const money=v=>(v/1000).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 
   const state={cat:0,mods:new Set(['M01']),hev:null};
-  let fipeValorNum=null; // valor FIPE em reais (número), setado pela identificação por placa/fallback
+  let fipeInfo=null; // {valorNum, marca, modelo} ou null — setado pela identificação por placa
 
   function compute(){
     const conv=CONV.filter(m=>state.mods.has(m));
@@ -849,12 +849,13 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     vendaEl.textContent=money(r.venda);
     ctaEl.setAttribute('href',ctaHref(r));
     if(fipehookEl){
-      if(fipeValorNum && fipeValorNum>0){
+      if(fipeInfo && fipeInfo.valorNum>0){
         const vendaReais=r.venda/1000;
-        const pct=vendaReais/fipeValorNum*100;
+        const pct=vendaReais/fipeInfo.valorNum*100;
         const pctTxt=pct<1?pct.toFixed(1).replace('.',','):Math.ceil(pct).toString();
+        const veiculo=(fipeInfo.marca||fipeInfo.modelo)?('Esse '+[fipeInfo.marca,fipeInfo.modelo].filter(Boolean).join(' ')):'Seu veículo';
         fipehookEl.hidden=false;
-        fipehookEl.textContent='Seu veículo vale aproximadamente '+fipeValorNum.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:0})+' pela tabela FIPE — o laudo completo custa menos de '+pctTxt+'% disso.';
+        fipehookEl.textContent=veiculo+' vale '+fipeInfo.valorNum.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:0})+' pela tabela FIPE. O laudo completo custa menos de '+pctTxt+'% disso — e vira sua carta na negociação antes de fechar o negócio.';
       } else {
         fipehookEl.hidden=true;
       }
@@ -862,8 +863,10 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   }
 
   // Chamado pela identificação por placa/fallback (ver script V2 SIMULADOR abaixo) — nunca pelo usuário direto
-  window.__setFipeValor=function(texto){
-    fipeValorNum = texto ? parseFloat(String(texto).replace(/[^\d,]/g,'').replace(',','.')) : null;
+  window.__setFipeValor=function(info){
+    if(!info||!info.valor){fipeInfo=null;render();return;}
+    const valorNum=parseFloat(String(info.valor).replace(/[^\d,]/g,'').replace(',','.'));
+    fipeInfo=Number.isFinite(valorNum)?{valorNum,marca:info.marca||'',modelo:info.modelo||''}:null;
     render();
   };
 
@@ -920,7 +923,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
       if(data.encontrado){
         setMsg('Identificamos: '+data.marca+' '+data.modelo+' — '+data.categoriaLabel+'.','ok');
         selecionarCategoria(data.categoria);
-        window.__setFipeValor && window.__setFipeValor(data.fipe?data.fipe.valor:null);
+        window.__setFipeValor && window.__setFipeValor(data.fipe?{valor:data.fipe.valor,marca:data.marca,modelo:data.modelo}:null);
         fbOpenBtn.hidden=false;
       } else {
         setMsg('Não identificamos essa placa automaticamente. Use a seleção manual abaixo, ou escolha a categoria pelos exemplos.','err');
@@ -1000,9 +1003,10 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   // Mesma regra de classificação da seção 2.1 do briefing (v2-simulador-placa-briefing.md),
   // duplicada aqui em client-side porque este fallback não passa pelo proxy/backend.
   function classificarCategoriaFallback({marca,versao,combustivel}){
-    const norm=s=>String(s||'').toUpperCase();
+    const norm=s=>String(s||'').toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
     const M=norm(marca),V=norm(versao),C=norm(combustivel);
     const isDiesel=C.includes('DIESEL')||/DIESEL/.test(V);
+    const isHibridoOuEletrico=/HIBRID/.test(V)||/HIBRID/.test(C)||/ELETRIC/.test(V)||/ELETRIC/.test(C);
     const ESPORTIVO=['PORSCHE','FERRARI','LAMBORGHINI','MCLAREN','MASERATI'];
     const PREMIUM=['BMW','MERCEDES','AUDI','VOLVO','LAND ROVER','JAGUAR','LEXUS','JEEP'];
     const DIESEL_LEVE_MOD=['HILUX','RANGER','AMAROK','S10','TRITON','L200','TRANSIT','COMPASS','RENEGADE'];
@@ -1013,9 +1017,12 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     if(/GOLF\s*R\b/.test(V)&&!/GOLF\s*GTI\b/.test(V))return 5;
     if(M==='RAM')return 6;
     if(PICKUP_HD.some(m=>M.includes(m)||V.includes(m)))return 6;
+    if(isHibridoOuEletrico)return 3; // regra 21/07: todo hibrido/eletrico vai pra Cat 3, qualquer marca
     if(isDiesel&&DIESEL_LEVE_MOD.some(m=>V.includes(m)))return 4;
     if(PREMIUM.some(m=>M.includes(m)))return 3;
     if(/\bTURBO\b/.test(V)||/\bTSI\b/.test(V)||/\bGTS\b/.test(V))return 2;
+    if(/THP/.test(V)||/TCE/.test(V)||/ECOBOOST/.test(V))return 2;
+    if(/\bT[123]\d{2}\b/.test(V))return 2; // codigo abreviado Stellantis (ex. "ACT T200")
     return 1;
   }
 
