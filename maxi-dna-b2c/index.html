@@ -222,7 +222,7 @@ footer a:hover{color:var(--vermelho)}
 /* ===== SIMULADOR DE VALOR ===== */
 .simulador{background:linear-gradient(180deg,var(--carbono),var(--preto))}
 .sim-grid{display:grid;grid-template-columns:1fr 380px;gap:28px;margin-top:42px;align-items:start}
-.sim-build{display:flex;flex-direction:column;gap:24px}
+.sim-build{display:flex;flex-direction:column;gap:24px;min-width:0}
 .sim-step{background:var(--grafite);border:1px solid var(--borda);border-radius:10px;padding:24px}
 .sim-step-h{display:flex;align-items:center;gap:12px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;font-size:21px;font-weight:700;letter-spacing:.03em;margin-bottom:18px}
 .sim-step-n{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--vermelho);color:#fff;font-size:15px;font-weight:800;flex-shrink:0}
@@ -273,7 +273,31 @@ footer a:hover{color:var(--vermelho)}
 .sim-venda-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cinza-esc);margin-top:8px}
 .sim-cta{width:100%;justify-content:center;margin-top:22px;font-size:17px}
 .sim-aster{font-size:11px;color:var(--cinza-esc);margin-top:14px;line-height:1.45}
+.sim-fipe-hook{font-size:12.5px;color:var(--verde);margin-top:12px;line-height:1.4;border-top:1px dashed var(--borda);padding-top:12px}
+.sim-fipe-hook[hidden]{display:none}
 @media(max-width:900px){.sim-grid{grid-template-columns:1fr}.sim-sum{position:static}.sim-cats{grid-template-columns:1fr}.sim-hev-opts{grid-template-columns:1fr}}
+
+/* ===== IDENTIFICAÇÃO POR PLACA (V2 simulador — opcional, antes do Passo 1) ===== */
+.sim-placa-card{border-color:rgba(253,8,3,.3)}
+.sim-placa-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza-esc);border:1px solid var(--borda);border-radius:3px;padding:2px 8px;margin-left:10px;vertical-align:middle}
+.sim-placa-row{display:flex;gap:10px;flex-wrap:wrap}
+.sim-placa-input{flex:1;min-width:140px;background:var(--painel);border:1px solid var(--borda);border-radius:8px;padding:13px 14px;color:var(--branco);font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+.sim-placa-input:focus{outline:none;border-color:var(--vermelho)}
+.sim-placa-input::placeholder{color:var(--cinza-esc);letter-spacing:.06em}
+.sim-placa-btn{padding:13px 22px;font-size:15px}
+.sim-placa-msg{margin-top:12px;font-size:13.5px;line-height:1.45}
+.sim-placa-msg[hidden]{display:none}
+.sim-placa-msg.ok{color:var(--verde)}
+.sim-placa-msg.err{color:var(--cinza)}
+.sim-placa-link{margin-top:12px;background:none;border:none;padding:0;color:var(--cinza-esc);font-family:inherit;font-size:12.5px;text-decoration:underline;cursor:pointer}
+.sim-placa-link:hover{color:var(--vermelho)}
+.sim-placa-link[hidden]{display:none}
+.sim-fallback{margin-top:16px;padding-top:16px;border-top:1px dashed var(--borda)}
+.sim-fallback[hidden]{display:none}
+.sim-fallback-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;min-width:0}
+.sim-fallback-sel{width:100%;min-width:0;background:var(--painel);border:1px solid var(--borda);border-radius:8px;padding:11px 12px;color:var(--branco);font-family:'Inter',sans-serif;font-size:13.5px}
+.sim-fallback-sel:disabled{opacity:.45}
+@media(max-width:640px){.sim-fallback-row{grid-template-columns:1fr}}
 
 /* ===== FAB CONTEXTUAL (moeda "Monte seu laudo" -> WhatsApp) ===== */
 .wa-float{position:fixed;bottom:24px;right:24px;z-index:99;display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:999px;text-decoration:none;font-family:inherit;font-weight:700;font-size:14px;letter-spacing:.01em;cursor:pointer;transition:background .25s,color .25s,box-shadow .25s,transform .2s}
@@ -487,6 +511,24 @@ footer a:hover{color:var(--vermelho)}
     <div class="sim-grid reveal">
       <div class="sim-build">
 
+        <div class="sim-step sim-placa-card">
+          <div class="sim-step-h">Identifique pela placa<span class="sim-placa-tag">opcional</span></div>
+          <div class="sim-placa-row">
+            <input type="text" class="sim-placa-input" data-placa-input placeholder="ABC1D23" maxlength="8" autocomplete="off" spellcheck="false">
+            <button type="button" class="btn btn-ghost sim-placa-btn" data-placa-btn>Identificar</button>
+          </div>
+          <p class="sim-placa-msg" data-placa-msg hidden></p>
+          <button type="button" class="sim-placa-link" data-placa-fallback-open hidden>Não é isso, corrigir</button>
+          <div class="sim-fallback" data-fallback hidden>
+            <p class="sim-hint">Sem a placa em mãos? Escolha marca, modelo e versão — a categoria é identificada do mesmo jeito.</p>
+            <div class="sim-fallback-row">
+              <select class="sim-fallback-sel" data-fb-marca><option value="">Marca</option></select>
+              <select class="sim-fallback-sel" data-fb-modelo disabled><option value="">Modelo</option></select>
+              <select class="sim-fallback-sel" data-fb-ano disabled><option value="">Ano/versão</option></select>
+            </div>
+          </div>
+        </div>
+
         <div class="sim-step">
           <div class="sim-step-h"><span class="sim-step-n">1</span> Categoria do veículo</div>
           <div class="sim-cats">
@@ -567,6 +609,7 @@ footer a:hover{color:var(--vermelho)}
         </div>
         <a class="btn btn-red sim-cta" data-sum="cta" href="https://wa.me/5534991483400?text=Quero%20agendar%20meu%20laudo%20Maxi%20DNA" target="_blank" rel="noopener">Agendar meu laudo</a>
         <p class="sim-aster">* O desconto progressivo não se aplica ao módulo de Híbridos e Elétricos (HEV).</p>
+        <p class="sim-fipe-hook" data-sum="fipehook" hidden></p>
       </aside>
     </div>
   </div>
@@ -769,6 +812,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   const money=v=>(v/1000).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 
   const state={cat:0,mods:new Set(['M01']),hev:null};
+  let fipeValorNum=null; // valor FIPE em reais (número), setado pela identificação por placa/fallback
 
   function compute(){
     const conv=CONV.filter(m=>state.mods.has(m));
@@ -785,7 +829,8 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
   const $=s=>root.querySelector(s);
   const catEl=$('[data-sum="cat"]'),listEl=$('[data-sum="list"]'),discEl=$('[data-sum="disc"]'),
-        riscEl=$('[data-sum="risc"]'),vendaEl=$('[data-sum="venda"]'),ctaEl=$('[data-sum="cta"]');
+        riscEl=$('[data-sum="risc"]'),vendaEl=$('[data-sum="venda"]'),ctaEl=$('[data-sum="cta"]'),
+        fipehookEl=$('[data-sum="fipehook"]');
 
   function ctaHref(r){
     const mods=r.conv.map(m=>'M'+m.slice(1)+' '+NAMES[m]).concat(state.hev?[HEVNAME[state.hev]]:[]).join(', ');
@@ -803,7 +848,24 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     if(r.somaCheia>r.venda){riscEl.hidden=false;riscEl.innerHTML='R$ '+money(r.somaCheia);}else riscEl.hidden=true;
     vendaEl.textContent=money(r.venda);
     ctaEl.setAttribute('href',ctaHref(r));
+    if(fipehookEl){
+      if(fipeValorNum && fipeValorNum>0){
+        const vendaReais=r.venda/1000;
+        const pct=vendaReais/fipeValorNum*100;
+        const pctTxt=pct<1?pct.toFixed(1).replace('.',','):Math.ceil(pct).toString();
+        fipehookEl.hidden=false;
+        fipehookEl.textContent='Seu veículo vale aproximadamente '+fipeValorNum.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:0})+' pela tabela FIPE — o laudo completo custa menos de '+pctTxt+'% disso.';
+      } else {
+        fipehookEl.hidden=true;
+      }
+    }
   }
+
+  // Chamado pela identificação por placa/fallback (ver script V2 SIMULADOR abaixo) — nunca pelo usuário direto
+  window.__setFipeValor=function(texto){
+    fipeValorNum = texto ? parseFloat(String(texto).replace(/[^\d,]/g,'').replace(',','.')) : null;
+    render();
+  };
 
   root.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{
     state.cat=+b.dataset.cat;
@@ -828,6 +890,136 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   }));
 
   render();
+})();
+
+/* ===== V2 SIMULADOR (0.24): IDENTIFICAÇÃO POR PLACA + FALLBACK ESTRUTURADO ===== */
+(function(){
+  const root=document.getElementById('simulador'); if(!root)return;
+  const $=s=>root.querySelector(s);
+  const input=$('[data-placa-input]'),btn=$('[data-placa-btn]'),msg=$('[data-placa-msg]'),
+        fbOpenBtn=$('[data-placa-fallback-open]'),fallback=$('[data-fallback]'),
+        fbMarca=$('[data-fb-marca]'),fbModelo=$('[data-fb-modelo]'),fbAno=$('[data-fb-ano]');
+  if(!input||!btn)return;
+
+  function setMsg(texto,tipo){
+    if(!texto){msg.hidden=true;return;}
+    msg.hidden=false;msg.textContent=texto;msg.className='sim-placa-msg'+(tipo?' '+tipo:'');
+  }
+
+  function selecionarCategoria(catNum){ // 1-6 (o simulador usa data-cat 0-indexado)
+    const b=root.querySelector('[data-cat="'+(catNum-1)+'"]');
+    if(b)b.click();
+  }
+
+  async function consultarPlaca(placa){
+    setMsg('Consultando...','');
+    btn.disabled=true;
+    try{
+      const r=await fetch('/api/placa?placa='+encodeURIComponent(placa));
+      const data=await r.json();
+      if(data.encontrado){
+        setMsg('Identificamos: '+data.marca+' '+data.modelo+' — '+data.categoriaLabel+'.','ok');
+        selecionarCategoria(data.categoria);
+        window.__setFipeValor && window.__setFipeValor(data.fipe?data.fipe.valor:null);
+        fbOpenBtn.hidden=false;
+      } else {
+        setMsg('Não identificamos essa placa automaticamente. Use a seleção manual abaixo, ou escolha a categoria pelos exemplos.','err');
+        fallback.hidden=false;
+        fbOpenBtn.hidden=true;
+      }
+    }catch(e){
+      setMsg('Não foi possível consultar agora. Use a seleção manual abaixo, ou escolha a categoria pelos exemplos.','err');
+      fallback.hidden=false;
+    } finally {
+      btn.disabled=false;
+    }
+  }
+
+  btn.addEventListener('click',()=>{
+    const placa=input.value.trim();
+    if(!placa)return;
+    consultarPlaca(placa);
+  });
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();btn.click();}});
+  input.addEventListener('input',()=>{input.value=input.value.toUpperCase();});
+
+  fbOpenBtn.addEventListener('click',()=>{fallback.hidden=!fallback.hidden;});
+
+  // ---- Fallback estruturado: marca → modelo → ano/versão, via API pública FIPE (gratuita, sem chave) ----
+  const FIPE_BASE='https://parallelum.com.br/fipe/api/v1/carros';
+
+  function preencherSelect(sel,itens,labelKey,valueKey,placeholder){
+    sel.innerHTML='<option value="">'+placeholder+'</option>';
+    itens.forEach(it=>{const o=document.createElement('option');o.value=it[valueKey];o.textContent=it[labelKey];sel.appendChild(o);});
+  }
+
+  async function carregarMarcas(){
+    try{
+      const r=await fetch(FIPE_BASE+'/marcas');
+      const marcas=await r.json();
+      preencherSelect(fbMarca,marcas,'nome','codigo','Marca');
+    }catch(e){/* select fica só com o placeholder — cliente segue pelos cards de categoria (V1) */}
+  }
+
+  fbMarca.addEventListener('change',async()=>{
+    fbModelo.innerHTML='<option value="">Modelo</option>';fbModelo.disabled=true;
+    fbAno.innerHTML='<option value="">Ano/versão</option>';fbAno.disabled=true;
+    if(!fbMarca.value)return;
+    try{
+      const r=await fetch(FIPE_BASE+'/marcas/'+fbMarca.value+'/modelos');
+      const data=await r.json();
+      preencherSelect(fbModelo,data.modelos,'nome','codigo','Modelo');
+      fbModelo.disabled=false;
+    }catch(e){}
+  });
+
+  fbModelo.addEventListener('change',async()=>{
+    fbAno.innerHTML='<option value="">Ano/versão</option>';fbAno.disabled=true;
+    if(!fbModelo.value)return;
+    try{
+      const r=await fetch(FIPE_BASE+'/marcas/'+fbMarca.value+'/modelos/'+fbModelo.value+'/anos');
+      const anos=await r.json();
+      preencherSelect(fbAno,anos,'nome','codigo','Ano/versão');
+      fbAno.disabled=false;
+    }catch(e){}
+  });
+
+  fbAno.addEventListener('change',async()=>{
+    if(!fbAno.value)return;
+    try{
+      const r=await fetch(FIPE_BASE+'/marcas/'+fbMarca.value+'/modelos/'+fbModelo.value+'/anos/'+fbAno.value);
+      const d=await r.json();
+      const marcaNome=fbMarca.options[fbMarca.selectedIndex].textContent;
+      const cat=classificarCategoriaFallback({marca:marcaNome,versao:(d.Modelo||'')+' '+(d.AnoModelo||''),combustivel:d.Combustivel});
+      selecionarCategoria(cat);
+      setMsg('Identificamos pela seleção: '+marcaNome+' — categoria '+cat+'.','ok');
+      window.__setFipeValor && window.__setFipeValor(null); // FIPE gratuita não traz valor de mercado formatado como a APIPLACAS
+    }catch(e){}
+  });
+
+  // Mesma regra de classificação da seção 2.1 do briefing (v2-simulador-placa-briefing.md),
+  // duplicada aqui em client-side porque este fallback não passa pelo proxy/backend.
+  function classificarCategoriaFallback({marca,versao,combustivel}){
+    const norm=s=>String(s||'').toUpperCase();
+    const M=norm(marca),V=norm(versao),C=norm(combustivel);
+    const isDiesel=C.includes('DIESEL')||/DIESEL/.test(V);
+    const ESPORTIVO=['PORSCHE','FERRARI','LAMBORGHINI','MCLAREN','MASERATI'];
+    const PREMIUM=['BMW','MERCEDES','AUDI','VOLVO','LAND ROVER','JAGUAR','LEXUS','JEEP'];
+    const DIESEL_LEVE_MOD=['HILUX','RANGER','AMAROK','S10','TRITON','L200','TRANSIT','COMPASS','RENEGADE'];
+    const PICKUP_HD=['F-150','F150','SILVERADO','TUNLAND'];
+    if(ESPORTIVO.some(m=>M.includes(m)))return 5;
+    if(/\bAMG\b/.test(V)||/\bM[2345]\b/.test(V)||/\bM8\b/.test(V))return 5;
+    if(/TYPE[\s-]?R\b/.test(V)||/\bWRX\b/.test(V)||/\bSTI\b/.test(V))return 5;
+    if(/GOLF\s*R\b/.test(V)&&!/GOLF\s*GTI\b/.test(V))return 5;
+    if(M==='RAM')return 6;
+    if(PICKUP_HD.some(m=>M.includes(m)||V.includes(m)))return 6;
+    if(isDiesel&&DIESEL_LEVE_MOD.some(m=>V.includes(m)))return 4;
+    if(PREMIUM.some(m=>M.includes(m)))return 3;
+    if(/\bTURBO\b/.test(V)||/\bTSI\b/.test(V)||/\bGTS\b/.test(V))return 2;
+    return 1;
+  }
+
+  carregarMarcas();
 })();
 
 /* ===== FAB CONTEXTUAL: estado A (moeda -> simulador) <-> estado B (WhatsApp) ===== */
