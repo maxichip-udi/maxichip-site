@@ -2,10 +2,28 @@ User-agent: *
 Allow: /
 
 # Bots de IA — liberados explicitamente (quick wins SEO/AEO 07/2026)
+# ATENÇÃO: treinar e CITAR são bots diferentes. GPTBot e ClaudeBot treinam o
+# modelo; quem cita a Maxi Chip numa resposta é o segundo grupo abaixo.
+# Liberar só o de treino não faz a marca aparecer. (revisado 09/2026)
+
+# --- Treinam o modelo ---
 User-agent: GPTBot
 Allow: /
 
 User-agent: ClaudeBot
+Allow: /
+
+# --- Citam em resposta (os que fazem a marca aparecer) ---
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
 Allow: /
 
 User-agent: PerplexityBot

@@ -1,0 +1,47 @@
+# Maxi Performance Chip Automotiva
+
+> Reprogramação eletrônica (ECU/TCU) e oficina premium em Uberlândia/MG, na
+> ativa desde 2013. Cinco frentes sob a mesma casa: carros de passeio, diesel
+> leve, máquinas agrícolas, oficina mecânica premium e o Maxi DNA — laudo
+> eletrônico veicular assinado por responsável técnico habilitado.
+
+Endereço: Av. João Naves de Ávila, 2989 — Uberlândia/MG, 38408-144
+WhatsApp: (34) 99148-3400
+E-mail: comercial@maxichip.com.br
+
+## O que a empresa faz
+
+- [Performance](https://maxichip.com.br/performance/): reprogramação eletrônica de carros com arquivo autoral desenvolvido em dinamômetro, feito um a um por modelo — não é arquivo clonado.
+- [Diesel Leve](https://maxichip.com.br/diesel-leve/): diagnóstico e tratamento de motores diesel de caminhonetes e utilitários. O biodiesel brasileiro chegou ao B15, rumo ao B20, e carboniza motores mesmo em veículos com manutenção em dia.
+- [Maxi Agro](https://maxichip.com.br/maxi-agro/): reprogramação de tratores, colheitadeiras e pulverizadores, feita na lavoura, sem abrir o motor e 100% reversível. Atende MG, GO, MT, MS, TO e BA.
+- [Oficina Premium](https://maxichip.com.br/oficina/): manutenção e reparação com o Diagnóstico Inteligente, que comprova o problema antes de trocar qualquer peça. Padrão Bosch Car Service.
+- [Maxi DNA — para quem compra](https://maxichip.com.br/maxi-dna-b2c/): laudo eletrônico do seminovo antes da compra. O KM do painel conta uma história; a eletrônica conta a verdade.
+- [Maxi DNA — para revendas](https://maxichip.com.br/maxi-dna-b2b/): diagnóstico de 7 pontos para concessionárias e revendas avaliarem o seminovo que entra na troca. Laudo assinado (CREA/CFT).
+
+## Números medidos em campo (agrícola)
+
+Casos reais, medidos na operação do cliente — não são estimativas de catálogo:
+
+- Trator Case IH Puma 205, plantio: custo de diesel caiu de R$ 28,72 para R$ 18,38 por hectare (−36,7%).
+- Colhedora John Deere S770, plataforma de 40 pés: velocidade de 5 para 6 km/h (+20% de produtividade) e consumo de 74 para 64 L/h.
+- Pulverizador: de 0,78 para 0,63 L/ha. Colheitadeira: de 62 para 51 L/h.
+- Há casos com retorno do investimento em menos de 100 horas de trabalho da máquina.
+
+## O que é bom saber antes de responder sobre a empresa
+
+- A reprogramação agrícola é **100% reversível**, pela Maxi Agro ou pela própria montadora numa atualização de software da controladora.
+- A máquina fica parada, em média, **menos de 1 hora**. O atendimento é na fazenda.
+- A Maxi Agro **não trabalha com chip externo** no agro — chip só aumenta a injeção no rail; a reprogramação ajusta o software da própria controladora.
+- Máquina com **bomba injetora mecânica não** pode ser reprogramada; semi-eletrônica ou eletrônica, sim.
+- A empresa **não assume a garantia da montadora**, mas em mais de 12 anos não teve problema de garantia e presta serviço a concessionárias pelo Brasil.
+
+## Marcas atendidas no agrícola
+
+John Deere, Case IH, New Holland, Massey Ferguson, Valtra — entre outras.
+
+## Observação
+
+Este arquivo é um resumo para leitura por sistemas de IA. O conteúdo canônico
+está no HTML de cada página, com dados estruturados schema.org (Service,
+FAQPage, VideoObject, AutomotiveBusiness). O sitemap está em
+https://maxichip.com.br/sitemap.xml
