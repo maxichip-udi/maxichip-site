@@ -164,5 +164,49 @@ ok(canalDe('META-DIESEL') === 'meta', 'canal do META- -> meta');
 ok(canalDe(null) === 'organico', 'sem campanha -> organico');
 
 console.log('');
+console.log('=== E) robo nao e clique (functions/wa.js) ===');
+
+// 🔴 POR QUE ESTE BLOCO EXISTE: ate 14/09 o CTA apontava pro wa.me, link
+// EXTERNO -- crawler que o seguisse nao encostava no nosso banco. Agora a rota e
+// nossa, e cada rastreamento viraria uma linha em marketing_wa_clique. Um clique
+// fantasma sem dono dentro da janela de 15 min faz o casamento atribuir um lead
+// REAL ao anuncio errado. Atribuicao errada e pior que atribuicao faltando.
+//
+// 🔑 O caso que mais importa aqui e o NAVEGADOR EMBUTIDO (WhatsApp, Instagram,
+// Facebook): e gente de verdade, fatia grande do trafego brasileiro, e a UA dele
+// CONTEM o nome do app. Confundir com o robo de preview custaria atribuicao real.
+var RE_ROBO = /bot|crawl|spider|slurp|curl|wget|python-requests|okhttp|java\/|go-http|libwww|httpclient|headless|phantom|puppeteer|playwright|lighthouse|pingdom|uptime|semrush|ahrefs|mj12|dotbot|petal|facebookexternalhit|embedly|skypeuripreview|discordbot/i;
+var RE_NAVEGADOR = /mozilla\/5\.0/i;
+var RE_MOTOR = /(chrome|safari|firefox|edg|opr|gecko|applewebkit|mobile)\//i;
+
+function ehRobo(ua) {
+  if (!ua || !ua.trim()) return true;
+  if (RE_ROBO.test(ua)) return true;
+  return !(RE_NAVEGADOR.test(ua) && RE_MOTOR.test(ua));
+}
+
+[
+  ['Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36', false, 'Android Chrome'],
+  ['Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1', false, 'iPhone Safari'],
+  ['Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36', false, 'Chrome desktop'],
+  ['Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/450;]', false, '🔑 navegador embutido do Facebook (gente)'],
+  ['Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 300.0', false, '🔑 navegador embutido do Instagram (gente, e NAO manda Safari/)'],
+  ['Mozilla/5.0 (Linux; Android 13; WhatsApp/2.24) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36', false, '🔑 navegador embutido do WhatsApp (gente)'],
+  ['WhatsApp/2.24.1 A', true, '🔑 robo de PREVIEW do WhatsApp (sem Mozilla -- e essa a linha que separa)'],
+  ['Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', true, 'Googlebot'],
+  ['Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)', true, 'bingbot'],
+  ['Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.1; +https://openai.com/gptbot)', true, 'GPTBot (tem AppleWebKit: marcador duro vence)'],
+  ['Mozilla/5.0 (compatible; ClaudeBot/1.0; +claudebot@anthropic.com)', true, 'ClaudeBot'],
+  ['facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)', true, 'preview do Facebook'],
+  ['curl/8.4.0', true, 'curl'],
+  ['python-requests/2.31.0', true, 'python-requests'],
+  ['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/120 Safari/537.36', true, 'HeadlessChrome'],
+  ['', true, 'user-agent vazio (navegador real sempre manda o seu)'],
+  [null, true, 'sem user-agent'],
+].forEach(function (c) {
+  ok(ehRobo(c[0]) === c[1], (c[1] ? 'ROBO   | ' : 'PESSOA | ') + c[2]);
+});
+
+console.log('');
 console.log(falhas === 0 ? '>>> TODOS OS CASOS PASSARAM' : '>>> FALHAS: ' + falhas);
 process.exit(falhas === 0 ? 0 : 1);

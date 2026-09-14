@@ -50,16 +50,29 @@ export async function onRequestGet(context) {
   // redirect já está pronto e sai igual.
   const destino = montaDestino(numero, campanha, texto);
 
-  try {
-    await gravaClique(env, {
-      canal: canalDe(campanha),
-      campanha,
-      gclid,
-      pagina,
-    });
-  } catch (_) {
-    // Medição perdida é prejuízo pequeno; conversa perdida é prejuízo grande.
-    // Segue para o redirect de qualquer jeito.
+  // 🔴 ROBÔ NÃO É CLIQUE. Antes de 14/09 o CTA apontava para wa.me — link
+  // EXTERNO, então crawler que o seguisse não encostava no nosso banco. Agora a
+  // rota é nossa, e cada rastreamento viraria uma linha em marketing_wa_clique.
+  //
+  // Não é só sujeira: um clique fantasma sem dono dentro da janela de 15 min
+  // pode fazer o casamento atribuir um lead REAL ao anúncio errado. Atribuição
+  // errada é pior que atribuição faltando.
+  //
+  // O robots.txt já pede Disallow em /wa; isto aqui é para quem não obedece.
+  // Note que o robô é barrado só da GRAVAÇÃO — o redirect sai igual, porque
+  // nada aqui pode ficar entre uma pessoa e a conversa.
+  if (!ehRobo(request.headers.get("user-agent"))) {
+    try {
+      await gravaClique(env, {
+        canal: canalDe(campanha),
+        campanha,
+        gclid,
+        pagina,
+      });
+    } catch (_) {
+      // Medição perdida é prejuízo pequeno; conversa perdida é prejuízo grande.
+      // Segue para o redirect de qualquer jeito.
+    }
   }
 
   return Response.redirect(destino, 302);
@@ -76,6 +89,32 @@ function montaDestino(numero, campanha, texto) {
     : texto;
   if (t) u.searchParams.set("text", t);
   return u.toString();
+}
+
+// User-agent sem navegador de verdade atrás. Lista deliberadamente ampla: aqui o
+// custo de errar é assimétrico — barrar uma pessoa por engano só perde UMA
+// medição, deixar um robô entrar polui a atribuição de todo mundo na janela.
+// Um user-agent vazio também conta: navegador real sempre manda o dele.
+const RE_ROBO = /bot|crawl|spider|slurp|curl|wget|python-requests|okhttp|java\/|go-http|libwww|httpclient|headless|phantom|puppeteer|playwright|lighthouse|pingdom|uptime|semrush|ahrefs|mj12|dotbot|petal|facebookexternalhit|embedly|skypeuripreview|discordbot/i;
+
+// Navegador de verdade sempre se apresenta como Mozilla/5.0 com um motor junto.
+// 🔑 Isto existe por causa do NAVEGADOR EMBUTIDO do WhatsApp e do Instagram:
+// a UA dele CONTÉM "WhatsApp"/"Instagram" e é gente de verdade — num público
+// brasileiro, uma fatia grande do tráfego. Já o robô de preview do WhatsApp se
+// identifica como "WhatsApp/2.x" seco, sem Mozilla. É exatamente essa a linha
+// que separa os dois, e por isso o teste do motor vem ANTES da lista.
+const RE_NAVEGADOR = /mozilla\/5\.0/i;
+// `applewebkit` e `mobile` entram porque o navegador embutido do INSTAGRAM não
+// manda `Safari/` nem `Version/` — só "AppleWebKit/605… Mobile/15E148 Instagram".
+// Sem eles, gente de verdade vinda do Instagram seria descartada como robô.
+// Robô com AppleWebKit na UA (Googlebot, GPTBot) já foi barrado antes, pela
+// lista de marcadores duros — por isso a ordem dos testes importa.
+const RE_MOTOR = /(chrome|safari|firefox|edg|opr|gecko|applewebkit|mobile)\//i;
+
+function ehRobo(ua) {
+  if (!ua || !ua.trim()) return true;  // navegador real sempre manda o seu
+  if (RE_ROBO.test(ua)) return true;   // marcador duro vence tudo
+  return !(RE_NAVEGADOR.test(ua) && RE_MOTOR.test(ua));
 }
 
 function numeroValido(bruto) {

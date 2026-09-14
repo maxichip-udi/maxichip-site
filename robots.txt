@@ -1,5 +1,12 @@
+# /wa NAO e pagina: e a rota que grava a origem do clique e redireciona pro
+# WhatsApp (14/09/2026). Crawler que a seguisse viraria "clique" no banco --
+# e clique fantasma dentro da janela de 15 min pode atribuir um lead real ao
+# anuncio errado. Disallow repetido em TODA secao de proposito: bot com secao
+# propria ignora a secao "*" inteira.
+
 User-agent: *
 Allow: /
+Disallow: /wa
 
 # Bots de IA — liberados explicitamente (quick wins SEO/AEO 07/2026)
 # ATENÇÃO: treinar e CITAR são bots diferentes. GPTBot e ClaudeBot treinam o
@@ -9,30 +16,39 @@ Allow: /
 # --- Treinam o modelo ---
 User-agent: GPTBot
 Allow: /
+Disallow: /wa
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /wa
 
 # --- Citam em resposta (os que fazem a marca aparecer) ---
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /wa
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /wa
 
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /wa
 
 User-agent: Claude-User
 Allow: /
+Disallow: /wa
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /wa
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /wa
 
 User-agent: CCBot
 Allow: /
+Disallow: /wa
 
 Sitemap: https://maxichip.com.br/sitemap.xml
