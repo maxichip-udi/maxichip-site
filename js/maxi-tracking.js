@@ -101,10 +101,34 @@
   // ---------------------------------------------------------------------------
   // 3. Marcador no link do WhatsApp — acrescenta, nunca substitui
   // ---------------------------------------------------------------------------
+  // Desde 14/09 os CTAs das LPs de destino do Google apontam para /wa (Pages
+  // Function), que grava o clique NO SERVIDOR e só então redireciona pro
+  // wa.me. Motivo: o marcador dentro do texto se perde quando o usuário apaga
+  // a mensagem pronta — 19 conversões medidas no Google contra 0 leads
+  // carimbados no CRM em 14/09.
+  //
+  // 🔑 As DUAS formas de href continuam tratadas aqui de propósito: durante a
+  // migração convivem páginas já trocadas e páginas ainda no wa.me direto.
+  function ehRotaWa(u) {
+    return u.pathname === '/wa' || u.pathname === '/wa/';
+  }
+
   function comMarcador(href) {
     if (!CAMPANHA) return href;                 // visita não veio do Google
     try {
       var u = new URL(href, window.location.origin);
+
+      if (ehRotaWa(u)) {
+        // A rota /wa recebe a campanha em parâmetro próprio e o servidor monta
+        // o texto. NÃO mexe em `t`: quem decide o conteúdo é a página.
+        u.searchParams.set('c', CAMPANHA);
+        try {
+          var g = new URLSearchParams(window.location.search).get('gclid');
+          if (g) u.searchParams.set('gclid', g);
+        } catch (e2) { /* sem gclid na URL atual: segue sem ele */ }
+        return u.toString();
+      }
+
       var texto = u.searchParams.get('text') || '';
       if (texto.indexOf(CAMPANHA) !== -1) return u.toString();  // já tem
       u.searchParams.set('text', texto ? (CAMPANHA + ' ' + texto) : CAMPANHA);
@@ -117,9 +141,17 @@
   // ---------------------------------------------------------------------------
   // 4. Listener delegado — cobre link que nascer depois, sem tocar em 7 páginas
   // ---------------------------------------------------------------------------
+  // 🔴 A rota /wa PRECISA entrar aqui. Sem isso, trocar o href do CTA para
+  // /wa faria a conversão "Lead - Whatsapp" parar de disparar em silêncio —
+  // exatamente o modo de falha de fev-jun/26, que passou seis meses sem ver.
   function ehWhatsApp(a) {
     var h = a.getAttribute('href') || '';
-    return h.indexOf('wa.me') !== -1 || h.indexOf('api.whatsapp.com') !== -1;
+    if (h.indexOf('wa.me') !== -1 || h.indexOf('api.whatsapp.com') !== -1) return true;
+    try {
+      return ehRotaWa(new URL(h, window.location.origin));
+    } catch (e) {
+      return false;
+    }
   }
   function ehMapa(a) {
     var h = (a.getAttribute('href') || '').toLowerCase();
