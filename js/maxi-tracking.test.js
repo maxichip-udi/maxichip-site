@@ -5,20 +5,53 @@
  */
 'use strict';
 
-// --- reproduz as duas funções puras do maxi-tracking.js ---------------------
-function normalizaCodigo(bruto) {
+// --- reproduz as funções puras do maxi-tracking.js -------------------------
+function normalizaCodigo(bruto, prefixo) {
+  prefixo = prefixo || 'GOOGLE';
   if (!bruto) return null;
-  var c = String(bruto).trim().toUpperCase().replace(/^GOOGLE[-_]/, '');
+  var c = String(bruto).trim().toUpperCase().replace(new RegExp('^' + prefixo + '[-_]'), '');
   c = c.replace(/[^A-Z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
   if (c.length < 2) return null;
-  return 'GOOGLE-' + c.slice(0, 30 - 'GOOGLE-'.length);
+  return prefixo + '-' + c.slice(0, 30 - (prefixo.length + 1));
 }
 
+function veioDoChatGPT(q) {
+  var src = (q.get('utm_source') || '').toLowerCase();
+  return q.has('oppref') || src === 'chatgpt' || src === 'openai';
+}
+
+/** Reproduz detectaCampanha() SEM o sessionStorage (só a decisão pela URL). */
 function detecta(query) {
   var q = new URLSearchParams(query);
   var veio = q.has('gclid') || (q.get('utm_source') || '').toLowerCase() === 'google';
-  if (!veio) return null;
-  return normalizaCodigo(q.get('utm_campaign')) || 'GOOGLE-SEM-CAMPANHA';
+  if (veio) return normalizaCodigo(q.get('utm_campaign'), 'GOOGLE') || 'GOOGLE-SEM-CAMPANHA';
+  if (veioDoChatGPT(q)) return normalizaCodigo(q.get('utm_campaign'), 'CHATGPT') || 'CHATGPT-SEM-CAMPANHA';
+  return null;
+}
+
+/** Reproduz detectaCampanha() COM um sessionStorage falso — para provar o
+ *  último toque e a persistência entre páginas. */
+function sessaoFalsa() {
+  var m = {};
+  return {
+    getItem: function (k) { return Object.prototype.hasOwnProperty.call(m, k) ? m[k] : null; },
+    setItem: function (k, v) { m[k] = String(v); },
+    removeItem: function (k) { delete m[k]; }
+  };
+}
+function detectaComSessao(query, ss) {
+  var CHAVE = 'maxi_google_campanha', CHAVE_GPT = 'maxi_chatgpt_campanha';
+  var q = new URLSearchParams(query);
+  var veio = q.has('gclid') || (q.get('utm_source') || '').toLowerCase() === 'google';
+  if (veio) {
+    var cod = normalizaCodigo(q.get('utm_campaign'), 'GOOGLE') || 'GOOGLE-SEM-CAMPANHA';
+    ss.setItem(CHAVE, cod); ss.removeItem(CHAVE_GPT); return cod;
+  }
+  if (veioDoChatGPT(q)) {
+    var codG = normalizaCodigo(q.get('utm_campaign'), 'CHATGPT') || 'CHATGPT-SEM-CAMPANHA';
+    ss.setItem(CHAVE_GPT, codG); ss.removeItem(CHAVE); return codG;
+  }
+  return ss.getItem(CHAVE) || ss.getItem(CHAVE_GPT);
 }
 
 function ehRotaWa(u) {
@@ -61,6 +94,7 @@ function canalDe(campanha) {
   if (!campanha) return 'organico';
   if (campanha.indexOf('GOOGLE-') === 0) return 'google';
   if (campanha.indexOf('META-') === 0 || campanha.indexOf('FB-') === 0) return 'meta';
+  if (campanha.indexOf('CHATGPT-') === 0) return 'chatgpt';
   return 'organico';
 }
 /** Reproduz montaDestino() do functions/wa.js. */
@@ -206,6 +240,82 @@ function ehRobo(ua) {
 ].forEach(function (c) {
   ok(ehRobo(c[0]) === c[1], (c[1] ? 'ROBO   | ' : 'PESSOA | ') + c[2]);
 });
+
+console.log('');
+console.log('=== F) ChatGPT Ads (30/10) — quem é creditado como chatgpt (e quem NÃO é) ===');
+// 🔴 Mesmo risco do bloco A, agora com a OpenAI: creditar como anúncio do ChatGPT
+// quem veio da resposta ORGÂNICA do ChatGPT ou de qualquer outro lugar.
+// A string que vai no campo "Parâmetros de rastreamento" do grupo de anúncios:
+var PARAMS_ANUNCIO = 'utm_source=chatgpt&utm_medium=cpc&utm_campaign=DIESEL-LEVE&oppref=oppref_abc123';
+ok(detecta('?' + PARAMS_ANUNCIO) === 'CHATGPT-DIESEL-LEVE', '🔑 a string do anúncio -> ' + detecta('?' + PARAMS_ANUNCIO));
+ok(detecta('?oppref=oppref_abc123') === 'CHATGPT-SEM-CAMPANHA', 'oppref sozinho (UTM perdida) ainda é ChatGPT -> ' + detecta('?oppref=oppref_abc123'));
+ok(detecta('?utm_source=openai&utm_campaign=cmpn_123') === 'CHATGPT-CMPN-123', 'utm_source=openai (padrão da doc da OpenAI) -> ' + detecta('?utm_source=openai&utm_campaign=cmpn_123'));
+ok(detecta('?utm_source=ChatGPT&utm_campaign=diesel_leve') === 'CHATGPT-DIESEL-LEVE', 'maiúscula e sublinhado normalizam -> ' + detecta('?utm_source=ChatGPT&utm_campaign=diesel_leve'));
+ok(detecta('?utm_source=chatgpt&utm_campaign=CHATGPT-DIESEL') === 'CHATGPT-DIESEL', 'prefixo já escrito na UTM não dobra -> ' + detecta('?utm_source=chatgpt&utm_campaign=CHATGPT-DIESEL'));
+ok(detecta('?utm_source=chatgpt&utm_campaign=maxi_diesel_uberlandia_teste_longo').length <= 30, 'nunca passa de 30 caracteres (limite do CRM)');
+ok(detecta('?utm_source=chatgpt.com') === null, '🔴 utm_source=chatgpt.com (link ORGÂNICO da resposta do ChatGPT) -> null');
+ok(detecta('?utm_campaign=CHATGPT-DIESEL') === null, '🔴 utm_campaign sem origem -> null (não credita)');
+ok(detecta('?gclid=X&oppref=Y') === 'GOOGLE-SEM-CAMPANHA', 'gclid + oppref juntos: Google vence (comportamento do ar preservado)');
+ok(detecta('?gclid=ABC&utm_campaign=REMAP-AGRO') === 'GOOGLE-REMAP-AGRO', 'Google segue idêntico depois da mudança');
+
+var SS = sessaoFalsa();
+detectaComSessao('?' + PARAMS_ANUNCIO, SS);
+ok(detectaComSessao('', SS) === 'CHATGPT-DIESEL-LEVE', 'navegou para outra página sem parâmetro: marca do ChatGPT persiste');
+detectaComSessao('?gclid=ABC&utm_campaign=OFICINA', SS);
+ok(detectaComSessao('', SS) === 'GOOGLE-OFICINA', '🔑 último toque vence: voltou pelo Google, a marca do ChatGPT sai');
+detectaComSessao('?' + PARAMS_ANUNCIO, SS);
+ok(detectaComSessao('', SS) === 'CHATGPT-DIESEL-LEVE', '🔑 e o inverso: voltou pelo ChatGPT, a marca do Google sai');
+ok(detectaComSessao('', sessaoFalsa()) === null, '🔴 sessão nova sem parâmetro -> null (orgânico)');
+
+var CG = 'CHATGPT-DIESEL-LEVE';
+var w2 = comMarcador('/wa?p=%2Fdiesel-leve%2F&t=Quero%20saber', CG, '?' + PARAMS_ANUNCIO);
+ok(w2.indexOf('c=CHATGPT-DIESEL-LEVE') !== -1, 'CTA /wa leva c=CHATGPT-DIESEL-LEVE');
+ok(w2.indexOf('gclid') === -1, 'sem gclid na URL -> nada de gclid no /wa');
+ok(leg(w2).indexOf('t=Quero saber') !== -1, '🔑 texto da página intacto');
+ok(canalDe(CG) === 'chatgpt', 'servidor grava canal chatgpt');
+ok(canalDe('CHATGPTX') === 'organico', '🔴 sem o hífen não é ChatGPT');
+var d3 = destinoDoServidor('c=CHATGPT-DIESEL-LEVE&t=Quero%20saber&p=/diesel-leve/');
+ok(leg(d3).indexOf('CHATGPT-DIESEL-LEVE Quero saber') !== -1, 'redirect leva o marcador como segunda via');
+
+// O n8n NÃO lê CHATGPT- (regex só GOOGLE): quem grava a origem é o casador
+// (casar_atribuicao_wa.py, repo maxi-chip). Este caso documenta o fato.
+ok(!('CHATGPT-DIESEL-LEVE oi'.match(RE_CRM)), 'regex do n8n NÃO casa CHATGPT- (origem vem do casador, não do n8n)');
+
+console.log('');
+console.log('=== G) o ARQUIVO de verdade (js/maxi-tracking.js), não a cópia acima ===');
+// As funções acima são cópias. Este bloco roda o maxi-tracking.js real num
+// navegador de mentira (vm do Node), para a cópia e o arquivo não divergirem
+// em silêncio.
+var fs = require('fs'), path = require('path'), vm = require('vm');
+var FONTE = fs.readFileSync(path.join(__dirname, 'maxi-tracking.js'), 'utf8');
+function rodaReal(search, ss) {
+  var janela = {
+    location: { search: search, origin: 'https://www.maxichip.com.br', href: '' },
+    dataLayer: []
+  };
+  var ctx = {
+    window: janela,
+    sessionStorage: ss || sessaoFalsa(),
+    URL: URL, URLSearchParams: URLSearchParams, setTimeout: setTimeout,
+    document: {
+      querySelector: function () { return {}; },  // finge que o gtag já está na página
+      createElement: function () { return {}; },
+      head: { appendChild: function () {} },
+      addEventListener: function () {}
+    }
+  };
+  vm.runInNewContext(FONTE, ctx);
+  return janela.__maxiTracking;
+}
+var R1 = rodaReal('?' + PARAMS_ANUNCIO);
+ok(R1.campanha === 'CHATGPT-DIESEL-LEVE', 'arquivo real: anúncio do ChatGPT -> ' + R1.campanha);
+ok(R1.comMarcador('/wa?p=/diesel-leve/&t=oi').indexOf('c=CHATGPT-DIESEL-LEVE') !== -1, 'arquivo real: CTA /wa recebe c=');
+ok(rodaReal('?gclid=ABC&utm_campaign=REMAP-AGRO').campanha === 'GOOGLE-REMAP-AGRO', 'arquivo real: Google idêntico');
+ok(rodaReal('').campanha === null, '🔴 arquivo real: visita orgânica -> sem marcador');
+ok(rodaReal('?utm_source=chatgpt.com').campanha === null, '🔴 arquivo real: link orgânico do ChatGPT -> sem marcador');
+var SS2 = sessaoFalsa();
+rodaReal('?' + PARAMS_ANUNCIO, SS2);
+ok(rodaReal('', SS2).campanha === 'CHATGPT-DIESEL-LEVE', 'arquivo real: marca persiste entre páginas');
 
 console.log('');
 console.log(falhas === 0 ? '>>> TODOS OS CASOS PASSARAM' : '>>> FALHAS: ' + falhas);

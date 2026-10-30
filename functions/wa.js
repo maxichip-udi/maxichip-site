@@ -1,5 +1,6 @@
 // Atribuição do WhatsApp por servidor — Cloudflare Pages Function
 // GET /wa?c=GOOGLE-OFICINA&p=/oficina/&t=<texto>&gclid=<se houver>
+//     /wa?c=CHATGPT-DIESEL-LEVE&p=/diesel-leve/&t=<texto>   (ChatGPT Ads, 30/10)
 //
 // POR QUE ESTA ROTA EXISTE (medido em 14/09/2026):
 //   Google Ads contou 19 conversões "Lead - Whatsapp" em 7 dias. O CRM
@@ -152,6 +153,10 @@ function canalDe(campanha) {
   if (!campanha) return "organico";
   if (campanha.startsWith("GOOGLE-")) return "google";
   if (campanha.startsWith("META-") || campanha.startsWith("FB-")) return "meta";
+  // 30/10: anúncio do ChatGPT (OpenAI Ads). O maxi-tracking.js só escreve
+  // CHATGPT- quando a visita trouxe oppref ou utm_source=chatgpt/openai. O
+  // casador lê canal "chatgpt" e grava origem chatgpt_ads.
+  if (campanha.startsWith("CHATGPT-")) return "chatgpt";
   return "organico";
 }
 
