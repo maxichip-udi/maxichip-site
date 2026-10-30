@@ -558,8 +558,8 @@ footer a:hover{color:var(--vermelho)}
       <h4>Fale com a gente</h4>
       <a href="/wa?p=%2Fdiesel-leve%2F" target="_blank">WhatsApp: (34) 99148-3400</a>
       <a href="/#contato">Formulário de contato</a>
-      <a href="https://instagram.com/desempenhochip" target="_blank">Instagram: @desempenhochip</a>
-      <a href="https://youtube.com/@desempenhochip" target="_blank">YouTube: @desempenhochip</a>
+      <a href="https://instagram.com/performancechip" target="_blank">Instagram: @desempenhochip</a>
+      <a href="https://youtube.com/@performancechip" target="_blank">YouTube: @desempenhochip</a>
     </div>
     <div>
       <h4>Endereço</h4>
@@ -584,7 +584,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   function animate(el){
     if(el.dataset.done)return; el.dataset.done='1';
     const target=parseFloat(el.dataset.count),dec=parseInt(el.dataset.dec||'0',10);
-    const prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'',dur=1200,t0=desempenho.now();
+    const prefix=el.dataset.prefix||'',suffix=el.dataset.suffix||'',dur=1200,t0=performance.now();
     const render=v=>{el.innerHTML=prefix+fmt(v,dec)+suffix;};
     const tick=now=>{const p=Math.min((now-t0)/dur,1);render(target*(1-Math.pow(1-p,3)));p<1?requestAnimationFrame(tick):render(target);};
     requestAnimationFrame(tick);
