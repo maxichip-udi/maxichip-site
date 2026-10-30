@@ -38,6 +38,39 @@ const NUMERO_PADRAO = "5534991483400";
 
 const HOSTS_OFICIAIS = new Set(["maxichip.com.br", "www.maxichip.com.br"]);
 
+// Campanhas que o /wa GRAVA com canal pago em marketing_wa_clique (30/10, achado
+// #6 do Strix de 29/10). Antes qualquer `c` bem formado gravava: dava para criar
+// clique de "GOOGLE-QUALQUER-COISA" à vontade e sujar a atribuição e os números.
+//
+// Campanha fora da lista NÃO perde nada do cliente: o redirect e o texto saem
+// iguais. Só o clique é gravado como "organico", sem campanha — conta como clique,
+// mas nunca vira origem paga no casador.
+//
+// 🔴 CAMPANHA NOVA ENTRA AQUI, COM DEPLOY. Se esquecer, o clique dela cai como
+// orgânico e o vigia de atribuição (monitor_atribuicao_*.py) acusa gasto sem
+// clique pago. Fonte de cada nome: as UTMs registradas no repo maxi-chip
+// (tracker do Google Ads, handoffs de 29/08, 31/08 e 08/09; ChatGPT Ads de 30/10)
+// e os padrões que o maxi-tracking.js gera quando a UTM falta.
+const CAMPANHAS_CONHECIDAS = new Set([
+  // Google Ads — campanhas no ar (Oficina #2 e Remap Agrícola #2) e sitelinks
+  "GOOGLE-OFICINA",
+  "GOOGLE-REMAP-AGRO",
+  // Google Ads — campanhas pausadas, com destino já decidido (31/08 e 08/09)
+  "GOOGLE-PREMIUM",
+  "GOOGLE-PESQUISA",
+  "GOOGLE-PERFORMANCE",
+  "GOOGLE-REMARKETING",
+  // ChatGPT Ads (OpenAI), desde 30/10
+  "CHATGPT-DIESEL-LEVE",
+  // o que o maxi-tracking.js escreve quando a visita veio do anúncio sem utm_campaign
+  "GOOGLE-SEM-CAMPANHA",
+  "CHATGPT-SEM-CAMPANHA",
+]);
+
+function campanhaConhecida(campanha) {
+  return campanha && CAMPANHAS_CONHECIDAS.has(campanha) ? campanha : null;
+}
+
 export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -71,9 +104,11 @@ export async function onRequestGet(context) {
   // O redirect sai igual em qualquer endereço.
   if (HOSTS_OFICIAIS.has(url.hostname) && !ehRobo(request.headers.get("user-agent"))) {
     try {
+      // Só campanha da lista grava como paga; o resto entra como orgânico.
+      const gravada = campanhaConhecida(campanha);
       await gravaClique(env, {
-        canal: canalDe(campanha),
-        campanha,
+        canal: canalDe(gravada),
+        campanha: gravada,
         gclid,
         pagina,
       });
