@@ -31,12 +31,27 @@ export async function onRequestGet(context) {
     // cache indisponível não deve travar o fluxo — segue pra consulta na API
   }
 
+  // 🔴 SÓ O DOMÍNIO OFICIAL GASTA (30/10, achado do Strix de 29/10). O site também
+  // responde por maxichip-site.pages.dev e pelas prévias *.maxichip-site.pages.dev,
+  // que ficam FORA da zona maxichip.com.br e portanto fora da regra de limite por IP
+  // da Cloudflare. Por ali a consulta paga ficaria sem freio nenhum. A prévia continua
+  // lendo o cache acima; só não chama a APIPLACAS.
+  if (!HOSTS_OFICIAIS.has(url.hostname)) return json({ encontrado: false, motivo: "erro" }, 200);
+
+  // Placa que a APIPLACAS já disse não conhecer não vai para o cache do Supabase, então
+  // cada nova tentativa pagaria de novo. Guarda o "não encontrada" por 7 dias.
+  if (await naoEncontradaRecente(placa)) return json({ encontrado: false, motivo: "nao_encontrado" }, 200);
+
   if (!env.APIPLACAS_TOKEN) return json({ encontrado: false, motivo: "erro" }, 200);
 
   let dadosApi;
   try {
     dadosApi = await consultarApiplacas(env.APIPLACAS_TOKEN, placa);
   } catch (e) {
+    // Só "nao_encontrado" vira lembrança. O 401 da APIPLACAS hoje vira "placa_invalida",
+    // mas também é o que ela responde com token ruim: guardar isso marcaria toda placa
+    // como inexistente por uma semana.
+    if (e.message === "nao_encontrado") await lembrarNaoEncontrada(placa);
     return json({ encontrado: false, motivo: e.message || "erro" }, 200);
   }
 
@@ -49,6 +64,37 @@ export async function onRequestGet(context) {
   }
 
   return json(formatarResposta(registro, "apiplacas"));
+}
+
+// ---- domínio oficial e lembrança de placa não encontrada ----
+
+const HOSTS_OFICIAIS = new Set(["maxichip.com.br", "www.maxichip.com.br"]);
+
+// Cache da própria Cloudflare (por data center), não do Supabase: não exige coluna nova
+// e some sozinho no prazo. Chave num caminho que nenhuma página usa.
+const NAO_ENCONTRADA_SEGUNDOS = 7 * 24 * 3600;
+
+function chaveNaoEncontrada(placa) {
+  return new Request(`https://maxichip.com.br/__cache/placa-nao-encontrada/${placa}`);
+}
+
+async function naoEncontradaRecente(placa) {
+  try {
+    return Boolean(await caches.default.match(chaveNaoEncontrada(placa)));
+  } catch (_) {
+    return false; // sem cache, segue o fluxo normal
+  }
+}
+
+async function lembrarNaoEncontrada(placa) {
+  try {
+    await caches.default.put(
+      chaveNaoEncontrada(placa),
+      new Response("nao_encontrado", { headers: { "Cache-Control": `max-age=${NAO_ENCONTRADA_SEGUNDOS}` } })
+    );
+  } catch (_) {
+    // não lembrar só custa uma consulta a mais
+  }
 }
 
 // ---- Supabase (cache em public.veiculo) ----

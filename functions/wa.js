@@ -35,6 +35,8 @@ const NUMEROS_PERMITIDOS = new Set([
 ]);
 const NUMERO_PADRAO = "5534991483400";
 
+const HOSTS_OFICIAIS = new Set(["maxichip.com.br", "www.maxichip.com.br"]);
+
 export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
@@ -61,7 +63,12 @@ export async function onRequestGet(context) {
   // O robots.txt já pede Disallow em /wa; isto aqui é para quem não obedece.
   // Note que o robô é barrado só da GRAVAÇÃO — o redirect sai igual, porque
   // nada aqui pode ficar entre uma pessoa e a conversa.
-  if (!ehRobo(request.headers.get("user-agent"))) {
+  //
+  // 🔴 E SÓ O DOMÍNIO OFICIAL GRAVA (30/10, achado do Strix de 29/10): o site também
+  // responde por maxichip-site.pages.dev, fora da zona maxichip.com.br e da regra de
+  // limite por IP da Cloudflare. Por ali dava para encher marketing_wa_clique sem freio.
+  // O redirect sai igual em qualquer endereço.
+  if (HOSTS_OFICIAIS.has(url.hostname) && !ehRobo(request.headers.get("user-agent"))) {
     try {
       await gravaClique(env, {
         canal: canalDe(campanha),

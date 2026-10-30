@@ -8,6 +8,14 @@
 
 export async function onRequestPost(context) {
   const { request, env } = context;
+
+  // Só o domínio oficial envia (30/10, achado do Strix de 29/10): maxichip-site.pages.dev
+  // fica fora da zona maxichip.com.br e da regra de limite por IP da Cloudflare.
+  const host = new URL(request.url).hostname;
+  if (host !== "maxichip.com.br" && host !== "www.maxichip.com.br") {
+    return json({ ok: false, error: "endereço não autorizado" }, 403);
+  }
+
   let data;
   try {
     data = await request.json();
