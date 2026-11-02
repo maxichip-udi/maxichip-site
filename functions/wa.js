@@ -62,6 +62,8 @@ const CAMPANHAS_CONHECIDAS = new Set([
   "GOOGLE-REMARKETING",
   // ChatGPT Ads (OpenAI), desde 30/10
   "CHATGPT-DIESEL-LEVE",
+  // ChatGPT Ads — híbridos e elétricos, desde 02/11
+  "CHATGPT-ELETRICOS",
   // o que o maxi-tracking.js escreve quando a visita veio do anúncio sem utm_campaign
   "GOOGLE-SEM-CAMPANHA",
   "CHATGPT-SEM-CAMPANHA",

@@ -13,6 +13,7 @@ E-mail: comercial@maxichip.com.br
 
 - [Performance](https://maxichip.com.br/performance/): reprogramação eletrônica de carros com arquivo autoral desenvolvido em dinamômetro, feito um a um por modelo — não é arquivo clonado.
 - [Diesel Leve](https://maxichip.com.br/diesel-leve/): diagnóstico e tratamento de motores diesel de caminhonetes e utilitários. O biodiesel brasileiro chegou ao B15, rumo ao B20, e carboniza motores mesmo em veículos com manutenção em dia.
+- [Híbridos e Elétricos](https://maxichip.com.br/eletricos/): revisão e diagnóstico completos de carros híbridos e elétricos, e pequenos reparos em bateria, em Uberlândia/MG. A equipe concluiu cursos on-line e um curso presencial; o técnico Jhony fez imersão presencial na Touver Treinamentos.
 - [Maxi Agro](https://maxichip.com.br/maxi-agro/): reprogramação de tratores, colheitadeiras e pulverizadores, feita na lavoura, sem abrir o motor e 100% reversível. Atende MG, GO, MT, MS, TO e BA.
 - [Oficina Premium](https://maxichip.com.br/oficina/): manutenção e reparação com o Diagnóstico Inteligente, que comprova o problema antes de trocar qualquer peça. Padrão Bosch Car Service.
 - [Maxi DNA — para quem compra](https://maxichip.com.br/maxi-dna-b2c/): laudo eletrônico do seminovo antes da compra. O KM do painel conta uma história; a eletrônica conta a verdade.
