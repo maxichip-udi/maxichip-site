@@ -36,7 +36,7 @@ src="https://www.facebook.com/tr?id=1613732713665950&ev=PageView&noscript=1"/></
 <meta property="og:title" content="Revisão e diagnóstico de híbridos e elétricos em Uberlândia | Maxi Chip">
 <meta property="og:description" content="Revisão e diagnóstico completos de carros híbridos e elétricos, e pequenos reparos em bateria. Agende pelo WhatsApp.">
 <meta property="og:url" content="https://www.maxichip.com.br/eletricos/">
-<meta property="og:image" content="https://www.maxichip.com.br/logo-maxi-chip-fundo-preto.png">
+<meta property="og:image" content="https://www.maxichip.com.br/eletricos/img/jhony-bateria.jpg">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,6 +178,14 @@ footer a:hover{color:var(--vermelho)}
   .hero-ctas{flex-direction:column}
   .qa-item{padding:20px}
 }
+/* Treinamento (fotos e video reais da imersao na Touver, 30-31/10/2026) */
+.treino{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:34px 0 26px}
+.treino figure,.galeria figure{margin:0;background:var(--grafite);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.treino video,.treino img{display:block;width:100%;height:100%;max-height:560px;object-fit:cover}
+.galeria{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 30px}
+.galeria img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.treino figcaption,.galeria figcaption{padding:10px 12px;color:var(--cinza);font-size:13.5px;line-height:1.45}
+@media(max-width:900px){.treino{grid-template-columns:1fr}.galeria{grid-template-columns:1fr 1fr}}
 </style>
 <!-- Conversoes Google Ads + marcador de origem (29/08) -->
 <script src="/js/maxi-tracking.js?v=20261030" defer></script>
@@ -279,7 +287,22 @@ footer a:hover{color:var(--vermelho)}
         <p>O nosso técnico Jhony fez 4 dias de imersão presencial na Touver Treinamentos e voltou com o diploma.</p>
       </div>
     </div>
-    <!-- FOTO-REAL: entra aqui uma foto do Jhony com o diploma da Touver Treinamentos (ainda não existe; não usar banco de imagem) -->
+    <div class="treino">
+      <figure>
+        <video src="img/jhony-bateria.mp4" poster="img/jhony-bateria-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Jhony trabalhando numa bateria durante a imersão na Touver Treinamentos"></video>
+        <figcaption>O Jhony, da Maxi Chip, na imersão presencial da Touver Treinamentos.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/jhony-bateria.jpg" alt="Jhony, técnico da Maxi Chip, ligando os cabos de medição nas células de uma bateria" loading="lazy" width="900" height="1200">
+        <figcaption>Medição das células de uma bateria, uma a uma.</figcaption>
+      </figure>
+    </div>
+    <div class="galeria">
+      <figure><img src="img/bateria-alta-tensao.jpg" alt="Bateria de alta tensão aberta na bancada do treinamento" loading="lazy"><figcaption>Bateria de alta tensão aberta na bancada.</figcaption></figure>
+      <figure><img src="img/teste-isolacao-megometro.jpg" alt="Megômetro ligado aos cabos de alta tensão" loading="lazy"><figcaption>Teste com megômetro nos cabos de alta tensão.</figcaption></figure>
+      <figure><img src="img/modulo-eletronico.jpg" alt="Módulo eletrônico de carro elétrico aberto na bancada" loading="lazy"><figcaption>Módulo eletrônico aberto para estudo.</figcaption></figure>
+      <figure><img src="img/scanner-codigos-bateria.jpg" alt="Tela do scanner com códigos de falha do módulo de controle da bateria" loading="lazy"><figcaption>Leitura dos códigos de falha da bateria no scanner.</figcaption></figure>
+    </div>
     <div class="trust-note">A Maxi Chip está em Uberlândia desde 2013. Atendemos na Av. João Naves de Ávila, 2989, com hora marcada.</div>
   </div>
 </section>
